@@ -1,0 +1,61 @@
+Goœæ
+================================================================================
+Jako Goœæ chcê mieæ mo¿liwoœæ...
+
+- rejestracji
+
+- przegl¹dania profilów u¿ytkowników
+
+
+U¿ytkownik
+================================================================================
+Jako U¿ytkownik chcê mieæ mo¿liwoœæ...
+
+- zalogowania/wylogowania siê
+
+- stworzenia w³asnego profilu
+	- edycji danych personalnych
+	- dodania informacji o swojej ulubionej metodzie(specjalnoœci) po³owu
+	- dodania informacji o przynale¿noœæi do organizacji wêdkarskich
+	- dodania informacji o posiadanym sprzêcie wêdkarskim
+	- dodania informacji o u¿ywanych portalach spo³ecznoœciowych 
+	- dodania i edycji zdjêcia profilowego
+	- wyró¿nienia 3 postów
+	- aktywacji/dezaktywacji konta
+
+- dodania postu na swój profil
+	- nag³ówek postu(obowi¹zkowe)
+	- zdjêcie z po³owu(obowi¹zkowe)
+	- informacje o z³apanej rybie
+	- informacja o dacie po³owu
+	- lokalizacji zbiornika/rzeki na której z³apano rybê
+	- u¿ywanego sprzêtu podczas po³owu
+	- u¿ywanej przynêty
+	- dodatkowego opisu z po³owu
+	- stworzenia automatycznego hasztagu np. #carpfishing
+
+- wyszukowania innych u¿ytkowników
+
+- wyszukiwania postów po hasztagach
+
+- œledzenia postów/aktywnoœci followersów
+
+- przegl¹dania postów œledzonych uzytkowników(wall)
+
+- komentowania/laikowania postów u¿ytkowników
+
+- umówienia siê na ryby z œledzonymi u¿ytkownikami (obustronny follow)
+
+- otrzymywania powiadomieñ like/comment/wydarzenie
+
+
+Admin
+=======================================================================================
+Jako Admin chcê mieæ mo¿liwoœæ...
+
+- usuniêcia konta u¿ytkownika
+- usuniêcia postu u¿ytkownika
+- zablokowania u¿ytkownika
+- przegl¹dania statystyk serwisu
+
+

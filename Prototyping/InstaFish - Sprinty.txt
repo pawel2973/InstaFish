@@ -1,0 +1,42 @@
+Sprint #1
+- Stworzenie userstory
+- Stworzenie makiety aplikacji
+- Stworzenie schematu ERD
+- Stworzenie bazy danych
+- Stworzenie systemu logowania
+
+Sprint #2
+- Stworzenie zak³adki zarz¹dzanie profilem
+	- uzupe³nienienie informacji profilowych
+	- aktywacja/dezaktywacja konta
+
+Sprint #3
+- Stworzenie mo¿liwoœci dodawania postów
+- Stworzenie mo¿liwoœæi wyró¿niania postów
+- Stworzenie mo¿liwoœci przegl¹dania profilów
+- Stworzenie mo¿liwoœci œledzenia u¿ytkownków
+
+Sprint #4
+- Stworzenie mo¿liwoœci like'owania i komentowania
+- Stworzenie wyszukiwarki u¿ytkowników
+- Stworzenie filtrowania postów danego profilu po hasztagach
+- Stworzenie listy followersów - zak³adka zarz¹dzaj profilem
+
+Sprint #5
+- Stworzenie zak³adki tablica
+	- przegl¹d postów followersów
+
+- Stworzenie mo¿liwoœæi utworzenia wydarzenia - umów siê na ryby
+
+Sprint #6
+- Stworzenie systemu powiadomieñ
+
+Sprint #7
+- Stworzenie statystyk serwisu dla admina
+
+
+
+
+
+
+
