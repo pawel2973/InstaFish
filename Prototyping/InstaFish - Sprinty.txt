@@ -6,37 +6,30 @@ Sprint #1
 - Stworzenie systemu logowania
 
 Sprint #2
-- Stworzenie zak≥adki zarzπdzanie profilem
-	- uzupe≥nienienie informacji profilowych
+- Stworzenie zak≈Çadki zarzƒÖdzanie profilem
+	- uzupe≈Çnienienie informacji profilowych
 	- aktywacja/dezaktywacja konta
 
 Sprint #3
-- Stworzenie moøliwoúci dodawania postÛw
-- Stworzenie moøliwoúÊi wyrÛøniania postÛw
-- Stworzenie moøliwoúci przeglπdania profilÛw
-- Stworzenie moøliwoúci úledzenia uøytkownkÛw
+- Stworzenie mo≈ºliwo≈õci dodawania post√≥w
+- Stworzenie mo≈ºliwo≈õƒái wyr√≥≈ºniania post√≥w
+- Stworzenie mo≈ºliwo≈õci przeglƒÖdania profil√≥w
+- Stworzenie mo≈ºliwo≈õci ≈õledzenia u≈ºytkownk√≥w
 
 Sprint #4
-- Stworzenie moøliwoúci like'owania i komentowania
-- Stworzenie wyszukiwarki uøytkownikÛw
-- Stworzenie filtrowania postÛw danego profilu po hasztagach
-- Stworzenie listy followersÛw - zak≥adka zarzπdzaj profilem
+- Stworzenie mo≈ºliwo≈õci like'owania i komentowania
+- Stworzenie wyszukiwarki u≈ºytkownik√≥w
+- Stworzenie filtrowania post√≥w danego profilu po hasztagach
+- Stworzenie listy followers√≥w - zak≈Çadka zarzƒÖdzaj profilem
 
 Sprint #5
-- Stworzenie zak≥adki tablica
-	- przeglπd postÛw followersÛw
+- Stworzenie zak≈Çadki tablica
+	- przeglƒÖd post√≥w followers√≥w
 
-- Stworzenie moøliwoúÊi utworzenia wydarzenia - umÛw siÍ na ryby
+- Stworzenie mo≈ºliwo≈õƒái utworzenia wydarzenia - um√≥w siƒô na ryby
 
 Sprint #6
-- Stworzenie systemu powiadomieÒ
+- Stworzenie systemu powiadomie≈Ñ
 
 Sprint #7
 - Stworzenie statystyk serwisu dla admina
-
-
-
-
-
-
-

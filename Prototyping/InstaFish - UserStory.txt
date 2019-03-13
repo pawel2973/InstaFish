@@ -1,61 +1,59 @@
-Goœæ
+GoÅ›Ä‡
 ================================================================================
-Jako Goœæ chcê mieæ mo¿liwoœæ...
+Jako GoÅ›Ä‡ chcÄ™ mieÄ‡ moÅ¼liwoÅ›Ä‡...
 
 - rejestracji
 
-- przegl¹dania profilów u¿ytkowników
+- przeglÄ…dania profilÃ³w uÅ¼ytkownikÃ³w
 
 
-U¿ytkownik
+UÅ¼ytkownik
 ================================================================================
-Jako U¿ytkownik chcê mieæ mo¿liwoœæ...
+Jako UÅ¼ytkownik chcÄ™ mieÄ‡ moÅ¼liwoÅ›Ä‡...
 
-- zalogowania/wylogowania siê
+- zalogowania/wylogowania siÄ™
 
-- stworzenia w³asnego profilu
+- stworzenia wÅ‚asnego profilu
 	- edycji danych personalnych
-	- dodania informacji o swojej ulubionej metodzie(specjalnoœci) po³owu
-	- dodania informacji o przynale¿noœæi do organizacji wêdkarskich
-	- dodania informacji o posiadanym sprzêcie wêdkarskim
-	- dodania informacji o u¿ywanych portalach spo³ecznoœciowych 
-	- dodania i edycji zdjêcia profilowego
-	- wyró¿nienia 3 postów
+	- dodania informacji o swojej ulubionej metodzie(specjalnoÅ›ci) poÅ‚owu
+	- dodania informacji o przynaleÅ¼noÅ›Ä‡i do organizacji wÄ™dkarskich
+	- dodania informacji o posiadanym sprzÄ™cie wÄ™dkarskim
+	- dodania informacji o uÅ¼ywanych portalach spoÅ‚ecznoÅ›ciowych 
+	- dodania i edycji zdjÄ™cia profilowego
+	- wyrÃ³Å¼nienia 3 postÃ³w
 	- aktywacji/dezaktywacji konta
 
-- dodania postu na swój profil
-	- nag³ówek postu(obowi¹zkowe)
-	- zdjêcie z po³owu(obowi¹zkowe)
-	- informacje o z³apanej rybie
-	- informacja o dacie po³owu
-	- lokalizacji zbiornika/rzeki na której z³apano rybê
-	- u¿ywanego sprzêtu podczas po³owu
-	- u¿ywanej przynêty
-	- dodatkowego opisu z po³owu
+- dodania postu na swÃ³j profil
+	- nagÅ‚Ã³wek postu(obowiÄ…zkowe)
+	- zdjÄ™cie z poÅ‚owu(obowiÄ…zkowe)
+	- informacje o zÅ‚apanej rybie
+	- informacja o dacie poÅ‚owu
+	- lokalizacji zbiornika/rzeki na ktÃ³rej zÅ‚apano rybÄ™
+	- uÅ¼ywanego sprzÄ™tu podczas poÅ‚owu
+	- uÅ¼ywanej przynÄ™ty
+	- dodatkowego opisu z poÅ‚owu
 	- stworzenia automatycznego hasztagu np. #carpfishing
 
-- wyszukowania innych u¿ytkowników
+- wyszukowania innych uÅ¼ytkownikÃ³w
 
-- wyszukiwania postów po hasztagach
+- wyszukiwania postÃ³w po hasztagach
 
-- œledzenia postów/aktywnoœci followersów
+- Å›ledzenia postÃ³w/aktywnoÅ›ci followersÃ³w
 
-- przegl¹dania postów œledzonych uzytkowników(wall)
+- przeglÄ…dania postÃ³w Å›ledzonych uzytkownikÃ³w(wall)
 
-- komentowania/laikowania postów u¿ytkowników
+- komentowania/laikowania postÃ³w uÅ¼ytkownikÃ³w
 
-- umówienia siê na ryby z œledzonymi u¿ytkownikami (obustronny follow)
+- umÃ³wienia siÄ™ na ryby z Å›ledzonymi uÅ¼ytkownikami (obustronny follow)
 
-- otrzymywania powiadomieñ like/comment/wydarzenie
+- otrzymywania powiadomieÅ„ like/comment/wydarzenie
 
 
 Admin
 =======================================================================================
-Jako Admin chcê mieæ mo¿liwoœæ...
+Jako Admin chcÄ™ mieÄ‡ moÅ¼liwoÅ›Ä‡...
 
-- usuniêcia konta u¿ytkownika
-- usuniêcia postu u¿ytkownika
-- zablokowania u¿ytkownika
-- przegl¹dania statystyk serwisu
-
-
+- usuniÄ™cia konta uÅ¼ytkownika
+- usuniÄ™cia postu uÅ¼ytkownika
+- zablokowania uÅ¼ytkownika
+- przeglÄ…dania statystyk serwisu
