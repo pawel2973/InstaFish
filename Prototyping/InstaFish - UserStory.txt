@@ -57,3 +57,8 @@ Jako Admin chcę mieć możliwość...
 - usunięcia postu użytkownika
 - zablokowania użytkownika
 - przeglądania statystyk serwisu
+
+
+
+
+Mapy połowów
