@@ -1,13 +1,4 @@
-.Post {
-    border: 1px solid black;
-    border-radius: 3px;
-    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
-    padding: 10px 20px 10px 20px;
-    margin-bottom: 20px;
-    background: white;
-}
-
-.Row {
+.Section {
     margin-bottom: 5px;
 }
 
@@ -15,6 +6,7 @@
     font-weight: bold;
     font-size: large;
     height: 35px;
+    line-height: 35px;
 }
 
 .Author img {
@@ -45,6 +37,9 @@
     border-radius: 3px;
     margin-right: 1%;
     padding: 1px 5px 1px 5px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
 }
 
 .More {
@@ -54,10 +49,13 @@
     color: white;
     border-radius: 3px;
     padding: 1px 5px 1px 5px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
 }
 
-.PostImage {
-    margin: 0 auto;
+.Image {
+    margin: 0 auto 5px auto;
     display: flex;
     border-radius: 3px;
 }
@@ -69,26 +67,35 @@
 }
 
 .Info .Important {
-    margin-bottom: 0px;
+    margin-bottom: 0;
     font-weight: bold;
 }
 
 .LikeSection {
     position: relative;
     width: 100%;
-    display: inline-block;
     background: #007BFF;
     color: white;
     border-radius: 3px;
     padding: 1px 5px 1px 5px;
-    margin: 5px 0px;
+    margin: 5px 0;
+    height: 25px;
+    line-height: 25px;
 }
 
-.SpanLeft {
+.Comment {
 
 }
 
-.SpanRight {
+.Like {
     right: 5px;
     position: absolute;
+}
+
+.T1 {
+    background: black;
+}
+
+.T2 {
+    color: red;
 }

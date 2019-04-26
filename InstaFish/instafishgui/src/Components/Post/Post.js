@@ -1,11 +1,12 @@
 import React from 'react';
 import {Row, Col, Image} from "react-bootstrap";
 import classes from './Post.module.css';
+import Wrapper from "../UI/Wrapper/Wrapper";
 
 const Post = (props) => (
     <Col lg={12}>
-        <div className={classes.Post}>
-            <Row className={classes.Row}>
+        <Wrapper>
+            <Row className={classes.Section}>
                 <Col className={classes.Author}>
                     <Image
                         src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
@@ -13,7 +14,7 @@ const Post = (props) => (
                 </Col>
             </Row>
 
-            <Row className={classes.Row}>
+            <Row className={classes.Section}>
                 <Col lg={9} className={classes.TitleCol}>
                     <div className={classes.Title}>
                         The Big Daddy
@@ -21,21 +22,16 @@ const Post = (props) => (
                 </Col>
                 <Col lg={3} className={classes.MoreCol}>
                     <div className={classes.More}>
-                        More...
+                        more +
                     </div>
                 </Col>
             </Row>
 
-            <Row>
+            <Row className={classes.Section}>
                 <Col lg={6}>
-                    <Image className={classes.PostImage}
-                        src="https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/15/2017/08/PC1-630x420.jpg"
-                        fluid/>
-
-                    <div className={classes.LikeSection}>
-                        <span className={classes.SpanLeft}>12 <i className="fas fa-comments"></i></span>
-                        <span className={classes.SpanRight}>25 <i className="far fa-thumbs-up"></i></span>
-                    </div>
+                    <Image className={classes.Image}
+                           src="https://s3.amazonaws.com/images.gearjunkie.com/uploads/2018/02/Maddie-Brenneman-_PC-Nick-Kelley-%40ngkelley.jpg"
+                           fluid/>
                 </Col>
                 <Col lg={6}>
                     <div className={classes.Info}>
@@ -57,9 +53,13 @@ const Post = (props) => (
                         <p className={classes.Important}>Leader</p>
                         • Chod-Rig
                     </div>
+                    <div className={classes.LikeSection}>
+                        <span className={classes.Comment}>12 <i className="fas fa-comments"></i></span>
+                        <span className={classes.Like}>25 <i className="far fa-thumbs-up"></i></span>
+                    </div>
                 </Col>
             </Row>
-        </div>
+        </Wrapper>
     </Col>
 );
 
