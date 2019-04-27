@@ -7,7 +7,7 @@ const Toolbar = () => {
         <Navbar collapseOnSelect expand="md" bg="primary" variant="dark">
             <Navbar.Brand as={Link}
                           to="/"
-                          exact>InstaFish</Navbar.Brand>
+                          exact="True">InstaFish</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">

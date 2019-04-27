@@ -13,29 +13,11 @@
     height: 35px;
 }
 
-@media (min-width: 992px) {
-    .TitleCol {
-        padding-right: 5px;
-    }
-
-    .MoreCol {
-        padding-left: 5px;
-    }
-}
-
-@media (max-width: 991px) {
-    .TitleCol {
-        padding-bottom: 5px;
-    }
-}
-
 .Title {
     width: 100%;
-    display: inline-block;
     background: #007BFF;
     color: white;
     border-radius: 3px;
-    margin-right: 1%;
     padding: 1px 5px 1px 5px;
     height: 25px;
     line-height: 25px;
