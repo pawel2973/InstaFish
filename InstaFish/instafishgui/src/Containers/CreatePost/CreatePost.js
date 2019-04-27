@@ -129,7 +129,7 @@ class CreatePost extends Component {
                                 <Col>
                                     <Form.Label>Fishing date</Form.Label>
                                     <Form.Control
-                                        type="date"
+                                        type="datetime-local"
                                         placeholder="Choose date"
                                         value={this.state.fishingDate}
                                         onChange={(event) => this.setState({fishingDate: event.target.value})}

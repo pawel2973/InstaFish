@@ -28,9 +28,12 @@ class Posts extends Component {
 
     render() {
         console.log(this.state.posts);
+        let temporaryKey = 0;
         const posts = this.state.posts.map(post => {
+            temporaryKey++;
             return (
                 <Post
+                    key={temporaryKey}
                     postAuthor="Jan Kowalski"
                     postTitle={post.postTitle}
                     fishName={post.fishName}
