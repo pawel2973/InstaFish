@@ -1,0 +1,27 @@
+.ProfileRow {
+    margin-top: 20px;
+}
+
+.CommunityButtons {
+    display: inline-block;
+    margin: 0 5px 5px 0;
+    width: 100px;
+}
+
+@media (max-width: 767px) {
+    .Specializations {
+        margin-top: 20px;
+    }
+}
+
+.Communities {
+    text-align: center;
+}
+
+.ListItem {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 5px;
+    border: 1px solid blueviolet;
+    border-radius: 3px;
+}

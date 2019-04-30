@@ -4,7 +4,7 @@ import classes from './Post.module.css';
 import Wrapper from "../UI/Wrapper/Wrapper";
 
 const Post = (props) => (
-    <Col lg={{span: 8, offset: 2}}>
+    <Col className={props.postColSize}>
         <Wrapper>
             <Row className={classes.Section}>
                 <Col className={classes.Author}>

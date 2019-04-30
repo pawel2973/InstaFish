@@ -20,7 +20,7 @@ class FindPeople extends Component {
                         <hr/>
                         <Form>
                             <Form.Group controlId="FindPeople.Filter">
-                                <Form.Row>
+                                <Form.Row className={classes.FormRow}>
                                     <Col>
                                         <Form.Label>Name</Form.Label>
                                         <Form.Control
@@ -31,7 +31,7 @@ class FindPeople extends Component {
                                         />
                                     </Col>
                                 </Form.Row>
-                                <Form.Row>
+                                <Form.Row className={classes.FormRow}>
                                     <Col>
                                         <Form.Label>City</Form.Label>
                                         <Form.Control
@@ -45,7 +45,6 @@ class FindPeople extends Component {
                                 <Form.Row>
                                     <Col>
                                         <Button
-                                            className={classes.Button}
                                             variant="primary"
                                             size="sm"
                                             block
@@ -62,20 +61,18 @@ class FindPeople extends Component {
                 <Col lg={9}>
                     <Wrapper>
                         <Row className={classes.People}>
-                            <Col lg={9}>
+                            <Col lg={12}>
                                 <Image
                                     src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
                                     roundedCircle
                                     className="float-left"
                                 />
-                                <p>
+                                <p className="float-left">
                                     <strong>Adam Kowalski</strong> <br/>
                                     Poland, Krosno <br/>
                                     Male, 34 y/o
                                 </p>
-                            </Col>
-                            <Col lg={3}>
-                                <Button className="float-lg-right">+ Follow</Button>
+                                <Button className="float-right">+ Follow</Button>
                             </Col>
                         </Row>
                     </Wrapper>

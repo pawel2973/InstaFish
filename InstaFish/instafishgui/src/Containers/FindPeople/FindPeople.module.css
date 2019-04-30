@@ -1,5 +1,5 @@
 .People {
-    height: 80px;
+    min-height: 80px;
 }
 
 .People img {
@@ -7,3 +7,6 @@
     height: 80px;
 }
 
+.FormRow {
+    margin-bottom: 10px;
+}

@@ -51,6 +51,7 @@ class Posts extends Component {
                     fishingBait={post.fishingBait}
                     fishingLine={post.fishingLine}
                     description={post.description}
+                    postColSize={this.props.postColSize}
                 />
             );
         });
