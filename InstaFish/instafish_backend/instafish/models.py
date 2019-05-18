@@ -5,7 +5,6 @@ from django.dispatch import receiver
 from instafish.validators import validate_date_not_in_future, validate_file_size
 from django.utils.datetime_safe import datetime
 
-
 # tuple of sex choices as constant
 SEX_CHOICES = (
     ('Male', 'Mężczyzna'),
@@ -97,6 +96,7 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+
 
 STATUS_CHOICES = (
     ('yes', 'Wezmę udział'),
