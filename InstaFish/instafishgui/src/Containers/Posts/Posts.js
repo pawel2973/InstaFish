@@ -10,7 +10,7 @@ class Posts extends Component {
     };
 
     componentDidMount() {
-        axios.get('/Post.json')
+        axios.get('/post')
             .then(res => {
                 const data = res.data;
 
@@ -35,21 +35,21 @@ class Posts extends Component {
                 <Post
                     key={temporaryKey}
                     postAuthor="Jan Kowalski"
-                    postTitle={post.postTitle}
-                    fishName={post.fishName}
-                    fishWeight={post.fishWeight}
-                    fishLength={post.fishLength}
-                    fishPhoto={post.fishPhoto}
-                    fishingDate={post.fishingDate}
-                    fishingCountry={post.fishingCountry}
-                    fishingCity={post.fishingCity}
-                    fishingSpot={post.fishingSpot}
-                    fishingReel={post.fishingReel}
-                    fishingLeader={post.fishingLeader}
-                    fishingHook={post.fishingHook}
-                    fishingRod={post.fishingRod}
-                    fishingBait={post.fishingBait}
-                    fishingLine={post.fishingLine}
+                    postTitle={post.title}
+                    fishName={post.fish_name}
+                    fishPhoto={post.fish_photo}
+                    fishWeight={post.fish_weight}
+                    fishLength={post.fish_length}
+                    fishingDate={post.fishing_date}
+                    fishingCountry={post.fishing_country}
+                    fishingCity={post.fishing_city}
+                    fishingSpot={post.fishing_city}
+                    fishingReel={post.fishing_reel}
+                    fishingLeader={post.fishing_leader}
+                    fishingHook={post.fishing_hook}
+                    fishingRod={post.fishing_rod}
+                    fishingBait={post.fishing_bait}
+                    fishingLine={post.fishing_line}
                     description={post.description}
                     postColSize={this.props.postColSize}
                 />
