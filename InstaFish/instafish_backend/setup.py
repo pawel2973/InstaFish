@@ -14,6 +14,7 @@ setup(
     install_requires=['Django>=2.2',
                       'djangorestframework>=3.8.0',
                       'Pillow>=6.0.0',
-                      'django-cors-middleware>=1.3.1'
+                      'django-cors-middleware>=1.3.1',
+                      'djangorestframework-jwt>=1.11.0'
                       ]
 )

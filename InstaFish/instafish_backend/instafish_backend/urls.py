@@ -19,14 +19,17 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.urlpatterns import format_suffix_patterns
 from instafish import views
+from rest_framework_jwt.views import obtain_jwt_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('current_user/', views.current_user),
+    path('users/', views.UserList.as_view()),
     path('post/', views.PostView.as_view()),
     path('post/<pk>', views.PostDetailView.as_view()),
     path('profile/', views.ProfileView.as_view()),
     path('profile/<pk>', views.ProfileDetailView.as_view()),
-
+    path('token-auth/', obtain_jwt_token),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns = format_suffix_patterns(urlpatterns)
