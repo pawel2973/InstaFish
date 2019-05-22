@@ -5,10 +5,13 @@ import classes from './Layout.module.css';
 import {Container} from "react-bootstrap";
 
 class Layout extends Component {
+
     render() {
         return (
             <Fragment>
-                <Toolbar/>
+                <Toolbar logged_in={this.props.logged_in}
+                         handle_logout={this.props.handle_logout}
+                         username={this.props.username}/>
                 <main className={classes.Content}>
                     <Container>
                         {this.props.children}

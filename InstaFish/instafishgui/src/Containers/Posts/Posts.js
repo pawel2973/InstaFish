@@ -10,7 +10,12 @@ class Posts extends Component {
     };
 
     componentDidMount() {
-        axios.get('/post')
+        axios
+            .get('/post', {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem('token')}`
+                }
+            })
             .then(res => {
                 const data = res.data;
 
@@ -25,6 +30,7 @@ class Posts extends Component {
                 console.log(error);
             });
     };
+
 
     render() {
         console.log(this.state.posts);

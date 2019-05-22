@@ -2,7 +2,43 @@ import React from 'react';
 import {NavLink, Link} from "react-router-dom";
 import {Badge, Nav, Navbar} from "react-bootstrap";
 
-const Toolbar = () => {
+const Toolbar = (props) => {
+
+    const logged_out_nav = (
+        <>
+            <Nav.Link as={NavLink}
+                      to="/login"
+                      exact
+                      activeStyle={{color: 'white'}}>Login
+            </Nav.Link>
+            <Nav.Link as={NavLink}
+                      to="/signup"
+                      exact
+                      activeStyle={{color: 'white'}}>Sign-up
+            </Nav.Link>
+        </>
+    );
+
+    const logged_in_nav = (
+        <>
+            <Nav.Link
+                exact
+                style={{color: 'white'}}>{props.username}
+            </Nav.Link>
+            <Nav.Link>
+                <i className="fas fa-bell"/> <Badge variant="light">9</Badge>
+                <span className="sr-only">unread messages</span>
+            </Nav.Link>
+            <Nav.Link as={NavLink}
+                      to="/profile-settings"
+                      exact
+                      activeStyle={{color: 'white'}}><i className="fas fa-user-cog"/>
+            </Nav.Link>
+            <Nav.Link to="/login" exact onClick={props.handle_logout}>
+                <i className="fas fa-sign-out-alt"/>
+            </Nav.Link>
+        </>
+    );
     return (
         <Navbar collapseOnSelect expand="md" bg="primary" variant="dark">
             <Navbar.Brand as={Link}
@@ -40,16 +76,7 @@ const Toolbar = () => {
                               activeStyle={{color: 'white'}}>Find People</Nav.Link>
                 </Nav>
                 <Nav>
-                    <Nav.Link>
-                        <i className="fas fa-bell"/> <Badge variant="light">9</Badge>
-                        <span className="sr-only">unread messages</span>
-                    </Nav.Link>
-                    <Nav.Link as={NavLink}
-                              to="/profile-settings"
-                              exact
-                              activeStyle={{color: 'white'}}><i className="fas fa-user-cog"/></Nav.Link>
-                    <Nav.Link href="#logout">
-                        <i className="fas fa-sign-out-alt"/></Nav.Link>
+                    {props.logged_in ? logged_in_nav : logged_out_nav}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
