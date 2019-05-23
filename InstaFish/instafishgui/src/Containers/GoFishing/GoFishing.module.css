@@ -1,0 +1,8 @@
+.Flex {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.form-row {
+    margin-bottom: 15px;
+}
