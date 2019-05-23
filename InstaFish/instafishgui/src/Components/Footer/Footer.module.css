@@ -10,8 +10,8 @@
 }
 
 .Footer p {
-    line-height: 40px;
-    font-style: italic;
     padding: 0;
     margin: 0;
+    line-height: 40px;
+    font-style: italic;
 }

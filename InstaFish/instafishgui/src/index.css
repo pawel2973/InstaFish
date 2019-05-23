@@ -4,15 +4,10 @@ html {
 }
 
 body {
-    position: static;
     margin: 0;
     padding: 0;
     background: #E9EBEE;
     font-family: "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-}
-
-#root {
-    position: static;
 }

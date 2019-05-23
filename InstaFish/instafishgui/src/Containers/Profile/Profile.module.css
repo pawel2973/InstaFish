@@ -1,21 +1,56 @@
-.ProfileRow {
-    margin-top: 20px;
+div header {
+    width: 100%;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0 0 5px 0;
+    text-align: center;
 }
 
-.CommunityButtons {
-    display: inline-block;
-    margin: 0 5px 5px 0;
-    width: 100px;
-}
-
-@media (max-width: 767px) {
-    .Specializations {
-        margin-top: 20px;
-    }
+.BasicInformation {
+    display: flex;
+    flex-flow: column;
+    margin: 15px 0 0 0;
+    text-align: center;
 }
 
 .Communities {
+    margin: 15px 0 0 0;
     text-align: center;
+}
+
+.Communities__buttons {
+    display: flex;
+    flex-flow: column;
+}
+
+.Communities__buttons button {
+    margin: 0 0 5px 0;
+}
+
+.Specializations {
+    margin: 15px 0 0 0;
+    text-align: center;
+}
+
+.Specializations div {
+    margin: 0 0 5px 0;
+}
+
+.Specializations div {
+    margin: 0 0 5px 0;
+}
+
+.Equipment {
+    margin: 15px 0 0 0;
+}
+
+
+.Organizations {
+    margin: 15px 0 0 0;
+}
+
+.Achievements {
+    margin: 15px 0 0 0;
 }
 
 .ListItem {
@@ -24,4 +59,58 @@
     margin-bottom: 5px;
     border: 1px solid blueviolet;
     border-radius: 3px;
+}
+
+
+/* bootstrap sm */
+@media (min-width: 576px) {
+
+}
+
+/* bootstrap md */
+@media (min-width: 768px) {
+    .Communities {
+        flex: none;
+    }
+
+    .Communities__buttons {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    .Communities__buttons button {
+        width: calc(50% - 5px);
+    }
+
+    .Communities__buttons button:nth-child(odd) {
+        margin-right: 5px;
+    }
+
+    .Specializations {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+    }
+
+    .Specializations div {
+        width: calc(50% - 5px);
+    }
+
+    @media (max-width: 991px) {
+        .Specializations div:nth-child(odd) {
+            margin-right: 5px;
+        }
+    }
+}
+
+/* bootstrap lg */
+@media (min-width: 992px) {
+    .Specializations div {
+        width: 100%;
+    }
+}
+
+/* bootstrap xl */
+@media (min-width: 1200px) {
+
 }
