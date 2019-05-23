@@ -1,8 +1,8 @@
 .Wrapper {
+    margin-top: 20px;
+    padding: 10px 20px 10px 20px;
+    background: white;
     border: 1px solid black;
     border-radius: 3px;
     box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.75);
-    padding: 10px 20px 10px 20px;
-    margin-top: 20px;
-    background: white;
 }

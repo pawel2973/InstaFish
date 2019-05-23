@@ -7,7 +7,7 @@ class Wall extends Component {
     render() {
         return (
             <Posts
-                postColSize={"col-lg-8 offset-lg-2"}
+                postColSize={"col-lg-6 col-md-12 col-sm-12 col-12"}
             />
         );
     }

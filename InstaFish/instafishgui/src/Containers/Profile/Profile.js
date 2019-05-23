@@ -53,31 +53,31 @@ class Profile extends Component {
                                 <Col>
                                     <header>Fishing rods</header>
                                     <div className={classes.ListItem}>
-                                        <li>Nash H-Gun Retract</li>
+                                        <i className="fas fa-chevron-right"></i>Nash H-Gun Retract
                                     </div>
                                     <div className={classes.ListItem}>
-                                        <li>Daiwa Black Widow Stalker</li>
+                                         <i className="fas fa-chevron-right"></i>Daiwa Black Widow Stalker
                                     </div>
                                     <div className={classes.ListItem}>
-                                        <li>Prologic C1 Alpha</li>
+                                         <i className="fas fa-chevron-right"></i>Prologic C1 Alpha
                                     </div>
                                     <div className={classes.ListItem}>
-                                        <li>Prologic FTR Carp Rod</li>
+                                         <i className="fas fa-chevron-right"></i>Prologic FTR Carp Rod
                                     </div>
                                 </Col>
                                 <Col>
                                     <header>Fishing reels</header>
                                     <div className={classes.ListItem}>
-                                        <li>Nash H-Gun Retract</li>
+                                         <i className="fas fa-chevron-right"></i>Nash H-Gun Retract
                                     </div>
                                     <div className={classes.ListItem}>
-                                        <li>Daiwa Black Widow Stalker</li>
+                                         <i className="fas fa-chevron-right"></i>Daiwa Black Widow Stalker
                                     </div>
                                     <div className={classes.ListItem}>
-                                        <li>Prologic C1 Alpha</li>
+                                         <i className="fas fa-chevron-right"></i>Prologic C1 Alpha
                                     </div>
                                     <div className={classes.ListItem}>
-                                        <li>Prologic FTR Carp Rod</li>
+                                         <i className="fas fa-chevron-right"></i>Prologic FTR Carp Rod
                                     </div>
                                 </Col>
                             </Row>
@@ -89,10 +89,10 @@ class Profile extends Component {
 
                                     <header>Organizations</header>
                                     <div className={classes.ListItem}>
-                                        <li>Team "CARP" poland</li>
+                                         <i className="fas fa-chevron-right"></i>Team "CARP" poland
                                     </div>
                                     <div className={classes.ListItem}>
-                                        <li>Team Korda</li>
+                                         <i className="fas fa-chevron-right"></i>Team Korda
                                     </div>
 
                                 </Col>
@@ -104,18 +104,18 @@ class Profile extends Component {
                                 <Col>
                                     <header>Achievements</header>
                                     <div className={classes.ListItem}>
-                                        <li>World "catfish" championship 2019 - II place</li>
+                                         <i className="fas fa-chevron-right"></i>World "catfish" championship 2019 - II place
                                     </div>
                                     <div className={classes.ListItem}>
-                                        <li>Polish "carp" championship 2019 - I place</li>
+                                         <i className="fas fa-chevron-right"></i>Polish "carp" championship 2019 - I place
                                     </div>
                                     <div className={classes.ListItem}>
-                                        <li>Warsaw "pike" championship 2018 - V place</li>
+                                         <i className="fas fa-chevron-right"></i>Warsaw "pike" championship 2018 - V place
                                     </div>
                                     <div className={classes.ListItem}>
-                                        <li>London "catch the biggest" championship 2017 - IV
+                                         <i className="fas fa-chevron-right"></i>London "catch the biggest" championship 2017 - IV
                                             place
-                                        </li>
+
                                     </div>
                                 </Col>
                             </Row>

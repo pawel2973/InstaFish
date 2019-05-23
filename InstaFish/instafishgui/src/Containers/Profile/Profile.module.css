@@ -61,6 +61,10 @@ div header {
     border-radius: 3px;
 }
 
+.ListItem i {
+    padding-right: 5px;
+}
+
 
 /* bootstrap sm */
 @media (min-width: 576px) {
@@ -108,9 +112,4 @@ div header {
     .Specializations div {
         width: 100%;
     }
-}
-
-/* bootstrap xl */
-@media (min-width: 1200px) {
-
 }
