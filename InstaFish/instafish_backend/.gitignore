@@ -15,3 +15,7 @@
 # setup.py
 /instafish_backend.egg-info
 /dist
+
+# __pycache__
+/instafish/__pycache__/
+/instafish_backend/__pycache__/
