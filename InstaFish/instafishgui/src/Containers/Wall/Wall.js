@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
 import Posts from "../Posts/Posts";
-import Post from "../../Components/Post/Post";
 
 class Wall extends Component {
     render() {

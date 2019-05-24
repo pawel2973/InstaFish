@@ -1,5 +1,6 @@
 from django.http import Http404
 from rest_framework import status, permissions
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -31,11 +32,19 @@ class UserList(APIView):
 
 # /post/
 class PostView(APIView):
-
+    # authentication_classes = (TokenAuthentication,)
+    permission_classes = {permissions.IsAuthenticated,}
     def get(self, request):
         posts = Post.objects.all()
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
+
+    def post(self, request):
+        serializer = PostSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # /post/id
@@ -71,7 +80,7 @@ class ProfileDetailView(APIView):
         except Profile.DoesNotExist:
             raise Http404
 
-    def get(self, request):
-        profile = Profile.objects.all()
+    def get(self, request, pk):
+        profile = self.get_object(pk)
         serializer = ProfileSerializer(profile)
         return Response(serializer.data)

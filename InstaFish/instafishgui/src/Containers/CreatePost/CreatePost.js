@@ -26,30 +26,34 @@ class CreatePost extends Component {
 
     createPostHandler = () => {
         const newPost = {
-            postTitle: this.state.postTitle,
-            fishName: this.state.fishName,
-            fishWeight: this.state.fishWeight,
-            fishLength: this.state.fishLength,
-            fishPhoto: this.state.fishPhoto,
-            fishingDate: this.state.fishingDate,
-            fishingCountry: this.state.fishingCountry,
-            fishingCity: this.state.fishingCity,
-            fishingSpot: this.state.fishingSpot,
-            fishingReel: this.state.fishingReel,
-            fishingLeader: this.state.fishingLeader,
-            fishingHook: this.state.fishingHook,
-            fishingRod: this.state.fishingRod,
-            fishingBait: this.state.fishingBait,
-            fishingLine: this.state.fishingLine,
+            user: this.props.user_id,
+            title: this.state.postTitle,
+            fish_name: this.state.fishName,
+            fish_weight: this.state.fishWeight,
+            fish_length: this.state.fishLength,
+            fish_photo: this.state.fishPhoto,
+            fishing_date: this.state.fishingDate,
+            fishing_country: this.state.fishingCountry,
+            fishing_city: this.state.fishingCity,
+            fishing_spot: this.state.fishingSpot,
+            fishing_reel: this.state.fishingReel,
+            fishing_leader: this.state.fishingLeader,
+            fishing_hook: this.state.fishingHook,
+            fishing_rod: this.state.fishingRod,
+            fishing_bait: this.state.fishingBait,
+            fishing_line: this.state.fishingLine,
             description: this.state.description
         };
+        const formData = new FormData();
+        Object.keys(newPost).map(item => formData.append(item,newPost[item]));
 
-        axios.post('/Post.json', newPost)
+        const headers = {Authorization: `JWT ${localStorage.getItem('token')}`};
+        axios.post('/post/', formData, headers)
             .then(response => {
                 console.log("OK");
                 console.log(response);
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log("Error");
                 console.log(error);
             });
@@ -111,10 +115,9 @@ class CreatePost extends Component {
                                 <Col>
                                     <Form.Label>Fish photo</Form.Label>
                                     <Form.Control
-                                        type="text"
-                                        placeholder="Choose photo"
-                                        value={this.state.fishPhoto}
-                                        onChange={(event) => this.setState({fishPhoto: event.target.value})}
+                                        type="file"
+                                        // value={this.state.fishPhoto} ????
+                                        onChange={(event) => this.setState({fishPhoto: event.target.files[0]})}
                                     />
                                 </Col>
                             </Form.Row>
@@ -129,7 +132,7 @@ class CreatePost extends Component {
                                 <Col>
                                     <Form.Label>Fishing date</Form.Label>
                                     <Form.Control
-                                        type="datetime-local"
+                                        type="date"
                                         placeholder="Choose date"
                                         value={this.state.fishingDate}
                                         onChange={(event) => this.setState({fishingDate: event.target.value})}

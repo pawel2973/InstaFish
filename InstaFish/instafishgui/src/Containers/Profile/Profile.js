@@ -89,10 +89,10 @@ class Profile extends Component {
 
                                     <header className={classes.ProfileHeader}>Organizations</header>
                                     <div className={classes.ListItem}>
-                                         <i class="fas fa-users"></i>Team "CARP" poland
+                                         <i className="fas fa-users"></i>Team "CARP" poland
                                     </div>
                                     <div className={classes.ListItem}>
-                                         <i class="fas fa-users"></i>Team Korda
+                                         <i className="fas fa-users"></i>Team Korda
                                     </div>
 
                                 </Col>
@@ -104,16 +104,16 @@ class Profile extends Component {
                                 <Col>
                                     <header className={classes.ProfileHeader}>Achievements</header>
                                     <div className={classes.ListItem}>
-                                         <i class="fas fa-trophy"></i>World "catfish" championship 2019 - II place
+                                         <i className="fas fa-trophy"></i>World "catfish" championship 2019 - II place
                                     </div>
                                     <div className={classes.ListItem}>
-                                         <i class="fas fa-trophy"></i>Polish "carp" championship 2019 - I place
+                                         <i className="fas fa-trophy"></i>Polish "carp" championship 2019 - I place
                                     </div>
                                     <div className={classes.ListItem}>
-                                         <i class="fas fa-trophy"></i>Warsaw "pike" championship 2018 - V place
+                                         <i className="fas fa-trophy"></i>Warsaw "pike" championship 2018 - V place
                                     </div>
                                     <div className={classes.ListItem}>
-                                         <i class="fas fa-trophy"></i>London "catch the biggest" championship 2017 - IV
+                                         <i className="fas fa-trophy"></i>London "catch the biggest" championship 2017 - IV
                                             place
                                     </div>
                                 </Col>

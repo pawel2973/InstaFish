@@ -8,12 +8,12 @@ const Toolbar = (props) => {
         <>
             <Nav.Link as={NavLink}
                       to="/login"
-                      exact
+
                       activeStyle={{color: 'white'}}>Login
             </Nav.Link>
             <Nav.Link as={NavLink}
                       to="/signup"
-                      exact
+
                       activeStyle={{color: 'white'}}>Sign-up
             </Nav.Link>
         </>
@@ -21,9 +21,7 @@ const Toolbar = (props) => {
 
     const logged_in_nav = (
         <>
-            <Nav.Link
-                exact
-                style={{color: 'white'}}>{props.username}
+            <Nav.Link style={{color: 'white'}}>{props.username}
             </Nav.Link>
             <Nav.Link>
                 <i className="fas fa-bell"/> <Badge variant="light">9</Badge>
@@ -34,7 +32,7 @@ const Toolbar = (props) => {
                       exact
                       activeStyle={{color: 'white'}}><i className="fas fa-user-cog"/>
             </Nav.Link>
-            <Nav.Link to="/login" exact onClick={props.handle_logout}>
+            <Nav.Link to="/login" onClick={props.handle_logout}>
                 <i className="fas fa-sign-out-alt"/>
             </Nav.Link>
         </>
