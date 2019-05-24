@@ -1,149 +1,241 @@
-import React from 'react';
-import {Row, Col, Image, Nav, Tab, Table} from "react-bootstrap";
+import React, {Component} from 'react';
+import {Row, Col, Image, Nav, Tab, Table, Button, Collapse, Form} from "react-bootstrap";
 import classes from './Post.module.css';
 import Wrapper from "../UI/Wrapper/Wrapper";
+import TextareaAutosize from 'react-autosize-textarea';
 
-const Post = (props) => (
-    <Col className={props.postColSize}>
-        <Wrapper>
-            <Row className={classes.Section}>
-                <Col className={classes.Author}>
-                    <Image
-                        src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
-                        roundedCircle/> {props.postAuthor}
-                </Col>
-            </Row>
+class Post extends Component {
+    state = {
+        isCommentOpen: false
+    };
 
-            <Row className={classes.Section}>
-                <Col lg={12}>
-                    <div className={classes.Title}>
-                        {props.postTitle}
-                    </div>
-                </Col>
-            </Row>
+    render() {
+        return (
+            <Col className={this.props.postColSize}>
+                <Wrapper>
+                    <Row className={classes.PostSection}>
+                        <Col className={classes.Author}>
+                            <Image
+                                src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
+                                roundedCircle/> {this.props.postAuthor}
+                        </Col>
+                    </Row>
+                    <Row className={classes.PostSection}>
+                        <Col lg={12}>
+                            <div className={classes.Title}>
+                                {this.props.postTitle}
+                            </div>
+                        </Col>
+                    </Row>
 
-            <Row className={classes.Section}>
-                <Col lg={12}>
-                    <Image className={classes.Image}
-                           src={props.fishPhoto}
-                           fluid/>
-                </Col>
-                <Col lg={12}>
-                    <div className={classes.Info}>
-                        <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-                            <Row>
-                                <Col lg={3} sm={3}>
-                                    <Nav variant="pills" className="flex-column">
-                                        <Nav.Item>
-                                            <Nav.Link eventKey="first">Basic</Nav.Link>
-                                        </Nav.Item>
-                                        <Nav.Item>
-                                            <Nav.Link eventKey="second">More</Nav.Link>
-                                        </Nav.Item>
-                                        <Nav.Item>
-                                            <Nav.Link eventKey="third">Description</Nav.Link>
-                                        </Nav.Item>
-                                    </Nav>
-                                </Col>
-                                <Col lg={9} sm={9}>
-                                    <Tab.Content>
-                                        <Tab.Pane eventKey="first">
-                                            <Table responsive>
-                                                <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <i className="fas fa-fish"/>&nbsp;
-                                                        <span className={classes.Important}>{props.fishName}</span>
-                                                    </td>
-                                                    <td>
-                                                        <i className="fas fa-weight"/>&nbsp;
-                                                        <span className={classes.Important}>
-                                                            {props.fishWeight} kg</span> <br/>
-                                                        <i className="fas fa-ruler-vertical"/>&nbsp;
-                                                        <span className={classes.Important}>
-                                                            {props.fishLength} cm</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <i className="fas fa-globe"/>&nbsp;
-                                                        <span className={classes.Important}>
-                                                            {props.fishingCountry}</span>
-                                                    </td>
-                                                    <td>
-                                                        <i className="fas fa-flag"/>&nbsp;
-                                                        <span className={classes.Important}>
-                                                            {props.fishingCity}</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <i className="fas fa-water"/>&nbsp;
-                                                        <span className={classes.Important}>{props.fishingSpot}</span>
-                                                    </td>
-                                                    <td>
-                                                        <i className="fas fa-clock"/>&nbsp;
-                                                        <span className={classes.Important}>{props.fishingDate}</span>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </Table>
-                                        </Tab.Pane>
+                    <Row className={classes.PostSection}>
+                        <Col lg={12}>
+                            <Image className={classes.PostImage}
+                                   src={this.props.fishPhoto}
+                                   fluid/>
+                        </Col>
+                        <Col lg={12}>
+                            <div className={classes.PostTab}>
+                                <Tab.Container id="left-tabs-example" defaultActiveKey="basic">
+                                    <Row>
 
-                                        <Tab.Pane eventKey="second">
-                                            <Table responsive>
-                                                <tbody>
-                                                <tr>
-                                                    <td><span className={classes.Important}>Fishing rod</span>
-                                                    </td>
-                                                    <td><span>{props.fishingRod}</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span className={classes.Important}>Fishing reel</span>
-                                                    </td>
-                                                    <td><span
-                                                    >{props.fishingReel}</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span className={classes.Important}>Hook</span></td>
-                                                    <td colSpan="2"><span>{props.fishingHook}</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span className={classes.Important}>Line</span></td>
-                                                    <td colSpan="2"><span>{props.fishingLine}</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span className={classes.Important}>Bait</span></td>
-                                                    <td colSpan="2"><span>{props.fishingBait}</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span className={classes.Important}>Leader</span></td>
-                                                    <td colSpan="2">
-                                                        <span>{props.fishingLeader}</span>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </Table>
-                                        </Tab.Pane>
+                                        <Col xl={3} lg={4} sm={3} className={classes.PostTab__nav}>
+                                            <Nav variant="pills" className="flex-column">
+                                                <Nav.Item>
+                                                    <Nav.Link eventKey="basic">Basic</Nav.Link>
+                                                </Nav.Item>
+                                                <Nav.Item>
+                                                    <Nav.Link eventKey="more">More</Nav.Link>
+                                                </Nav.Item>
+                                                <Nav.Item>
+                                                    <Nav.Link eventKey="description">Description</Nav.Link>
+                                                </Nav.Item>
+                                            </Nav>
+                                        </Col>
 
-                                        <Tab.Pane eventKey="third">
-                                            {props.description}
-                                        </Tab.Pane>
-                                    </Tab.Content>
-                                </Col>
-                            </Row>
-                        </Tab.Container>
-                    </div>
-                    <div className={classes.LikeSection}>
-                        <span className={classes.Comment}>12 <i className="fas fa-comments"></i></span>
-                        <span className={classes.Like}>25 <i className="far fa-thumbs-up"></i></span>
-                    </div>
-                </Col>
-            </Row>
-        </Wrapper>
-    </Col>
-);
+                                        <Col xl={9} lg={8} sm={9}>
+                                            <Tab.Content>
+                                                <Tab.Pane eventKey="basic">
+                                                    <Table responsive>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <i className="fas fa-fish"/>
+                                                                <span
+                                                                    className={classes.TxtData}>{this.props.fishName}</span>
+                                                            </td>
+                                                            <td>
+                                                                <i className="fas fa-weight"/>
+                                                                <span
+                                                                    className={classes.TxtData}>{this.props.fishWeight} kg</span>
+                                                                <br/>
+                                                                <i className="fas fa-ruler-vertical"/>
+                                                                <span
+                                                                    className={classes.TxtData}>{this.props.fishLength} cm</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <i className="fas fa-globe"/>
+                                                                <span
+                                                                    className={classes.TxtData}>{this.props.fishingCountry}</span>
+                                                            </td>
+                                                            <td>
+                                                                <i className="fas fa-flag"/>
+                                                                <span
+                                                                    className={classes.TxtData}>{this.props.fishingCity}</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <i className="fas fa-water"/>
+                                                                <span
+                                                                    className={classes.TxtData}>{this.props.fishingSpot}</span>
+                                                            </td>
+                                                            <td>
+                                                                <i className="fas fa-clock"/>
+                                                                <span
+                                                                    className={classes.TxtData}>{this.props.fishingDate}</span>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </Table>
+                                                </Tab.Pane>
+
+                                                <Tab.Pane eventKey="more">
+                                                    <Table responsive>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <span className={classes.TxtData}>Fishing rod</span>
+                                                            </td>
+                                                            <td>
+                                                                <span>{this.props.fishingRod}</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <span className={classes.TxtData}>Fishing reel</span>
+                                                            </td>
+                                                            <td>
+                                                                <span>{this.props.fishingReel}</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <span className={classes.TxtData}>Hook</span>
+                                                            </td>
+                                                            <td colSpan="2">
+                                                                <span>{this.props.fishingHook}</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <span className={classes.TxtData}>Line</span>
+                                                            </td>
+                                                            <td colSpan="2">
+                                                                <span>{this.props.fishingLine}</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <span className={classes.TxtData}>Bait</span>
+                                                            </td>
+                                                            <td colSpan="2"><span>{this.props.fishingBait}</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <span className={classes.TxtData}>Leader</span>
+                                                            </td>
+                                                            <td colSpan="2">
+                                                                <span>{this.props.fishingLeader}</span>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </Table>
+                                                </Tab.Pane>
+
+                                                <Tab.Pane eventKey="description">
+                                                    {this.props.description}
+                                                </Tab.Pane>
+                                            </Tab.Content>
+                                        </Col>
+                                    </Row>
+                                </Tab.Container>
+                            </div>
+                            <div className={classes.PostReactionsInformation}>
+                                <hr/>
+                                <div className={classes.PostReactionsInformation__like}>
+                                    <i className="far fa-thumbs-up"></i>25
+                                </div>
+                                <div className={classes.PostReactionsInformation__comment}>
+                                    <i className="fas fa-comments"></i>12
+                                </div>
+                                <hr/>
+                            </div>
+                            <div className={classes.PostReaction}>
+                                <Button variant="outline-primary"
+                                        className={classes.PostReaction__Like}> Like</Button>
+                                <Button variant="outline-primary"
+                                        className={classes.PostReaction__Comment}
+                                        onClick={() => this.setState({isCommentOpen: !this.state.isCommentOpen})}
+                                        aria-controls="collapse-comments"
+                                        aria-expanded={this.state.isCommentOpen}>
+                                    Comments</Button>
+                            </div>
+                            <div className={classes.PostComments}>
+                                <Collapse in={this.state.isCommentOpen}>
+                                    <div id="collapse-comments">
+                                        <div className={classes.CommentWrite}>
+                                            <Image
+                                                src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
+                                                roundedCircle/>
+                                            <Form className={classes.CommentWrite__form}>
+                                                <div className={classes.CommentWrite__form__inside}>
+                                                    <TextareaAutosize
+                                                        className={classes.CommentWrite__form__input}
+                                                        placeholder='Write a comment...'/>
+                                                </div>
+                                                <Button>Post</Button>
+                                            </Form>
+                                        </div>
+                                        <div className={classes.Comment}>
+                                            <Image
+                                                src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
+                                                roundedCircle/>
+                                            <div className={classes.Comment__content}>
+                                                <a className={classes.Comment__author} href="#">Super Wedkarz</a>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                                                velit esse cillum dolore eu fugiat nulla pariatur
+
+                                            </div>
+                                        </div>
+                                        <div className={classes.Comment}>
+                                            <Image
+                                                src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
+                                                roundedCircle/>
+                                            <div className={classes.Comment__content}>
+                                                <a className={classes.Comment__author} href="#">Super Wedkarz</a>Lorem
+                                                ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                                                esse cillum dolore eu fugiat nulla pariatur
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Collapse>
+                            </div>
+                        </Col>
+                    </Row>
+                </Wrapper>
+            </Col>
+        );
+    }
+}
 
 export default Post;

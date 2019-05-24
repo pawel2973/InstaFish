@@ -14,7 +14,7 @@ class Profile extends Component {
                         <Tab eventKey="basicInfo" title="Basic Information">
                             <Row>
                                 <Col lg={4} md={4} sm={12} xs={12} className={classes.BasicInformation}>
-                                    <header>Adam Kowalski</header>
+                                    <header className={classes.ProfileHeader}>Adam Kowalski</header>
                                     <Image
                                         src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
                                         rounded
@@ -26,9 +26,9 @@ class Profile extends Component {
                                     </footer>
                                 </Col>
                                 <Col lg={5} md={8} sm={12} xs={12} className={classes.Communities}>
-                                    <header>Communities</header>
+                                    <header className={classes.ProfileHeader}>Communities</header>
                                     <div className={classes.Communities__buttons}>
-                                        <Button disabled>Facebook</Button>
+                                        <Button>Facebook</Button>
                                         <Button>Instagram</Button>
                                         <Button>Youtube</Button>
                                         <Button>Website</Button>
@@ -36,7 +36,7 @@ class Profile extends Component {
                                 </Col>
                                 <Col>
                                     <div className={classes.Specializations}>
-                                        <header>Specializations</header>
+                                        <header className={classes.ProfileHeader}>Specializations</header>
                                         <div className="alert alert-primary">
                                             Carp Fishing
                                         </div>
@@ -51,7 +51,7 @@ class Profile extends Component {
                         <Tab eventKey="equipment" title="Equipment">
                             <Row className={classes.Equipment}>
                                 <Col>
-                                    <header>Fishing rods</header>
+                                    <header className={classes.ProfileHeader}>Fishing rods</header>
                                     <div className={classes.ListItem}>
                                         <i className="fas fa-chevron-right"></i>Nash H-Gun Retract
                                     </div>
@@ -66,7 +66,7 @@ class Profile extends Component {
                                     </div>
                                 </Col>
                                 <Col>
-                                    <header>Fishing reels</header>
+                                    <header className={classes.ProfileHeader}>Fishing reels</header>
                                     <div className={classes.ListItem}>
                                          <i className="fas fa-chevron-right"></i>Nash H-Gun Retract
                                     </div>
@@ -87,12 +87,12 @@ class Profile extends Component {
                             <Row className={classes.Organizations}>
                                 <Col>
 
-                                    <header>Organizations</header>
+                                    <header className={classes.ProfileHeader}>Organizations</header>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-chevron-right"></i>Team "CARP" poland
+                                         <i class="fas fa-users"></i>Team "CARP" poland
                                     </div>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-chevron-right"></i>Team Korda
+                                         <i class="fas fa-users"></i>Team Korda
                                     </div>
 
                                 </Col>
@@ -102,20 +102,19 @@ class Profile extends Component {
                         <Tab eventKey="achievements" title="Achievements">
                             <Row className={classes.Achievements}>
                                 <Col>
-                                    <header>Achievements</header>
+                                    <header className={classes.ProfileHeader}>Achievements</header>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-chevron-right"></i>World "catfish" championship 2019 - II place
+                                         <i class="fas fa-trophy"></i>World "catfish" championship 2019 - II place
                                     </div>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-chevron-right"></i>Polish "carp" championship 2019 - I place
+                                         <i class="fas fa-trophy"></i>Polish "carp" championship 2019 - I place
                                     </div>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-chevron-right"></i>Warsaw "pike" championship 2018 - V place
+                                         <i class="fas fa-trophy"></i>Warsaw "pike" championship 2018 - V place
                                     </div>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-chevron-right"></i>London "catch the biggest" championship 2017 - IV
+                                         <i class="fas fa-trophy"></i>London "catch the biggest" championship 2017 - IV
                                             place
-
                                     </div>
                                 </Col>
                             </Row>

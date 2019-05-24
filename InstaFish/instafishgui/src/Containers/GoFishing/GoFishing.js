@@ -17,7 +17,7 @@ class GoFishing extends Component {
                     </Breadcrumb.Item>
                 </Breadcrumb>
 
-                <h3>Create Event</h3>
+                <header>Create Event</header>
                 <Wrapper>
                     <Form>
                         <Form.Group controlId="Settings.PersonalInformation">
@@ -72,8 +72,7 @@ class GoFishing extends Component {
                     </Form>
                 </Wrapper>
 
-                <br/><br/>
-                <h3>Show Events</h3>
+                <header>Show Events</header>
                 <Wrapper>Events...</Wrapper>
             </Wrapper>
         );
