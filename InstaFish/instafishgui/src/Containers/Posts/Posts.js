@@ -3,13 +3,17 @@ import axios from '../../axios';
 import {Row} from "react-bootstrap";
 
 import Post from "../../Components/Post/Post";
+import Spinner from "../../Components/UI/Spinner/Spinner";
+import classes from "./Posts.module.css";
 
 class Posts extends Component {
     state = {
-        posts: []
+        posts: [],
+        loading: false
     };
 
     componentDidMount() {
+        this.setState({loading: true});
         axios
             .get('/post', {
                 headers: {
@@ -22,13 +26,15 @@ class Posts extends Component {
                 for (let key in data) {
                     posts.push(data[key]);
                 }
-                this.setState({posts: posts});
+                this.setState({posts: posts, loading: false});
+
+                console.log(this.state.posts);
+
             })
             .catch(error => {
                 console.log(error);
             });
     };
-
 
     render() {
         let temporaryKey = 0;
@@ -60,8 +66,9 @@ class Posts extends Component {
         });
 
         return (
-            <Row>
-                {posts}
+            <Row className={classes.Posts}>
+                {this.state.loading ?
+                    <Spinner/> : posts}
             </Row>
         );
     }

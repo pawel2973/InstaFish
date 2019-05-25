@@ -1,0 +1,41 @@
+.Loader {
+    position: absolute;
+    background: url("../../../Assets/spinner_float.png");
+    top: calc(50% - 46px);
+    left: calc(50% - 46px);
+    margin-top: 15px;
+    font-size: 90px;
+    text-indent: -9999em;
+    width: 92px;
+    height: 92px;
+    overflow: hidden;
+    z-index: 1000;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: round 1.7s infinite ease;
+    animation: round 1.7s infinite ease;
+}
+
+
+@-webkit-keyframes round {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes round {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}

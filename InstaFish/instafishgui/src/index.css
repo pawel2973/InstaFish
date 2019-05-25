@@ -11,3 +11,14 @@ body {
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
 }
+
+.btn:active, .btn:focus {
+    box-shadow: none;
+}
+
+.custom-outline-btn:hover {
+    background: white;
+    color: #007BFF;
+    box-shadow: none;
+}
+

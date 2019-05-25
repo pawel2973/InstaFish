@@ -8,7 +8,13 @@ class Post extends Component {
     state = {
         isCommentOpen: false,
         isMoreNavActive: true,
-        isDescriptionNavActive: true
+        isDescriptionNavActive: true,
+        isLiked: false //TESTING PURPOSE
+    };
+
+    handleLikeBtn = () => {
+        this.setState({isLiked: !this.state.isLiked});
+        //TODO POST
     };
 
     /**
@@ -30,7 +36,13 @@ class Post extends Component {
         this.displayPostNavs();
     }
 
+
     render() {
+        let btnLikeStyle = "outline-primary custom-outline-btn";
+        if (this.state.isLiked) {
+            btnLikeStyle = "primary";
+        }
+
         return (
             <Col className={this.props.postColSize}>
                 <Wrapper>
@@ -220,8 +232,9 @@ class Post extends Component {
                                 <hr/>
                             </div>
                             <div className={classes.PostReaction}>
-                                <Button variant="outline-primary"
-                                        className={classes.PostReaction__Like}> Like</Button>
+                                <Button variant={btnLikeStyle}
+                                        className={classes.PostReaction__Like}
+                                        onClick={this.handleLikeBtn}>Like</Button>
                                 <Button variant="outline-primary"
                                         className={classes.PostReaction__Comment}
                                         onClick={() => this.setState({isCommentOpen: !this.state.isCommentOpen})}
@@ -246,25 +259,24 @@ class Post extends Component {
                                             </Form>
                                         </div>
                                         <div className={classes.Comment}>
-                                            <Image
-                                                src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
-                                                roundedCircle/>
+                                            <div className={classes.Comment__image}>
+                                                <Image
+                                                    src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
+                                                    roundedCircle/>
+                                                <button><i className="far fa-trash-alt"></i></button>
+                                            </div>
                                             <div className={classes.Comment__content}>
                                                 <a className={classes.Comment__author} href="/">Super Wedkarz</a>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                                eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                                                ea
-                                                commodo consequat. Duis aute irure dolor in reprehenderit in
-                                                voluptate
-                                                velit esse cillum dolore eu fugiat nulla pariatur
+                                                .
                                             </div>
                                         </div>
                                         <div className={classes.Comment}>
-                                            <Image
-                                                src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
-                                                roundedCircle/>
+                                            <div className={classes.Comment__image}>
+                                                <Image
+                                                    src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
+                                                    roundedCircle/>
+                                                <button><i className="far fa-trash-alt"></i></button>
+                                            </div>
                                             <div className={classes.Comment__content}>
                                                 <a className={classes.Comment__author} href="/">Super Wedkarz</a>Lorem
                                                 ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
