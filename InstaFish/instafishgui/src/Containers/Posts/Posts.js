@@ -23,7 +23,6 @@ class Posts extends Component {
                     posts.push(data[key]);
                 }
                 this.setState({posts: posts});
-                console.log(this.state.posts);
             })
             .catch(error => {
                 console.log(error);
@@ -32,7 +31,6 @@ class Posts extends Component {
 
 
     render() {
-        console.log(this.state.posts);
         let temporaryKey = 0;
         const posts = this.state.posts.map(post => {
             temporaryKey++;

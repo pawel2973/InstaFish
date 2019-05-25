@@ -10,6 +10,7 @@ import FindPeople from "./Containers/FindPeople/FindPeople";
 import Settings from "./Containers/Settings/Settings";
 import LoginForm from "./Components/Authentication/Login/LoginForm";
 import SignupForm from "./Components/Authentication/Signup/SignupForm";
+import axios from 'axios';
 
 
 class App extends Component {
@@ -21,64 +22,99 @@ class App extends Component {
 
     componentDidMount() {
         if (this.state.logged_in) {
-            fetch('http://localhost:8000/current_user/', {
+            axios.get('/current_user/', {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
             })
-                .then(res => res.json())
-                .then(json => {
-                    this.setState({
-                        username: json.username,
-                        user_id: json.id
-                    });
-                });
-        }
+                .then(response => {
+                    if (response.data.id) {
+                        this.setState({
+                            username: response.data.username,
+                            user_id: response.data.id
+                        });
+
+                    }
+                    else {
+                        localStorage.removeItem('token');
+                            this.setState({
+                                logged_in: false,
+                                username: '',
+                                user_id: null
+                            });
+                        }
+
+                }).catch(error => {
+                console.log(error);
+            })
+
+
+        // }
+        //     fetch('http://localhost:8000/current_user/', {
+        //         headers: {
+        //             Authorization: `JWT ${localStorage.getItem('token')}`
+        //         }
+        //     })
+        //         .then(res => res.json())
+        //         .then(json => {
+        //             console.log(json)
+        //             this.setState({
+        //                 username: json.username,
+        //                 user_id: json.id
+        //             });
+        //         }).catch(error => console.log(error));
+    }
     }
 
     handle_login = (e, data) => {
         e.preventDefault();
-        fetch('http://localhost:8000/token-auth/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(res => res.json())
-            .then(json => {
-                localStorage.setItem('token', json.token);
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+        axios.post('/token-auth/', data, headers)
+            .then(response => {
+                localStorage.setItem('token', response.data.token);
+                console.log("Ustawiam tokena");
                 this.setState({
                     logged_in: true,
-                    username: json.user.username,
-                    user_id: json.user.id
+                    username: response.data.user.username,
+                    user_id: response.data.user.id
                 });
+            })
+            .catch(error => {
+                console.log(error)
+                // TODO: jakis komunikat / obsluga bledu dla zlych danych logowania?
             });
     };
 
     handle_signup = (e, data) => {
         e.preventDefault();
-        fetch('http://localhost:8000/users/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(res => res.json())
-            .then(json => {
-                localStorage.setItem('token', json.token);
+        const headers = {
+            'Content-Type': 'application/json'
+        }
+        axios.post('/users/', data, headers)
+            .then(response => {
+                localStorage.setItem('token', response.data.token);
                 this.setState({
                     logged_in: true,
-                    username: json.user.username,
-                    user_id: json.user.id
+                    username: response.data.user.username,
+                    user_id: response.data.user.id
                 });
+            })
+            .catch(error => {
+                console.log(error)
+                // TODO: jakis komunikat / obsluga bledu dla zlych danych przy rejestracji ?
             });
+
     };
 
     handle_logout = () => {
         localStorage.removeItem('token');
-        this.setState({logged_in: false, username: '', user_id: null});
+        this.setState({
+            logged_in: false,
+            username: '',
+            user_id: null
+        });
     };
 
 
@@ -91,7 +127,8 @@ class App extends Component {
                     user_id={this.state.user_id}
                     handle_logout={this.handle_logout}>
                     <Switch>
-                        <Route path="/" exact component={Profile}/>
+                        <Route exact path="/" render={(props) => <Profile {...props} user_id={this.state.user_id}/>}
+                        />
                         <Route path="/wall" component={Wall}/>
                         <Route path="/create-post"
                                render={(props) => <CreatePost {...props} user_id={this.state.user_id}/>}

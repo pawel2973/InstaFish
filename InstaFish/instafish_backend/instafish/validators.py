@@ -1,9 +1,9 @@
-from django.utils.datetime_safe import datetime
+from django.utils.datetime_safe import date
 from django.core.exceptions import ValidationError
 
 
-def validate_date_not_in_future(date):
-    if date > datetime.now():
+def validate_date_not_in_future(data):
+    if data > date.today():
         raise ValidationError('You were born in the future?')
 
 

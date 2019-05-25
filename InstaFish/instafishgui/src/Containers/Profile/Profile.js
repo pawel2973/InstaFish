@@ -4,9 +4,69 @@ import Wrapper from "../../Components/UI/Wrapper/Wrapper";
 import Image from "react-bootstrap/Image";
 import classes from "./Profile.module.css";
 import Posts from "../Posts/Posts";
+import axios from "../../axios";
 
 class Profile extends Component {
+
+    state = {
+        profile: {},
+        user_id: this.props.user_id
+    };
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.user_id !== prevState.user_id) {
+            console.log("Czy powinienienm zaktualizwoac? Tak")
+            return {user_id: nextProps.user_id};
+        } else return null;
+    }
+
+    // componentWillReceiveProps(nextProps, nextContext) {
+    //     this.setState({user_id: nextProps.user_id})
+    //     console.log(nextProps.user_id, "fsdfds")
+    // }
+
+    axiosGetProfile = () => {
+        axios
+            .get('/profile/' + this.state.user_id, {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem('token')}`
+                }
+            })
+            .then(res => {
+                this.setState({profile: res.data});
+                // console.log(res.data)
+            })
+            .catch(error => {
+                console.log("Something went wrong\n" + error);
+            });
+    };
+
+    componentDidMount() {
+        console.log("Zamontowany");
+        this.axiosGetProfile();
+    };
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.user_id !== this.props.user_id) {
+            this.axiosGetProfile();
+            console.log("Aktualizuje")
+        }
+    }
+
+    // shouldComponentUpdate(nextProps, nextState, nextContext) {
+    //     console.log(nextProps.user_id);
+    //     this.setState({user_id: this.props.user_id})
+    //     return false;
+    // }
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //
+    // }
+
     render() {
+        const calculateAge = dateString => {
+            let birthday = +new Date(dateString);
+            return ~~((Date.now() - birthday) / (31557600000));
+        };
         return (
             <Fragment>
                 <Wrapper> <Row> <Col>
@@ -14,26 +74,42 @@ class Profile extends Component {
                         <Tab eventKey="basicInfo" title="Basic Information">
                             <Row>
                                 <Col lg={4} md={4} sm={12} xs={12} className={classes.BasicInformation}>
-                                    <header className={classes.ProfileHeader}>Adam Kowalski</header>
+                                    <header
+                                        className={classes.ProfileHeader}>{this.state.profile.first_name} {this.state.profile.last_name}</header>
                                     <Image
-                                        src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
+                                        src={this.state.profile.avatar}
                                         rounded
                                         fluid
                                     />
                                     <footer>
-                                        <span>Poland, Krosno</span><br/>
-                                        <span>Male, 34 y/o</span>
+                                        <span>{this.state.profile.country}, {this.state.profile.city}</span><br/>
+                                        <span>{this.state.profile.sex}, {calculateAge(this.state.profile.birthdate)} years old</span>
                                     </footer>
                                 </Col>
-                                <Col lg={5} md={8} sm={12} xs={12} className={classes.Communities}>
-                                    <header className={classes.ProfileHeader}>Communities</header>
-                                    <div className={classes.Communities__buttons}>
-                                        <Button>Facebook</Button>
-                                        <Button>Instagram</Button>
-                                        <Button>Youtube</Button>
-                                        <Button>Website</Button>
-                                    </div>
-                                </Col>
+
+
+                                {this.state.profile.communities ?
+                                    <>
+                                        <Col lg={5} md={8} sm={12} xs={12} className={classes.Communities}>
+                                            <header className={classes.ProfileHeader}>Communities</header>
+                                            <div className={classes.Communities__buttons}>
+                                                <Button
+                                                    onClick={() => window.location.href = "https://google.pl"}>Facebook
+                                                </Button>
+                                                <Button
+                                                    onClick={() => window.location.href = "https://google.pl"}>Instagram
+                                                </Button>
+                                                <Button
+                                                    onClick={() => window.location.href = "https://google.pl"}>Youtube
+                                                </Button>
+                                                <Button
+                                                    onClick={() => window.location.href = "https://google.pl"}>Website
+                                                </Button>
+                                            </div>
+                                        </Col>
+                                    </> : null}
+
+
                                 <Col>
                                     <div className={classes.Specializations}>
                                         <header className={classes.ProfileHeader}>Specializations</header>
@@ -56,28 +132,28 @@ class Profile extends Component {
                                         <i className="fas fa-chevron-right"></i>Nash H-Gun Retract
                                     </div>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-chevron-right"></i>Daiwa Black Widow Stalker
+                                        <i className="fas fa-chevron-right"></i>Daiwa Black Widow Stalker
                                     </div>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-chevron-right"></i>Prologic C1 Alpha
+                                        <i className="fas fa-chevron-right"></i>Prologic C1 Alpha
                                     </div>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-chevron-right"></i>Prologic FTR Carp Rod
+                                        <i className="fas fa-chevron-right"></i>Prologic FTR Carp Rod
                                     </div>
                                 </Col>
                                 <Col>
                                     <header className={classes.ProfileHeader}>Fishing reels</header>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-chevron-right"></i>Nash H-Gun Retract
+                                        <i className="fas fa-chevron-right"></i>Nash H-Gun Retract
                                     </div>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-chevron-right"></i>Daiwa Black Widow Stalker
+                                        <i className="fas fa-chevron-right"></i>Daiwa Black Widow Stalker
                                     </div>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-chevron-right"></i>Prologic C1 Alpha
+                                        <i className="fas fa-chevron-right"></i>Prologic C1 Alpha
                                     </div>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-chevron-right"></i>Prologic FTR Carp Rod
+                                        <i className="fas fa-chevron-right"></i>Prologic FTR Carp Rod
                                     </div>
                                 </Col>
                             </Row>
@@ -89,10 +165,10 @@ class Profile extends Component {
 
                                     <header className={classes.ProfileHeader}>Organizations</header>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-users"></i>Team "CARP" poland
+                                        <i className="fas fa-users"></i>Team "CARP" poland
                                     </div>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-users"></i>Team Korda
+                                        <i className="fas fa-users"></i>Team Korda
                                     </div>
 
                                 </Col>
@@ -104,17 +180,18 @@ class Profile extends Component {
                                 <Col>
                                     <header className={classes.ProfileHeader}>Achievements</header>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-trophy"></i>World "catfish" championship 2019 - II place
+                                        <i className="fas fa-trophy"></i>World "catfish" championship 2019 - II place
                                     </div>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-trophy"></i>Polish "carp" championship 2019 - I place
+                                        <i className="fas fa-trophy"></i>Polish "carp" championship 2019 - I place
                                     </div>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-trophy"></i>Warsaw "pike" championship 2018 - V place
+                                        <i className="fas fa-trophy"></i>Warsaw "pike" championship 2018 - V place
                                     </div>
                                     <div className={classes.ListItem}>
-                                         <i className="fas fa-trophy"></i>London "catch the biggest" championship 2017 - IV
-                                            place
+                                        <i className="fas fa-trophy"></i>London "catch the biggest" championship 2017 -
+                                        IV
+                                        place
                                     </div>
                                 </Col>
                             </Row>
