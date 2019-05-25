@@ -83,7 +83,10 @@ class Profile extends Component {
                                     />
                                     <footer>
                                         <span>{this.state.profile.country}, {this.state.profile.city}</span><br/>
-                                        <span>{this.state.profile.sex}, {calculateAge(this.state.profile.birthdate)} years old</span>
+                                        <span>{this.state.profile.sex}, {this.state.profile.birthdate ?
+                                            calculateAge(this.state.profile.birthdate) + " years old"
+                                            : null}
+                                        </span>
                                     </footer>
                                 </Col>
 

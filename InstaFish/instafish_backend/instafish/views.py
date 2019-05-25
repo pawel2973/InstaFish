@@ -21,7 +21,7 @@ def current_user(request):
 class UserList(APIView):
     # Create a new user. It's called 'UserList' because normally we'd have a get
     # method here too, for retrieving a list of all User objects.
-    # authentication_classes = (TokenAuthentication,)
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request, format=None):

@@ -7,7 +7,10 @@ import classes from "../Login/LoginForm.module.css";
 class SignupForm extends Component {
     state = {
         username: '',
-        password: ''
+        password: '',
+        email: '',
+        first_name: '',
+        last_name: ''
     };
 
     handle_change = e => {
@@ -27,11 +30,11 @@ class SignupForm extends Component {
                     <Wrapper>
                         <h1>Sign up</h1>
                         <hr/>
-                        <Form onSubmit={e => this.props.handle_login(e, this.state)}>
+                        <Form onSubmit={e => this.props.handle_signup(e, this.state)}>
                             <Form.Group controlId="FindPeople.Filter">
                                 <Form.Row className={classes.FormRow}>
                                     <Col>
-                                        <Form.Label><i className="fas fa-user"></i> Username</Form.Label>
+                                        <Form.Label><i className="fas fa-user"/> Username</Form.Label>
                                         <Form.Control
                                             type="text"
                                             name="username"
@@ -43,12 +46,48 @@ class SignupForm extends Component {
                                 </Form.Row>
                                 <Form.Row>
                                     <Col>
-                                        <Form.Label><i className="fas fa-key"></i> Password</Form.Label>
+                                        <Form.Label><i className="fas fa-key"/> Password</Form.Label>
                                         <Form.Control
                                             type="password"
                                             name="password"
                                             placeholder="password"
                                             value={this.state.password}
+                                            onChange={this.handle_change}
+                                        />
+                                    </Col>
+                                </Form.Row>
+                                <Form.Row className={classes.FormRow}>
+                                    <Col>
+                                        <Form.Label><i className="fas fa-envelope"/> Email</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            name="email"
+                                            placeholder="email"
+                                            value={this.state.email}
+                                            onChange={this.handle_change}
+                                        />
+                                    </Col>
+                                </Form.Row>
+                                <Form.Row className={classes.FormRow}>
+                                    <Col>
+                                        <Form.Label><i className="fas fa-signature"/> First Name</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            name="first_name"
+                                            placeholder="First Name"
+                                            value={this.state.first_name}
+                                            onChange={this.handle_change}
+                                        />
+                                    </Col>
+                                </Form.Row>
+                                <Form.Row className={classes.FormRow}>
+                                    <Col>
+                                        <Form.Label><i className="fas fa-signature"/> Last Name</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            name="last_name"
+                                            placeholder="Last Name"
+                                            value={this.state.last_name}
                                             onChange={this.handle_change}
                                         />
                                     </Col>

@@ -97,8 +97,8 @@ class App extends Component {
                 localStorage.setItem('token', response.data.token);
                 this.setState({
                     logged_in: true,
-                    username: response.data.user.username,
-                    user_id: response.data.user.id
+                    username: response.data.username,
+                    user_id: response.data.id
                 });
             })
             .catch(error => {
