@@ -1,13 +1,34 @@
 import React, {Component} from 'react';
-import {Row, Col, Image, Nav, Tab, Table, Button, Collapse, Form} from "react-bootstrap";
+import {Row, Col, Image, Nav, Tab, Table, Button, Collapse, Form, DropdownButton, Dropdown} from "react-bootstrap";
 import classes from './Post.module.css';
 import Wrapper from "../UI/Wrapper/Wrapper";
 import TextareaAutosize from 'react-autosize-textarea';
 
 class Post extends Component {
     state = {
-        isCommentOpen: false
+        isCommentOpen: false,
+        isMoreNavActive: true,
+        isDescriptionNavActive: true
     };
+
+    /**
+     * This method is responsible for displaying post navs.
+     * If all props in specific nav is empty, nav will be hidden.
+     */
+    displayPostNavs = () => {
+        if (!(this.props.fishingRod || this.props.fishingReel || this.props.fishingHook
+            || this.props.fishingBait || this.props.fishingLine || this.props.fishingLeader)) {
+            this.setState({isMoreNavActive: !this.state.isMoreNavActive});
+        }
+
+        if (!this.props.description) {
+            this.setState({isDescriptionNavActive: !this.state.isDescriptionNavActive})
+        }
+    };
+
+    componentWillMount() {
+        this.displayPostNavs();
+    }
 
     render() {
         return (
@@ -17,7 +38,20 @@ class Post extends Component {
                         <Col className={classes.Author}>
                             <Image
                                 src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
-                                roundedCircle/> {this.props.postAuthor}
+                                roundedCircle/>
+                            <a href="/">{this.props.postAuthor}</a>
+                            <span>April 30 at 2:32 PM</span>
+                            <DropdownButton
+                                alignRight
+                                title=""
+                                id="dropdown-menu-align-right"
+                                className={classes.BtnMore}
+                                variant="outline-primary"
+                            >
+                                <Dropdown.Item eventKey="1"><i className="far fa-edit"></i> Edit</Dropdown.Item>
+                                <Dropdown.Divider/>
+                                <Dropdown.Item eventKey="2"><i className="far fa-trash-alt"></i> Delete</Dropdown.Item>
+                            </DropdownButton>
                         </Col>
                     </Row>
                     <Row className={classes.PostSection}>
@@ -38,18 +72,19 @@ class Post extends Component {
                             <div className={classes.PostTab}>
                                 <Tab.Container id="left-tabs-example" defaultActiveKey="basic">
                                     <Row>
-
                                         <Col xl={3} lg={4} sm={3} className={classes.PostTab__nav}>
                                             <Nav variant="pills" className="flex-column">
                                                 <Nav.Item>
                                                     <Nav.Link eventKey="basic">Basic</Nav.Link>
                                                 </Nav.Item>
-                                                <Nav.Item>
-                                                    <Nav.Link eventKey="more">More</Nav.Link>
-                                                </Nav.Item>
-                                                <Nav.Item>
-                                                    <Nav.Link eventKey="description">Description</Nav.Link>
-                                                </Nav.Item>
+                                                {this.state.isMoreNavActive ?
+                                                    <Nav.Item>
+                                                        <Nav.Link eventKey="more">More</Nav.Link>
+                                                    </Nav.Item> : null}
+                                                {this.state.isDescriptionNavActive ?
+                                                    <Nav.Item>
+                                                        <Nav.Link eventKey="description">Description</Nav.Link>
+                                                    </Nav.Item> : null}
                                             </Nav>
                                         </Col>
 
@@ -105,53 +140,63 @@ class Post extends Component {
                                                 <Tab.Pane eventKey="more">
                                                     <Table responsive>
                                                         <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <span className={classes.TxtData}>Fishing rod</span>
-                                                            </td>
-                                                            <td>
-                                                                <span>{this.props.fishingRod}</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <span className={classes.TxtData}>Fishing reel</span>
-                                                            </td>
-                                                            <td>
-                                                                <span>{this.props.fishingReel}</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <span className={classes.TxtData}>Hook</span>
-                                                            </td>
-                                                            <td colSpan="2">
-                                                                <span>{this.props.fishingHook}</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <span className={classes.TxtData}>Line</span>
-                                                            </td>
-                                                            <td colSpan="2">
-                                                                <span>{this.props.fishingLine}</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <span className={classes.TxtData}>Bait</span>
-                                                            </td>
-                                                            <td colSpan="2"><span>{this.props.fishingBait}</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <span className={classes.TxtData}>Leader</span>
-                                                            </td>
-                                                            <td colSpan="2">
-                                                                <span>{this.props.fishingLeader}</span>
-                                                            </td>
-                                                        </tr>
+                                                        {this.props.fishingRod ?
+                                                            <tr>
+                                                                <td>
+                                                                        <span
+                                                                            className={classes.TxtData}>Fishing rod</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span>{this.props.fishingRod}</span>
+                                                                </td>
+                                                            </tr>
+                                                            : null}
+                                                        {this.props.fishingReel ?
+                                                            <tr>
+                                                                <td>
+                                                                    <span
+                                                                        className={classes.TxtData}>Fishing reel</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span>{this.props.fishingReel}</span>
+                                                                </td>
+                                                            </tr> : null}
+                                                        {this.props.fishingHook ?
+                                                            <tr>
+                                                                <td>
+                                                                    <span className={classes.TxtData}>Hook</span>
+                                                                </td>
+
+                                                                <td colSpan="2">
+                                                                    <span>{this.props.fishingHook}</span>
+                                                                </td>
+                                                            </tr> : null}
+                                                        {this.props.fishingLine ?
+                                                            <tr>
+                                                                <td>
+                                                                    <span className={classes.TxtData}>Line</span>
+                                                                </td>
+                                                                <td colSpan="2">
+                                                                    <span>{this.props.fishingLine}</span>
+                                                                </td>
+                                                            </tr> : null}
+                                                        {this.props.fishingBait ?
+                                                            <tr>
+                                                                <td>
+                                                                    <span className={classes.TxtData}>Bait</span>
+                                                                </td>
+                                                                <td colSpan="2"><span>{this.props.fishingBait}</span>
+                                                                </td>
+                                                            </tr> : null}
+                                                        {this.props.fishingLeader ?
+                                                            <tr>
+                                                                <td>
+                                                                    <span className={classes.TxtData}>Leader</span>
+                                                                </td>
+                                                                <td colSpan="2">
+                                                                    <span>{this.props.fishingLeader}</span>
+                                                                </td>
+                                                            </tr> : null}
                                                         </tbody>
                                                     </Table>
                                                 </Tab.Pane>
@@ -205,13 +250,15 @@ class Post extends Component {
                                                 src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
                                                 roundedCircle/>
                                             <div className={classes.Comment__content}>
-                                                <a className={classes.Comment__author} href="#">Super Wedkarz</a>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                                <a className={classes.Comment__author} href="/">Super Wedkarz</a>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                                eiusmod
                                                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                                                ea
+                                                commodo consequat. Duis aute irure dolor in reprehenderit in
+                                                voluptate
                                                 velit esse cillum dolore eu fugiat nulla pariatur
-
                                             </div>
                                         </div>
                                         <div className={classes.Comment}>
@@ -219,10 +266,13 @@ class Post extends Component {
                                                 src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
                                                 roundedCircle/>
                                             <div className={classes.Comment__content}>
-                                                <a className={classes.Comment__author} href="#">Super Wedkarz</a>Lorem
-                                                ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                                <a className={classes.Comment__author} href="/">Super Wedkarz</a>Lorem
+                                                ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                                tempor
+                                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                veniam,
+                                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                                commodo
                                                 consequat. Duis aute irure dolor in reprehenderit in voluptate velit
                                                 esse cillum dolore eu fugiat nulla pariatur
                                             </div>

@@ -3,14 +3,35 @@
 }
 
 .Author {
-    height: 35px;
-    line-height: 35px;
-    font-weight: bold;
-    font-size: 16px;
+    /*position: relative;*/
+    height: 40px;
 }
 
 .Author img {
-    height: 35px;
+    float: left;
+    height: 40px;
+    width: 40px;
+    margin: 0 5px 0 0;
+}
+
+.Author a {
+    color: #385898;
+    line-height: 1.5;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.Author span {
+    display: block;
+    color: #616770;
+    line-height: 1;
+    font-size: 13px;
+}
+
+.BtnMore {
+    position: absolute;
+    right: 15px;
+    top: 0;
 }
 
 .Title {
