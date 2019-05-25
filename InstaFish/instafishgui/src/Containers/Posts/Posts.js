@@ -17,8 +17,7 @@ class Posts extends Component {
                 }
             })
             .then(res => {
-                const data = res.data;
-
+                const data = res.data.results;
                 let posts = [];
                 for (let key in data) {
                     posts.push(data[key]);
