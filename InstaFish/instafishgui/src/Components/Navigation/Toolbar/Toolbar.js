@@ -8,12 +8,10 @@ const Toolbar = (props) => {
         <Fragment>
             <Nav.Link as={NavLink}
                       to="/login"
-                      exact={true}
                       activeStyle={{color: 'white'}}>Login
             </Nav.Link>
             <Nav.Link as={NavLink}
                       to="/signup"
-                      exact={true}
                       activeStyle={{color: 'white'}}>Sign-up
             </Nav.Link>
         </Fragment>
@@ -22,7 +20,6 @@ const Toolbar = (props) => {
     const logged_in_nav = (
         <Fragment>
             <Nav.Link
-
                 style={{color: 'white'}}>{props.username}
             </Nav.Link>
             <Nav.Link>

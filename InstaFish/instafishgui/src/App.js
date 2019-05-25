@@ -13,10 +13,10 @@ import SignupForm from "./Components/Authentication/Signup/SignupForm";
 
 
 class App extends Component {
-
     state = {
         logged_in: !!localStorage.getItem('token'),
-        username: ''
+        username: '',
+        user_id: null
     };
 
     componentDidMount() {
@@ -28,7 +28,10 @@ class App extends Component {
             })
                 .then(res => res.json())
                 .then(json => {
-                    this.setState({username: json.username});
+                    this.setState({
+                        username: json.username,
+                        user_id: json.id
+                    });
                 });
         }
     }
@@ -47,8 +50,8 @@ class App extends Component {
                 localStorage.setItem('token', json.token);
                 this.setState({
                     logged_in: true,
-                    displayed_form: '',
-                    username: json.username
+                    username: json.user.username,
+                    user_id: json.user.id
                 });
             });
     };
@@ -67,14 +70,15 @@ class App extends Component {
                 localStorage.setItem('token', json.token);
                 this.setState({
                     logged_in: true,
-                    username: json.username
+                    username: json.user.username,
+                    user_id: json.user.id
                 });
             });
     };
 
     handle_logout = () => {
         localStorage.removeItem('token');
-        this.setState({logged_in: false, username: ''});
+        this.setState({logged_in: false, username: '', user_id: null});
     };
 
 
@@ -84,11 +88,14 @@ class App extends Component {
                 <Layout
                     logged_in={this.state.logged_in}
                     username={this.state.username}
+                    user_id={this.state.user_id}
                     handle_logout={this.handle_logout}>
                     <Switch>
                         <Route path="/" exact component={Profile}/>
                         <Route path="/wall" component={Wall}/>
-                        <Route path="/create-post" component={CreatePost}/>
+                        <Route path="/create-post"
+                               render={(props) => <CreatePost {...props} user_id={this.state.user_id}/>}
+                        />
                         <Route path="/go-fishing" component={GoFishing}/>
                         <Route path="/find-people" component={FindPeople}/>
                         <Route path="/profile-settings" component={Settings}/>

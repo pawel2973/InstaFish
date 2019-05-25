@@ -2,13 +2,13 @@ from rest_framework import serializers
 from rest_framework_jwt.serializers import User
 from rest_framework_jwt.settings import api_settings
 
-from instafish.models import Post, Profile
+from instafish.models import Post, Profile, Comment, PostLike, Event, UserEvent
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username',)
+        fields = ('username', 'id')
 
 
 class UserSerializerWithToken(serializers.ModelSerializer):
@@ -49,4 +49,28 @@ class ProfileSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
+        fields = '__all__'
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+
+class LikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PostLike
+        fields = '__all__'
+
+
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = '__all__'
+
+
+class UserEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserEvent
         fields = '__all__'

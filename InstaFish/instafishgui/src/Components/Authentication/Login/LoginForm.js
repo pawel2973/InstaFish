@@ -16,7 +16,6 @@ class LoginForm extends Component {
             newState[name] = value;
             return newState;
         });
-        console.log(this.state);
     };
 
     render() {

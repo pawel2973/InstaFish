@@ -11,7 +11,8 @@ class Layout extends Component {
             <Fragment>
                 <Toolbar logged_in={this.props.logged_in}
                          handle_logout={this.props.handle_logout}
-                         username={this.props.username}/>
+                         username={this.props.username}
+                         user_id={this.props.user_id}/>
                 <main className={classes.Content}>
                     <Container>
                         {this.props.children}

@@ -19,3 +19,4 @@
 # __pycache__
 /instafish/__pycache__/
 /instafish_backend/__pycache__/
+/instafish/migrations/__pycache__/
