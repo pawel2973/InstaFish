@@ -1,0 +1,84 @@
+.CommentWrite {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 10px 0 10px 0;
+}
+
+.CommentWrite img {
+    height: 32px;
+    width: 32px;
+    margin: 0 5px 0 0;
+}
+
+.CommentWrite__form {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    width: calc(100% - 32px - 5px);
+}
+
+.CommentWrite__form__inside {
+    width: 100%;
+}
+
+.CommentWrite__form__input {
+    box-sizing: border-box;
+    padding: 5px 10px 5px 10px;
+    border-radius: 15px;
+    background: #F2F3F5;
+    outline: none;
+    width: 100%;
+}
+
+.CommentWrite button {
+    width: 33%;
+    padding: 0;
+    border-radius: 15px;
+}
+
+.Comment {
+    display: flex;
+    margin: 0 0 10px 0;
+}
+
+.Comment:last-child {
+    margin: 0;
+}
+
+.Comment__image {
+    margin: 0 5px 0 0;
+    text-align: center;
+}
+
+.Comment__image img {
+    height: 32px;
+    width: 32px;
+    margin: 0 0 5px 0;
+}
+
+.Comment__image button {
+    display: block;
+    width: 32px;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+.Comment__content {
+    align-self: flex-start;
+    width: 100%;
+    padding: 5px 10px 5px 10px;
+    box-sizing: border-box;
+    border-radius: 15px;
+    background: #F2F3F5;
+}
+
+.Comment__author {
+    color: #385898;
+    font-weight: 600;
+    margin: 0 5px 0 0;
+}

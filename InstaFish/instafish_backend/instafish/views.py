@@ -97,14 +97,41 @@ class CommentView(APIView, PageNumberPagination):
         serializer = CommentSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
 
+    def post(self, request, pk):
+        serializer = CommentSerializer(data=request.data)
+        request.data['post'] = pk
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 # /post/id/likes
 class PostLikeView(APIView, PageNumberPagination):
+    def get_object(self, pk,pid):
+        try:
+            return PostLike.objects.get(user=pk, post=pid)
+        except PostLike.DoesNotExist:
+            raise Http404
+
+    def post(self, request, pk):
+        serializer = LikeSerializer(data=request.data)
+        request.data['post'] = pk
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     def get(self, request, pk):
         likes = PostLike.objects.filter(post=pk, isLiked=True).order_by('post')
         results = self.paginate_queryset(likes, request, view=self)
         serializer = LikeSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
+
+    def delete(self, request, pk):
+        task = self.get_object(request.data['user'], pk)
+        task.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 # /event/
@@ -147,3 +174,4 @@ class EventUserView(APIView, PageNumberPagination):
         results = self.paginate_queryset(users, request, view=self)
         serializer = UserEventSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
+

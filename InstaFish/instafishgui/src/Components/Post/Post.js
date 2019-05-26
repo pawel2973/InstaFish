@@ -1,20 +1,72 @@
 import React, {Component} from 'react';
-import {Row, Col, Image, Nav, Tab, Table, Button, Collapse, Form, DropdownButton, Dropdown} from "react-bootstrap";
+import {Row, Col, Image, Nav, Tab, Table, Button, Collapse, DropdownButton, Dropdown} from "react-bootstrap";
 import classes from './Post.module.css';
 import Wrapper from "../UI/Wrapper/Wrapper";
-import TextareaAutosize from 'react-autosize-textarea';
+import axios from "../../axios";
+import PostComment from "./Comment/Comment";
+
+// import PostComment from "./Comment/Comment";
 
 class Post extends Component {
     state = {
         isCommentOpen: false,
         isMoreNavActive: true,
         isDescriptionNavActive: true,
+        likes: {},
+        comments: {},
         isLiked: false //TESTING PURPOSE
+    };
+
+    componentDidMount() {
+        //get likes for every post
+        const headers = {Authorization: `JWT ${localStorage.getItem('token')}`};
+        axios
+            .get('/post/' + this.props.postId + '/likes', headers)
+            .then(res => {
+                this.setState({likes: res.data});
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        axios
+            .get('/post/' + this.props.postId + '/comments', headers)
+            .then(res => {
+                this.setState({comments: res.data});
+            }).catch(error => {
+            console.log(error)
+        });
     };
 
     handleLikeBtn = () => {
         this.setState({isLiked: !this.state.isLiked});
-        //TODO POST
+        // TODO FIX IT XD
+        console.log(this.props.user_id)
+        const data = {
+            user: this.props.user_id,
+            isLiked: true,
+            post: this.props.postId
+        };
+        axios.post('/post/' + this.props.postId + '/likes', data, {headers: {Authorization: `JWT ${localStorage.getItem('token')}`}})
+            .then(response => {
+                // refresh component etc
+            })
+            .catch((error) => {
+                console.log("Error");
+                console.log(error);
+                axios.delete('/post/' + this.props.postId + '/likes', {
+                    data: {user: this.props.user_id},
+                    headers: {Authorization: `JWT ${localStorage.getItem('token')}`}
+                })
+                    .then(response => {
+                        // refresh component etc
+                    })
+                    .catch((error) => {
+                        console.log("Error");
+                        console.log(error);
+                    })
+            })
+
+
     };
 
     /**
@@ -49,10 +101,10 @@ class Post extends Component {
                     <Row className={classes.PostSection}>
                         <Col className={classes.Author}>
                             <Image
-                                src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
+                                src={this.props.authorAvatar}
                                 roundedCircle/>
                             <a href="/">{this.props.postAuthor}</a>
-                            <span>April 30 at 2:32 PM</span>
+                            <span>{this.props.createdAt}</span>
                             <DropdownButton
                                 alignRight
                                 title=""
@@ -60,9 +112,9 @@ class Post extends Component {
                                 className={classes.BtnMore}
                                 variant="outline-primary"
                             >
-                                <Dropdown.Item eventKey="1"><i className="far fa-edit"></i> Edit</Dropdown.Item>
+                                <Dropdown.Item eventKey="1"><i className="far fa-edit"/> Edit</Dropdown.Item>
                                 <Dropdown.Divider/>
-                                <Dropdown.Item eventKey="2"><i className="far fa-trash-alt"></i> Delete</Dropdown.Item>
+                                <Dropdown.Item eventKey="2"><i className="far fa-trash-alt"/> Delete</Dropdown.Item>
                             </DropdownButton>
                         </Col>
                     </Row>
@@ -224,10 +276,10 @@ class Post extends Component {
                             <div className={classes.PostReactionsInformation}>
                                 <hr/>
                                 <div className={classes.PostReactionsInformation__like}>
-                                    <i className="far fa-thumbs-up"></i>25
+                                    <i className="far fa-thumbs-up"/>{this.state.likes.count}
                                 </div>
                                 <div className={classes.PostReactionsInformation__comment}>
-                                    <i className="fas fa-comments"></i>12
+                                    <i className="fas fa-comments"/>{this.state.comments.count}
                                 </div>
                                 <hr/>
                             </div>
@@ -242,53 +294,14 @@ class Post extends Component {
                                         aria-expanded={this.state.isCommentOpen}>
                                     Comments</Button>
                             </div>
+
                             <div className={classes.PostComments}>
                                 <Collapse in={this.state.isCommentOpen}>
                                     <div id="collapse-comments">
-                                        <div className={classes.CommentWrite}>
-                                            <Image
-                                                src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
-                                                roundedCircle/>
-                                            <Form className={classes.CommentWrite__form}>
-                                                <div className={classes.CommentWrite__form__inside}>
-                                                    <TextareaAutosize
-                                                        className={classes.CommentWrite__form__input}
-                                                        placeholder='Write a comment...'/>
-                                                </div>
-                                                <Button>Post</Button>
-                                            </Form>
-                                        </div>
-                                        <div className={classes.Comment}>
-                                            <div className={classes.Comment__image}>
-                                                <Image
-                                                    src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
-                                                    roundedCircle/>
-                                                <button><i className="far fa-trash-alt"></i></button>
-                                            </div>
-                                            <div className={classes.Comment__content}>
-                                                <a className={classes.Comment__author} href="/">Super Wedkarz</a>
-                                                .
-                                            </div>
-                                        </div>
-                                        <div className={classes.Comment}>
-                                            <div className={classes.Comment__image}>
-                                                <Image
-                                                    src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
-                                                    roundedCircle/>
-                                                <button><i className="far fa-trash-alt"></i></button>
-                                            </div>
-                                            <div className={classes.Comment__content}>
-                                                <a className={classes.Comment__author} href="/">Super Wedkarz</a>Lorem
-                                                ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor
-                                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                                veniam,
-                                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                                commodo
-                                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                                                esse cillum dolore eu fugiat nulla pariatur
-                                            </div>
-                                        </div>
+
+                                        <PostComment user_id={this.props.user_id} postId={this.props.postId}
+                                                     comments={this.state.comments}/>
+
                                     </div>
                                 </Collapse>
                             </div>

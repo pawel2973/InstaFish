@@ -129,7 +129,8 @@ class App extends Component {
                     <Switch>
                         <Route exact path="/" render={(props) => <Profile {...props} user_id={this.state.user_id}/>}
                         />
-                        <Route path="/wall" component={Wall}/>
+                        <Route path="/wall" render={(props) => <Wall {...props} user_id={this.state.user_id}/>}
+                        />
                         <Route path="/create-post"
                                render={(props) => <CreatePost {...props} user_id={this.state.user_id}/>}
                         />

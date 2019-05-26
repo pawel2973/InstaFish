@@ -70,12 +70,25 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(source='user.user.first_name', read_only=True)
+    last_name = serializers.CharField(source='user.user.last_name', read_only=True)
+    avatar = serializers.ImageField(source='user.avatar', read_only=True)
+
+    def to_representation(self, instance):
+        representation = super(PostSerializer, self).to_representation(instance)
+        representation['created_at'] = instance.created_at.strftime("%Y-%m-%d %H:%M:%S")
+        return representation
+
     class Meta:
         model = Post
         fields = '__all__'
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(source='user.user.first_name', read_only=True)
+    last_name = serializers.CharField(source='user.user.last_name', read_only=True)
+    avatar = serializers.ImageField(source='user.avatar', read_only=True)
+
     class Meta:
         model = Comment
         fields = '__all__'

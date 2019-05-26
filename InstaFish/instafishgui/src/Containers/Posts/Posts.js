@@ -27,9 +27,7 @@ class Posts extends Component {
                     posts.push(data[key]);
                 }
                 this.setState({posts: posts, loading: false});
-
                 console.log(this.state.posts);
-
             })
             .catch(error => {
                 console.log(error);
@@ -41,9 +39,14 @@ class Posts extends Component {
         const posts = this.state.posts.map(post => {
             temporaryKey++;
             return (
+
                 <Post
+                    user_id={this.props.user_id}
                     key={temporaryKey}
-                    postAuthor="Jan Kowalski"
+                    postId={post.id}
+                    postAuthor={post.first_name + " " + post.last_name}
+                    authorAvatar ={post.avatar}
+                    createdAt ={post.created_at}
                     postTitle={post.title}
                     fishName={post.fish_name}
                     fishPhoto={post.fish_photo}
@@ -62,6 +65,7 @@ class Posts extends Component {
                     description={post.description}
                     postColSize={this.props.postColSize}
                 />
+
             );
         });
 

@@ -68,6 +68,7 @@ class Profile extends Component {
             return ~~((Date.now() - birthday) / (31557600000));
         };
         return (
+
             <Fragment>
                 <Wrapper> <Row> <Col>
                     <Tabs defaultActiveKey="basicInfo" transition={false} id="tab">
@@ -212,12 +213,14 @@ class Profile extends Component {
 
                 <Row>
                     <Col>
-                        <Posts
+                        <Posts user_id={this.props.user_id}
                             postColSize={"col-lg-6 col-md-12 col-sm-12 col-12"}
                         />
                     </Col>
                 </Row>
+
             </Fragment>
+
         );
     }
 }
