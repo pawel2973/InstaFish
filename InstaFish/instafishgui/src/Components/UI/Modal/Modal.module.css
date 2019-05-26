@@ -16,7 +16,7 @@
     margin: auto;
 }
 
-img {
+.Modal img {
     display: block;
     margin: auto;
     width: 60%;
@@ -28,7 +28,7 @@ img {
         left: calc(50% - 250px);
     }
 
-    img {
+    .Modal img {
         width: 75%;
     }
 }
