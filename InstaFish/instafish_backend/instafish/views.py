@@ -58,6 +58,7 @@ class ProfileDetailView(APIView):
 class PostView(APIView, PageNumberPagination):
     # authentication_classes = (TokenAuthentication,)
     permission_classes = {permissions.IsAuthenticated, }
+
     # pagination_class = PageNumberPagination
 
     def get(self, request):
@@ -76,6 +77,7 @@ class PostView(APIView, PageNumberPagination):
 
 # /post/id
 class PostDetailView(APIView):
+    permission_classes = {permissions.IsAuthenticated, }
 
     def get_object(self, pk):
         try:
@@ -91,6 +93,8 @@ class PostDetailView(APIView):
 
 # /post/id/comments
 class CommentView(APIView, PageNumberPagination):
+    permission_classes = {permissions.IsAuthenticated, }
+
     def get(self, request, pk):
         comments = Comment.objects.filter(post=pk).order_by('created_at')
         results = self.paginate_queryset(comments, request, view=self)
@@ -108,7 +112,9 @@ class CommentView(APIView, PageNumberPagination):
 
 # /post/id/likes
 class PostLikeView(APIView, PageNumberPagination):
-    def get_object(self, pk,pid):
+    permission_classes = {permissions.IsAuthenticated, }
+
+    def get_object(self, pk, pid):
         try:
             return PostLike.objects.get(user=pk, post=pid)
         except PostLike.DoesNotExist:
@@ -129,9 +135,11 @@ class PostLikeView(APIView, PageNumberPagination):
         return self.get_paginated_response(serializer.data)
 
     def delete(self, request, pk):
-        task = self.get_object(request.data['user'], pk)
-        task.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        if 'user' in request.data:
+            task = self.get_object(request.data['user'], pk)
+            task.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'error': 'Can\'t get user id'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 # /event/
@@ -169,9 +177,34 @@ class EventDetailView(APIView):
 
 # /event/id/users/
 class EventUserView(APIView, PageNumberPagination):
+    permission_classes = {permissions.IsAuthenticated, }
+
     def get(self, request, pk):
         users = UserEvent.objects.filter(event=pk).order_by('event')
         results = self.paginate_queryset(users, request, view=self)
         serializer = UserEventSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
 
+
+# /profile/id/comments
+class ProfileCommentView(APIView, PageNumberPagination):
+    permission_classes = {permissions.IsAuthenticated, }
+
+    def get_object(self, pk, pid):
+        try:
+            return Comment.objects.get(pk=pk, user=pid)
+        except Comment.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        comments = Comment.objects.filter(user=pk).order_by('created_at')
+        results = self.paginate_queryset(comments, request, view=self)
+        serializer = CommentSerializer(results, many=True)
+        return self.get_paginated_response(serializer.data)
+
+    def delete(self, request, pk):
+        if 'id' in request.data:
+            comment = self.get_object(request.data['id'], pk)
+            comment.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'error': 'Can\'t get comment id'}, status=status.HTTP_400_BAD_REQUEST)

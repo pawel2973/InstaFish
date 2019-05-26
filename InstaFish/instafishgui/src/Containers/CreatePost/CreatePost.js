@@ -3,6 +3,7 @@ import axios from '../../axios';
 import {Button, Col, Form} from "react-bootstrap";
 import classes from './CreatePost.module.css';
 import Wrapper from "../../Components/UI/Wrapper/Wrapper";
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
 class CreatePost extends Component {
     state = {
@@ -264,4 +265,4 @@ class CreatePost extends Component {
     }
 }
 
-export default CreatePost;
+export default withErrorHandler(CreatePost, axios);

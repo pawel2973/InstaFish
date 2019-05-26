@@ -40,7 +40,7 @@ class Post extends Component {
     handleLikeBtn = () => {
         this.setState({isLiked: !this.state.isLiked});
         // TODO FIX IT XD
-        console.log(this.props.user_id)
+        // console.log(this.props.user_id)
         const data = {
             user: this.props.user_id,
             isLiked: true,
@@ -51,8 +51,9 @@ class Post extends Component {
                 // refresh component etc
             })
             .catch((error) => {
-                console.log("Error");
-                console.log(error);
+                // console.log("Error");
+                // console.log(error);
+                // ayaya
                 axios.delete('/post/' + this.props.postId + '/likes', {
                     data: {user: this.props.user_id},
                     headers: {Authorization: `JWT ${localStorage.getItem('token')}`}

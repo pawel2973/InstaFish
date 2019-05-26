@@ -35,36 +35,35 @@ class App extends Component {
                             user_id: response.data.id
                         });
 
-                    }
-                    else {
+                    } else {
                         localStorage.removeItem('token');
-                            this.setState({
-                                logged_in: false,
-                                username: '',
-                                user_id: null
-                            });
-                        }
+                        this.setState({
+                            logged_in: false,
+                            username: '',
+                            user_id: null
+                        });
+                    }
 
                 }).catch(error => {
                 console.log(error);
             })
 
 
-        // }
-        //     fetch('http://localhost:8000/current_user/', {
-        //         headers: {
-        //             Authorization: `JWT ${localStorage.getItem('token')}`
-        //         }
-        //     })
-        //         .then(res => res.json())
-        //         .then(json => {
-        //             console.log(json)
-        //             this.setState({
-        //                 username: json.username,
-        //                 user_id: json.id
-        //             });
-        //         }).catch(error => console.log(error));
-    }
+            // }
+            //     fetch('http://localhost:8000/current_user/', {
+            //         headers: {
+            //             Authorization: `JWT ${localStorage.getItem('token')}`
+            //         }
+            //     })
+            //         .then(res => res.json())
+            //         .then(json => {
+            //             console.log(json)
+            //             this.setState({
+            //                 username: json.username,
+            //                 user_id: json.id
+            //             });
+            //         }).catch(error => console.log(error));
+        }
     }
 
     handle_login = (e, data) => {
@@ -74,25 +73,26 @@ class App extends Component {
         };
         axios.post('/token-auth/', data, headers)
             .then(response => {
-                localStorage.setItem('token', response.data.token);
-                console.log("Ustawiam tokena");
-                this.setState({
-                    logged_in: true,
-                    username: response.data.user.username,
-                    user_id: response.data.user.id
-                });
+                    // console.log("Ustawiam tokena");
+                    localStorage.setItem('token', response.data.token);
+                    this.setState({
+                        logged_in: true,
+                        username: response.data.user.username,
+                        user_id: response.data.user.id
+                    });
             })
             .catch(error => {
-                console.log(error)
-                // TODO: jakis komunikat / obsluga bledu dla zlych danych logowania?
-            });
+                // console.log(error)
+                // TODO: jakis komunikat / obsluga bledu dla zlych danych logowania? axios interceptery
+            })
+        ;
     };
 
     handle_signup = (e, data) => {
         e.preventDefault();
         const headers = {
             'Content-Type': 'application/json'
-        }
+        };
         axios.post('/users/', data, headers)
             .then(response => {
                 localStorage.setItem('token', response.data.token);
@@ -103,7 +103,7 @@ class App extends Component {
                 });
             })
             .catch(error => {
-                console.log(error)
+                // console.log(error)
                 // TODO: jakis komunikat / obsluga bledu dla zlych danych przy rejestracji ?
             });
 
@@ -151,4 +151,4 @@ class App extends Component {
     }
 }
 
-export default withErrorHandler(App,axios);
+export default withErrorHandler(App, axios);

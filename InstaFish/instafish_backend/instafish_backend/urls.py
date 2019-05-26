@@ -27,6 +27,7 @@ urlpatterns = [
     path('users/', views.UserList.as_view()),
     path('profile/', views.ProfileView.as_view()),
     path('profile/<pk>', views.ProfileDetailView.as_view()),
+    path('profile/<pk>/comments', views.ProfileCommentView.as_view()),
     path('post/', views.PostView.as_view()),
     path('post/<pk>', views.PostDetailView.as_view()),
     path('post/<pk>/comments', views.CommentView.as_view()),
