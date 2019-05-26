@@ -31,7 +31,7 @@ class LoginForm extends Component {
                             <Form.Group controlId="FindPeople.Filter">
                                 <Form.Row className={classes.FormRow}>
                                     <Col>
-                                        <Form.Label><i className="fas fa-user"></i> Username</Form.Label>
+                                        <Form.Label><i className="fas fa-user"/> Username</Form.Label>
                                         <Form.Control
                                             type="text"
                                             name="username"
@@ -43,7 +43,7 @@ class LoginForm extends Component {
                                 </Form.Row>
                                 <Form.Row>
                                     <Col>
-                                        <Form.Label><i className="fas fa-key"></i> Password</Form.Label>
+                                        <Form.Label><i className="fas fa-key"/> Password</Form.Label>
                                         <Form.Control
                                             type="password"
                                             name="password"

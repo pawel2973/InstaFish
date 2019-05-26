@@ -11,6 +11,7 @@ import Settings from "./Containers/Settings/Settings";
 import LoginForm from "./Components/Authentication/Login/LoginForm";
 import SignupForm from "./Components/Authentication/Signup/SignupForm";
 import axios from 'axios';
+import withErrorHandler from "./hoc/withErrorHandler/withErrorHandler";
 
 
 class App extends Component {
@@ -150,4 +151,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default withErrorHandler(App,axios);

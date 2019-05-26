@@ -61,7 +61,6 @@ class Post extends Component {
                         // refresh component etc
                     })
                     .catch((error) => {
-                        console.log("Error");
                         console.log(error);
                     })
             })
