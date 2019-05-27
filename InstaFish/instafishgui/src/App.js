@@ -12,6 +12,8 @@ import LoginForm from "./Components/Authentication/Login/LoginForm";
 import SignupForm from "./Components/Authentication/Signup/SignupForm";
 import axios from 'axios';
 import withErrorHandler from "./hoc/withErrorHandler/withErrorHandler";
+import PrivateRoute from "./hoc/PrivateRoute/PrivateRoute";
+import PublicRoute from "./hoc/PublicRoute/PublicRoute";
 
 
 class App extends Component {
@@ -20,6 +22,7 @@ class App extends Component {
         username: '',
         user_id: null
     };
+
 
     componentDidMount() {
         if (this.state.logged_in) {
@@ -45,45 +48,29 @@ class App extends Component {
                     }
 
                 }).catch(error => {
-                console.log(error);
+                // console.log(error);
             })
-
-
-            // }
-            //     fetch('http://localhost:8000/current_user/', {
-            //         headers: {
-            //             Authorization: `JWT ${localStorage.getItem('token')}`
-            //         }
-            //     })
-            //         .then(res => res.json())
-            //         .then(json => {
-            //             console.log(json)
-            //             this.setState({
-            //                 username: json.username,
-            //                 user_id: json.id
-            //             });
-            //         }).catch(error => console.log(error));
         }
     }
 
     handle_login = (e, data) => {
         e.preventDefault();
+        const {history} = this.props;
         const headers = {
             'Content-Type': 'application/json'
         };
         axios.post('/token-auth/', data, headers)
             .then(response => {
-                    // console.log("Ustawiam tokena");
-                    localStorage.setItem('token', response.data.token);
-                    this.setState({
-                        logged_in: true,
-                        username: response.data.user.username,
-                        user_id: response.data.user.id
-                    });
+                // console.log("Ustawiam tokena");
+                localStorage.setItem('token', response.data.token);
+                this.setState({
+                    logged_in: true,
+                    username: response.data.user.username,
+                    user_id: response.data.user.id
+                });
+                history.push('/posts/');
             })
             .catch(error => {
-                // console.log(error)
-                // TODO: jakis komunikat / obsluga bledu dla zlych danych logowania? axios interceptery
             })
         ;
     };
@@ -103,8 +90,6 @@ class App extends Component {
                 });
             })
             .catch(error => {
-                // console.log(error)
-                // TODO: jakis komunikat / obsluga bledu dla zlych danych przy rejestracji ?
             });
 
     };
@@ -128,21 +113,41 @@ class App extends Component {
                     user_id={this.state.user_id}
                     handle_logout={this.handle_logout}>
                     <Switch>
-                        <Route exact path="/" render={(props) => <Profile {...props} user_id={this.state.user_id}/>}
-                        />
-                        <Route path="/wall" render={(props) => <Wall {...props} user_id={this.state.user_id}/>}
-                        />
-                        <Route path="/create-post"
-                               render={(props) => <CreatePost {...props} user_id={this.state.user_id}/>}
-                        />
-                        <Route path="/go-fishing" component={GoFishing}/>
-                        <Route path="/find-people" component={FindPeople}/>
-                        <Route path="/profile-settings" component={Settings}/>
-                        <Route path="/login"
-                               render={(props) => <LoginForm {...props} handle_login={this.handle_login}/>}
-                        />
-                        <Route path="/signup"
-                               render={(props) => <SignupForm {...props} handle_signup={this.handle_signup}/>}
+                        <PrivateRoute exact path="/"
+                                      component={Profile}
+                                      logged_in={this.state.logged_in}
+                                      user_id={this.state.user_id}/>
+                        <PrivateRoute path="/wall"
+                                      component={Wall}
+                                      logged_in={this.state.logged_in}
+                                      user_id={this.state.user_id}/>
+                        <PrivateRoute path="/create-post"
+                                      component={CreatePost}
+                                      logged_in={this.state.logged_in}
+                                      user_id={this.state.user_id}/>
+                        <PrivateRoute path="/go-fishing"
+                                      component={GoFishing}
+                                      logged_in={this.state.logged_in}
+                                      user_id={this.state.user_id}/>
+                        <PrivateRoute path="/find-people"
+                                      component={FindPeople}
+                                      logged_in={this.state.logged_in}
+                                      user_id={this.state.user_id}/>
+                        <PrivateRoute path="/profile-settings"
+                                      component={Settings}
+                                      logged_in={this.state.logged_in}
+                                      user_id={this.state.user_id}/>
+                        <PublicRoute path="/login"
+                                     component={LoginForm}
+                                     logged_in={this.state.logged_in}
+                                     handle_login={this.handle_login}/>
+                        <PublicRoute path="/signup"
+                                     component={SignupForm}
+                                     logged_in={this.state.logged_in}
+                                     handle_signup={this.handle_signup}/>
+                        {/*  404 */}
+                        <Route path="/"
+                               render={(props) => <>404 ryby nie znaleziono</>}
                         />
                     </Switch>
                 </Layout>
