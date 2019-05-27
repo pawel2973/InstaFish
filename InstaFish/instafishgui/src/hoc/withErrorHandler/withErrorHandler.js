@@ -12,7 +12,6 @@ const withErrorHandler = (WrappedComponent, axios) => {
         componentWillMount() {
             this.reqInterceptor = axios.interceptors.request.use(req => {
                 this.setState({error: null});
-                 console.log("ZAjebiscie");
                 return req;
             });
             this.resInterceptor = axios.interceptors.response.use(res => res, error => {
@@ -40,9 +39,13 @@ const withErrorHandler = (WrappedComponent, axios) => {
                         <h5> Oops! Something went wrong...</h5>
 
                         {this.state.error ?
-
-                                Object.keys(this.state.error.response.data).map( key => {return (<h6 key={key}>{key}: {this.state.error.response.data[key][0]}</h6>)})
-                            : null}
+                            Object.keys(this.state.error.response.data).map(
+                                key => {
+                                    return (
+                                        <h6 key={key}>
+                                            {key}: {this.state.error.response.data[key][0]}
+                                        </h6>)
+                                }) : null}
 
                     </Modal>
                     <WrappedComponent {...this.props}/>

@@ -12,8 +12,10 @@ class Post extends Component {
         isCommentOpen: false,
         isMoreNavActive: true,
         isDescriptionNavActive: true,
+        likesCount: 0,
         likes: {},
         comments: {},
+        commentsCount: 0,
         isLiked: false //TESTING PURPOSE
     };
 
@@ -23,22 +25,31 @@ class Post extends Component {
         axios
             .get('/post/' + this.props.postId + '/likes', headers)
             .then(res => {
-                this.setState({likes: res.data});
+                // console.log(res.data);
+                const isLiked = !!res.data.results.find(like => like.user === this.props.user_id);
+                this.setState({
+                    likes: res.data,
+                    likesCount: res.data.count,
+                    isLiked: isLiked
+                });
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
             });
         axios
             .get('/post/' + this.props.postId + '/comments', headers)
             .then(res => {
-                this.setState({comments: res.data});
+                this.setState({
+                    comments: res.data,
+                    commentsCount: res.data.count
+                });
             }).catch(error => {
-            console.log(error)
+            // console.log(error)
         });
     };
 
     handleLikeBtn = () => {
-        this.setState({isLiked: !this.state.isLiked});
+        // this.setState({isLiked: !this.state.isLiked});
         // TODO FIX IT XD
         // console.log(this.props.user_id)
         const data = {
@@ -46,25 +57,37 @@ class Post extends Component {
             isLiked: true,
             post: this.props.postId
         };
-        axios.post('/post/' + this.props.postId + '/likes', data, {headers: {Authorization: `JWT ${localStorage.getItem('token')}`}})
-            .then(response => {
-                // refresh component etc
-            })
-            .catch((error) => {
-                // console.log("Error");
-                // console.log(error);
-                // ayaya
-                axios.delete('/post/' + this.props.postId + '/likes', {
-                    data: {user: this.props.user_id},
-                    headers: {Authorization: `JWT ${localStorage.getItem('token')}`}
+        !this.state.isLiked
+            ?
+            axios.post('/post/' + this.props.postId + '/likes', data, {headers: {Authorization: `JWT ${localStorage.getItem('token')}`}})
+                .then(response => {
+                    this.setState({
+                        likesCount: this.state.likesCount + 1,
+                        isLiked: true
+                    })
+                    // refresh component etc
                 })
-                    .then(response => {
-                        // refresh component etc
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    })
+                .catch((error) => {
+                    // console.log("Error");
+                    // console.log(error);
+                    // ayaya
+
+                })
+            :
+            axios.delete('/post/' + this.props.postId + '/likes', {
+                data: {user: this.props.user_id},
+                headers: {Authorization: `JWT ${localStorage.getItem('token')}`}
             })
+                .then(response => {
+                    // refresh component etc
+                    this.setState({
+                        likesCount: this.state.likesCount - 1,
+                        isLiked: false
+                    })
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
 
 
     };
@@ -276,10 +299,10 @@ class Post extends Component {
                             <div className={classes.PostReactionsInformation}>
                                 <hr/>
                                 <div className={classes.PostReactionsInformation__like}>
-                                    <i className="far fa-thumbs-up"/>{this.state.likes.count}
+                                    <i className="far fa-thumbs-up"/>{this.state.likesCount}
                                 </div>
                                 <div className={classes.PostReactionsInformation__comment}>
-                                    <i className="fas fa-comments"/>{this.state.comments.count}
+                                    <i className="fas fa-comments"/>{this.state.commentsCount}
                                 </div>
                                 <hr/>
                             </div>

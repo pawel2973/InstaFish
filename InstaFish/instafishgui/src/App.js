@@ -11,6 +11,7 @@ import Settings from "./Containers/Settings/Settings";
 import LoginForm from "./Components/Authentication/Login/LoginForm";
 import SignupForm from "./Components/Authentication/Signup/SignupForm";
 import axios from 'axios';
+
 import withErrorHandler from "./hoc/withErrorHandler/withErrorHandler";
 import PrivateRoute from "./hoc/PrivateRoute/PrivateRoute";
 import PublicRoute from "./hoc/PublicRoute/PublicRoute";
@@ -55,7 +56,6 @@ class App extends Component {
 
     handle_login = (e, data) => {
         e.preventDefault();
-        const {history} = this.props;
         const headers = {
             'Content-Type': 'application/json'
         };
@@ -68,7 +68,6 @@ class App extends Component {
                     username: response.data.user.username,
                     user_id: response.data.user.id
                 });
-                history.push('/posts/');
             })
             .catch(error => {
             })
