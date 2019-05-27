@@ -1,21 +1,22 @@
-import React, {Component} from 'react';
-import {Row, Col, Image, Nav, Tab, Table, Button, Collapse, DropdownButton, Dropdown} from "react-bootstrap";
+import React, {Component, Fragment} from 'react';
+import {Row, Col, Image, Nav, Tab, Table, Button, Collapse, DropdownButton, Dropdown, Form} from "react-bootstrap";
 import classes from './Post.module.css';
 import Wrapper from "../UI/Wrapper/Wrapper";
 import axios from "../../axios";
-import PostComment from "./Comment/Comment";
+import TextareaAutosize from 'react-autosize-textarea';
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
-// import PostComment from "./Comment/Comment";
 
 class Post extends Component {
     state = {
         isCommentOpen: false,
         isMoreNavActive: true,
         isDescriptionNavActive: true,
-        likesCount: 0,
         likes: {},
-        comments: {},
+        likesCount: 0,
+        comments: [],
         commentsCount: 0,
+        commentContent: '',
         isLiked: false //TESTING PURPOSE
     };
 
@@ -36,11 +37,13 @@ class Post extends Component {
             .catch(error => {
                 // console.log(error);
             });
+
+        //get comments for every post
         axios
             .get('/post/' + this.props.postId + '/comments', headers)
             .then(res => {
                 this.setState({
-                    comments: res.data,
+                    comments: res.data.results,
                     commentsCount: res.data.count
                 });
             }).catch(error => {
@@ -50,7 +53,7 @@ class Post extends Component {
 
     handleLikeBtn = () => {
         // this.setState({isLiked: !this.state.isLiked});
-        // TODO FIX IT XD
+        //
         // console.log(this.props.user_id)
         const data = {
             user: this.props.user_id,
@@ -91,6 +94,42 @@ class Post extends Component {
 
 
     };
+
+    handleCommentPost = data => {
+        // const headers = {Authorization: `JWT ${localStorage.getItem('token')}`};
+        return (axios.post('/post/' + this.props.postId + '/comments', data, {headers: {Authorization: `JWT ${localStorage.getItem('token')}`}})
+            .then(response => {
+                console.log('przed');
+                console.log(this.state.comments);
+                this.setState({
+                    comments: [...this.state.comments, response.data],
+                    commentsCount: this.state.commentsCount + 1
+                });
+                console.log('po');
+                console.log(this.state.comments)
+
+            })
+            .catch((error) => {
+            }));
+    };
+
+    //
+    handleCommentDelete = data => {
+        axios.delete('/profile/' + data.user + '/comments', {
+            data: {id: data.id},
+            headers: {Authorization: `JWT ${localStorage.getItem('token')}`}
+        })
+            .then(response => {
+                this.setState({
+                    comments: this.state.comments.filter(comment => comment.id !== data.id),
+                    commentsCount: this.state.commentsCount - 1
+                });
+            })
+            .catch((error) => {
+                // console.log(error);
+            })
+    };
+
 
     /**
      * This method is responsible for displaying post navs.
@@ -322,8 +361,51 @@ class Post extends Component {
                                 <Collapse in={this.state.isCommentOpen}>
                                     <div id="collapse-comments">
 
-                                        <PostComment user_id={this.props.user_id} postId={this.props.postId}
-                                                     comments={this.state.comments}/>
+                                        <div className={classes.CommentWrite}>
+                                            <Image
+                                                src="https://cdn.pixabay.com/photo/2016/03/21/05/05/plus-1270001_960_720.png"
+                                                roundedCircle/>
+                                            <Form className={classes.CommentWrite__form}>
+                                                <div className={classes.CommentWrite__form__inside}>
+                                                    <TextareaAutosize
+                                                        className={classes.CommentWrite__form__input}
+                                                        value={this.state.commentContent}
+                                                        onChange={(event) => this.setState({commentContent: event.target.value})}
+                                                        placeholder='Write a comment...'/>
+                                                </div>
+                                                <Button onClick={() => this.handleCommentPost({
+                                                    user: this.props.user_id,
+                                                    content: this.state.commentContent
+                                                })}>Post</Button>
+                                            </Form>
+                                        </div>
+                                        {this.state.comments ? this.state.comments.map((comment, i) => {
+                                            return (
+                                                <Fragment key={i}>
+                                                    <div className={classes.Comment}>
+                                                        <div className={classes.Comment__image}>
+                                                            <Image
+                                                                src={comment.avatar}
+                                                                roundedCircle/>
+                                                            {comment.user === this.props.user_id ?
+                                                                <button
+                                                                    onClick={() => this.handleCommentDelete(
+                                                                        {user: this.props.user_id, id: comment.id})
+                                                                    }>
+                                                                    <i className="far fa-trash-alt"/>
+                                                                </button>
+                                                                : null}
+                                                        </div>
+                                                        <div className={classes.Comment__content}>
+                                                            <a className={classes.Comment__author}
+                                                               href="/">{comment.first_name} {comment.last_name}</a>
+                                                            {comment.content}
+                                                        </div>
+                                                    </div>
+                                                </Fragment>
+                                            )
+                                        }) : null}
+
 
                                     </div>
                                 </Collapse>
@@ -336,4 +418,4 @@ class Post extends Component {
     }
 }
 
-export default Post;
+export default withErrorHandler(Post, axios);
