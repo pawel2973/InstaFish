@@ -70,12 +70,6 @@
     text-align: left;
 }
 
-@media (min-width: 576px) {
-    .PostTab__nav {
-        margin-left: -10px;
-    }
-}
-
 .PostTab i {
     color: forestgreen;
     margin: 0 5px 0 0;
@@ -95,18 +89,27 @@
 
 .PostReactionsInformation__like {
     display: inline-block;
-    width: 50%;
+    width: calc(50% - 5px);
     text-align: left;
     font-size: 16px;
     line-height: 16px;
 }
 
+.PostReactionsInformation__like i {
+    margin-right: 5px;
+    color: #007BFF;
+}
+
 .PostReactionsInformation__comment {
-    width: 50%;
+    width: calc(50% - 5px);
     display: inline-block;
     text-align: right;
     font-size: 16px;
     line-height: 16px;
+}
+
+.PostReactionsInformation__comment i {
+    margin-right: 5px;
 }
 
 .PostReaction {

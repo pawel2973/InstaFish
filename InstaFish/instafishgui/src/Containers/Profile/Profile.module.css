@@ -5,6 +5,11 @@
     text-align: center;
 }
 
+.BasicInformation img {
+    max-width: 340px;
+    max-height: 360px;
+}
+
 .Communities {
     margin: 15px 0 0 0;
     text-align: center;
