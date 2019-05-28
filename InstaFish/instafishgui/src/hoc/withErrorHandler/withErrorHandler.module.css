@@ -1,0 +1,7 @@
+.Title {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 5px 0;
+    color: red;
+}

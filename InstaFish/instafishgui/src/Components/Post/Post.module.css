@@ -97,6 +97,9 @@
 
 .PostReactionsInformation__like i {
     margin-right: 5px;
+}
+
+.PostReactionsInformation__liked {
     color: #007BFF;
 }
 

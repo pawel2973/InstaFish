@@ -2,10 +2,10 @@
     position: fixed;
     z-index: 500;
     color: white;
-    background-color: rgb(56, 56, 56);
+    background-color: rgba(56, 56, 56, 0.9);
     width: 70%;
-    border: 1px solid rgba(204, 204, 204, 0.67);
-    box-shadow: 1px 1px 1px black;
+    border: 1px solid rgba(204, 204, 204, 0.3);
+    box-shadow: 1px 1px 10px black;
     padding: 16px;
     left: 15%;
     top: 30%;
@@ -20,6 +20,7 @@
     display: block;
     margin: auto;
     width: 60%;
+    height: auto;
 }
 
 @media (min-width: 600px) {

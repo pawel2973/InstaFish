@@ -1,13 +1,15 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 
 import Modal from '../../Components/UI/Modal/Modal';
 import errorLogo from '../../Assets/error.png';
+
+import classes from "./withErrorHandler.module.css";
 
 const withErrorHandler = (WrappedComponent, axios) => {
     return class extends Component {
         state = {
             error: null
-        }
+        };
 
         componentWillMount() {
             this.reqInterceptor = axios.interceptors.request.use(req => {
@@ -21,7 +23,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
 
         errorConfirmedHandler = () => {
             this.setState({error: null})
-        }
+        };
 
         componentWillUnmount() {
             axios.interceptors.request.eject(this.reqInterceptor);
@@ -30,13 +32,12 @@ const withErrorHandler = (WrappedComponent, axios) => {
 
         render() {
             return (
-                <>
-
+                <Fragment>
                     <Modal
                         show={this.state.error}
                         modalClosed={this.errorConfirmedHandler}>
                         <img src={errorLogo} alt="Error"/>
-                        <h5> Oops! Something went wrong...</h5>
+                        <span className={classes.Title}> Oops! Something went wrong...</span>
 
                         {this.state.error ?
                             Object.keys(this.state.error.response.data).map(
@@ -46,10 +47,9 @@ const withErrorHandler = (WrappedComponent, axios) => {
                                             {key}: {this.state.error.response.data[key][0]}
                                         </h6>)
                                 }) : null}
-
                     </Modal>
                     <WrappedComponent {...this.props}/>
-                </>
+                </Fragment>
             )
         }
 

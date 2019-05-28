@@ -17,7 +17,7 @@ class Post extends Component {
         comments: [],
         commentsCount: 0,
         commentContent: '',
-        isLiked: false //TESTING PURPOSE
+        isLiked: false
     };
 
     componentDidMount() {
@@ -91,8 +91,6 @@ class Post extends Component {
                 .catch((error) => {
                     console.log(error);
                 })
-
-
     };
 
     handleCommentPost = data => {
@@ -113,7 +111,7 @@ class Post extends Component {
             }));
     };
 
-    //
+
     handleCommentDelete = data => {
         axios.delete('/profile/' + data.user + '/comments', {
             data: {id: data.id},
@@ -153,8 +151,10 @@ class Post extends Component {
 
     render() {
         let btnLikeStyle = "outline-primary custom-outline-btn";
+        let islikedStyle = "far fa-thumbs-up";
         if (this.state.isLiked) {
             btnLikeStyle = "primary";
+            islikedStyle += " " + classes.PostReactionsInformation__liked.toString();
         }
 
         return (
@@ -335,16 +335,18 @@ class Post extends Component {
                                     </Row>
                                 </Tab.Container>
                             </div>
+
                             <div className={classes.PostReactionsInformation}>
                                 <hr/>
                                 <div className={classes.PostReactionsInformation__like}>
-                                    <i className="far fa-thumbs-up"/>{this.state.likesCount}
+                                    <i className={islikedStyle}/>{this.state.likesCount}
                                 </div>
                                 <div className={classes.PostReactionsInformation__comment}>
                                     <i className="fas fa-comments"/>{this.state.commentsCount}
                                 </div>
                                 <hr/>
                             </div>
+
                             <div className={classes.PostReaction}>
                                 <Button variant={btnLikeStyle}
                                         className={classes.PostReaction__Like}
@@ -405,8 +407,6 @@ class Post extends Component {
                                                 </Fragment>
                                             )
                                         }) : null}
-
-
                                     </div>
                                 </Collapse>
                             </div>

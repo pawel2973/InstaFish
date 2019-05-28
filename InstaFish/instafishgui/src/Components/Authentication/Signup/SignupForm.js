@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Button, Col, Form, Row} from "react-bootstrap";
 import Wrapper from "../../UI/Wrapper/Wrapper";
-import classes from "../Login/LoginForm.module.css";
+import classes from "./SigupForm.module.css";
 
 class SignupForm extends Component {
     state = {
@@ -44,7 +44,7 @@ class SignupForm extends Component {
                                         />
                                     </Col>
                                 </Form.Row>
-                                <Form.Row>
+                                <Form.Row className={classes.FormRow}>
                                     <Col>
                                         <Form.Label><i className="fas fa-key"/> Password</Form.Label>
                                         <Form.Control
@@ -60,7 +60,7 @@ class SignupForm extends Component {
                                     <Col>
                                         <Form.Label><i className="fas fa-envelope"/> Email</Form.Label>
                                         <Form.Control
-                                            type="text"
+                                            type="email"
                                             name="email"
                                             placeholder="email"
                                             value={this.state.email}

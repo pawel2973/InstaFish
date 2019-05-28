@@ -6,7 +6,8 @@
 }
 
 .BasicInformation img {
-    max-width: 340px;
+    /*max-width: 340px;*/
+    width: auto;
     max-height: 360px;
 }
 
