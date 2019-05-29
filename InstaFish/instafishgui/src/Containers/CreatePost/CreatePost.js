@@ -4,9 +4,12 @@ import {Button, Col, Form} from "react-bootstrap";
 import classes from './CreatePost.module.css';
 import Wrapper from "../../Components/UI/Wrapper/Wrapper";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
+import {Redirect} from "react-router-dom";
 
 class CreatePost extends Component {
     state = {
+        isSubmitted: false,
+
         postTitle: '',
         fishName: '',
         fishWeight: '',
@@ -51,17 +54,22 @@ class CreatePost extends Component {
         const headers = {Authorization: `JWT ${localStorage.getItem('token')}`};
         axios.post('/post/', formData, headers)
             .then(response => {
-                console.log("OK");
-                console.log(response);
+                if (response.status === 201) {
+                    this.setState({isSubmitted: true})
+                }
             })
             .catch((error) => {
-                console.log("Error");
-                console.log(error);
+                // console.log("Error");
+                // console.log(erorr);
             });
     };
 
     render() {
+        if (this.state.isSubmitted) {
+            return <Redirect to={{pathname: "/wall"}}/>;
+        }
         return (
+
             <Wrapper>
                 <h1>Create Post</h1>
                 <Form>
