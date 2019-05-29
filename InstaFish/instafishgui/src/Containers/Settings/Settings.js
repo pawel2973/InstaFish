@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Wrapper from "../../Components/UI/Wrapper/Wrapper";
 import {Button, Col, Form} from "react-bootstrap";
-import classes from "../CreatePost/CreatePost.module.css";
+import classes from "./Settings.module.css";
 
 class Settings extends Component {
     state = {
@@ -67,7 +67,7 @@ class Settings extends Component {
                                     <Col>
                                         <Form.Label>Avatar</Form.Label>
                                         <Form.Control
-                                            type="text"
+                                            type="file"
                                             placeholder="Choose photo"
                                             value={this.state.avatar}
                                             onChange={(event) => this.setState({avatar: event.target.value})}

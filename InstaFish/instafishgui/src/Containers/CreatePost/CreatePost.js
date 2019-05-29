@@ -46,7 +46,7 @@ class CreatePost extends Component {
             description: this.state.description
         };
         const formData = new FormData();
-        Object.keys(newPost).map(item => formData.append(item,newPost[item]));
+        Object.keys(newPost).map(item => formData.append(item, newPost[item]));
 
         const headers = {Authorization: `JWT ${localStorage.getItem('token')}`};
         axios.post('/post/', formData, headers)
@@ -96,7 +96,9 @@ class CreatePost extends Component {
                                 <Col>
                                     <Form.Label>Fish weight</Form.Label>
                                     <Form.Control
-                                        type="text"
+                                        type="number"
+                                        min={0}
+                                        precision={2}
                                         placeholder="weight in kg"
                                         value={this.state.fishWeight}
                                         onChange={(event) => this.setState({fishWeight: event.target.value})}
@@ -105,7 +107,9 @@ class CreatePost extends Component {
                                 <Col>
                                     <Form.Label>Fish length </Form.Label>
                                     <Form.Control
-                                        type="text"
+                                        type="number"
+                                        min={0}
+                                        precision={2}
                                         placeholder="length in cm"
                                         value={this.state.fishLength}
                                         onChange={(event) => this.setState({fishLength: event.target.value})}
@@ -117,7 +121,6 @@ class CreatePost extends Component {
                                     <Form.Label>Fish photo</Form.Label>
                                     <Form.Control
                                         type="file"
-                                        // value={this.state.fishPhoto} ????
                                         onChange={(event) => this.setState({fishPhoto: event.target.files[0]})}
                                     />
                                 </Col>
@@ -153,7 +156,7 @@ class CreatePost extends Component {
                                     <Form.Label>Fishing city</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        placeholder="e.g. Besko"
+                                        placeholder="e.g. Krosno"
                                         value={this.state.fishingCity}
                                         onChange={(event) => this.setState({fishingCity: event.target.value})}
                                     />
@@ -162,7 +165,7 @@ class CreatePost extends Component {
                                     <Form.Label>Fishing spot</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        placeholder="e.g. Besko lake or Wisła river"
+                                        placeholder="e.g. Balaton lake or Wisła river"
                                         value={this.state.fishingSpot}
                                         onChange={(event) => this.setState({fishingSpot: event.target.value})}
                                     />
@@ -206,10 +209,10 @@ class CreatePost extends Component {
                                     />
                                 </Col>
                                 <Col>
-                                    <Form.Label>Fish rod</Form.Label>
+                                    <Form.Label>Fishing rod</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        placeholder="Fish rod"
+                                        placeholder="Fishing rod"
                                         value={this.state.fishingRod}
                                         onChange={(event) => this.setState({fishingRod: event.target.value})}
                                     />
