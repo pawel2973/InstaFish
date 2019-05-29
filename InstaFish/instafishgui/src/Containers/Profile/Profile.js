@@ -13,6 +13,7 @@ class Profile extends Component {
         user_id: this.props.user_id
     };
 
+
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.user_id !== prevState.user_id) {
             console.log("Czy powinienienm zaktualizwoac? Tak")
@@ -26,8 +27,13 @@ class Profile extends Component {
     // }
 
     axiosGetProfile = () => {
+        // let profileId = this.state.user_id;
+        // console.log(profileId);
+        // if (this.props.params.profileId) {
+        //     profileId = this.props.params.profileId;
+        // }
         axios
-            .get('/profile/' + this.state.user_id, {
+            .get('/profile/' + profileId, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }

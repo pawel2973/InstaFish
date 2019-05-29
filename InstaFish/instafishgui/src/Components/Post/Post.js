@@ -97,14 +97,15 @@ class Post extends Component {
         // const headers = {Authorization: `JWT ${localStorage.getItem('token')}`};
         return (axios.post('/post/' + this.props.postId + '/comments', data, {headers: {Authorization: `JWT ${localStorage.getItem('token')}`}})
             .then(response => {
-                console.log('przed');
-                console.log(this.state.comments);
+                // console.log('przed');
+                // console.log(this.state.comments);
                 this.setState({
                     comments: [...this.state.comments, response.data],
-                    commentsCount: this.state.commentsCount + 1
+                    commentsCount: this.state.commentsCount + 1,
+                    commentContent: ''
                 });
-                console.log('po');
-                console.log(this.state.comments)
+                // console.log('po');
+                // console.log(this.state.comments)
 
             })
             .catch((error) => {

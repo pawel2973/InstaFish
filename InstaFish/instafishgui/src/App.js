@@ -116,6 +116,10 @@ class App extends Component {
                                       component={Profile}
                                       logged_in={this.state.logged_in}
                                       user_id={this.state.user_id}/>
+                        <PrivateRoute exact path="/profile/:profileId"
+                                      component={Profile}
+                                      logged_in={this.state.logged_in}
+                                      user_id={this.state.user_id}/>
                         <PrivateRoute path="/wall"
                                       component={Wall}
                                       logged_in={this.state.logged_in}
