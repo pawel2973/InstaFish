@@ -90,6 +90,11 @@ class PostDetailView(APIView):
         serializer = PostSerializer(post)
         return Response(serializer.data)
 
+    def delete(self, request, pk):
+        post = self.get_object(pk)
+        post.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 # /post/id/comments
 class CommentView(APIView, PageNumberPagination):
@@ -136,8 +141,8 @@ class PostLikeView(APIView, PageNumberPagination):
 
     def delete(self, request, pk):
         if 'user' in request.data:
-            task = self.get_object(request.data['user'], pk)
-            task.delete()
+            like = self.get_object(request.data['user'], pk)
+            like.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response({'error': 'Can\'t get user id'}, status=status.HTTP_400_BAD_REQUEST)
 

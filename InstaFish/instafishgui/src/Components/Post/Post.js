@@ -167,6 +167,7 @@ class Post extends Component {
                                 roundedCircle/>
                             <a href="/">{this.props.postAuthor}</a>
                             <span>{this.props.createdAt}</span>
+                              {this.props.user_id === this.props.postOwner ?
                             <DropdownButton
                                 alignRight
                                 title=""
@@ -174,10 +175,12 @@ class Post extends Component {
                                 className={classes.BtnMore}
                                 variant="outline-primary"
                             >
-                                <Dropdown.Item eventKey="1"><i className="far fa-edit"/> Edit</Dropdown.Item>
-                                <Dropdown.Divider/>
-                                <Dropdown.Item eventKey="2"><i className="far fa-trash-alt"/> Delete</Dropdown.Item>
+                                {/*//  No editing for now */}
+                                {/*// <Dropdown.Item eventKey="1"><i className="far fa-edit"/> Edit</Dropdown.Item>*/}
+                                {/*<Dropdown.Divider/>*/}
+                                <Dropdown.Item eventKey="1" onClick={() => this.props.deletePostHandler(this.props.postId)}><i className="far fa-trash-alt"/> Delete</Dropdown.Item>
                             </DropdownButton>
+                                  : null}
                         </Col>
                     </Row>
                     <Row className={classes.PostSection}>

@@ -34,6 +34,20 @@ class Posts extends Component {
             });
     };
 
+    deletePostHandler = (postId) => {
+        axios.delete('/post/' + postId, {
+            headers: {Authorization: `JWT ${localStorage.getItem('token')}`}
+        })
+            .then(response => {
+                this.setState({
+                    posts: this.state.posts.filter(post => post.id !== postId),
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    };
+
     render() {
         let temporaryKey = 0;
         const posts = this.state.posts.map(post => {
@@ -41,12 +55,14 @@ class Posts extends Component {
             return (
 
                 <Post
+                    deletePostHandler={this.deletePostHandler}
                     user_id={this.props.user_id}
                     key={temporaryKey}
                     postId={post.id}
+                    postOwner={post.user}
                     postAuthor={post.first_name + " " + post.last_name}
-                    authorAvatar ={post.avatar}
-                    createdAt ={post.created_at}
+                    authorAvatar={post.avatar}
+                    createdAt={post.created_at}
                     postTitle={post.title}
                     fishName={post.fish_name}
                     fishPhoto={post.fish_photo}
