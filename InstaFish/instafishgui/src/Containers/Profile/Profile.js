@@ -33,7 +33,7 @@ class Profile extends Component {
         //     profileId = this.props.params.profileId;
         // }
         axios
-            .get('/profile/' + profileId, {
+            .get('/profile/' +  this.state.user_id, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
