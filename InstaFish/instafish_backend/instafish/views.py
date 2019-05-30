@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.http import Http404
 from rest_framework import status, permissions
 from rest_framework.authentication import TokenAuthentication
@@ -33,11 +34,12 @@ class UserList(APIView):
 
 
 # /profile/
-class ProfileView(APIView):
+class ProfileView(APIView, PageNumberPagination):
     def get(self, request):
-        profiles = Profile.objects.all()
-        serializer = ProfileSerializer(profiles, many=True)
-        return Response(serializer.data)
+        profiles = Profile.objects.all().annotate(followers_count=Count('followed_by')).order_by('-followers_count')
+        results = self.paginate_queryset(profiles, request, view=self)
+        serializer = ProfileSerializer(results, many=True)
+        return self.get_paginated_response(serializer.data)
 
 
 # /profile/id

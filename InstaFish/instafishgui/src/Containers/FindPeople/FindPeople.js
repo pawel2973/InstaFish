@@ -3,13 +3,41 @@ import {Button, Col, Form, Row} from "react-bootstrap";
 import Wrapper from "../../Components/UI/Wrapper/Wrapper";
 import Image from "react-bootstrap/Image";
 import classes from "./FindPeople.module.css";
+import axios from "../../axios";
 
 class FindPeople extends Component {
     state = {
         name: '',
-        city: ''
+        city: '',
+        profiles: [],
+        loading: true
     };
 
+    componentDidMount() {
+        this.getProfiles();
+    }
+
+    getProfiles = () => {
+        this.setState({loading: true});
+        axios
+            .get('/profile/', {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem('token')}`
+                }
+            })
+            .then(res => {
+                // const next = res.data.next
+                this.setState({profiles: res.data.results, loading: false});
+                // console.log(this.state.posts);
+            })
+            .catch(error => {
+            });
+    };
+
+    calculateAge = dateString => {
+            let birthday = +new Date(dateString);
+            return ~~((Date.now() - birthday) / (31557600000));
+        };
     //TODO support other resolution: Specific People
     render() {
         return (
@@ -59,29 +87,27 @@ class FindPeople extends Component {
                     </Wrapper>
                 </Col>
                 <Col lg={9}>
-                    <Wrapper>
-                        <Row className={classes.People}>
-                            <Col lg={12}>
-                                <Image
-                                    src="https://vignette.wikia.nocookie.net/avatar/images/3/32/La.png/revision/latest?cb=20140124171520"
-                                    roundedCircle
-                                    className="float-left"
-                                />
-                                <p className="float-left">
-                                    <strong>Adam Kowalski</strong> <br/>
-                                    Poland, Krosno <br/>
-                                    Male, 34 y/o
-                                </p>
-                                <Button className="float-right">+ Follow</Button>
-                            </Col>
-                        </Row>
-                    </Wrapper>
-                    <Wrapper>
-                        People #2
-                    </Wrapper>
-                    <Wrapper>
-                        People #3
-                    </Wrapper>
+                    {this.state.profiles.map((profile) => {
+                        console.log(profile)
+                        return (<Wrapper key={profile.id}>
+                            <Row className={classes.People}>
+                                <Col lg={12}>
+                                    <Image
+                                        src={profile.avatar}
+                                        roundedCircle
+                                        className="float-left"
+                                    />
+                                    <p className="float-left">
+                                        <strong>{profile.first_name} {profile.last_name}</strong> <br/>
+                                        {profile.country}, {profile.city} <br/>
+                                        {profile.sex}, {profile.birthdate ? this.calculateAge(profile.birthdate) + " y/o": null}
+                                    </p>
+                                    <Button className="float-right">+ Follow</Button>
+                                </Col>
+                            </Row>
+                        </Wrapper>)
+                    })
+                    }
                 </Col>
             </Row>
         );

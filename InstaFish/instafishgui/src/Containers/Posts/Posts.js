@@ -21,12 +21,13 @@ class Posts extends Component {
                 }
             })
             .then(res => {
-                const data = res.data.results;
-                let posts = [];
-                for (let key in data) {
-                    posts.push(data[key]);
-                }
-                this.setState({posts: posts, loading: false});
+                // ??????????????????????
+                // const data = res.data.results;
+                // let posts = [];
+                // for (let key in data) {
+                //     posts.push(data[key]);
+                // }
+                this.setState({posts: res.data.results, loading: false});
                 // console.log(this.state.posts);
             })
             .catch(error => {
