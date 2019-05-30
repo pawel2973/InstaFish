@@ -27,7 +27,7 @@ class Posts extends Component {
                     posts.push(data[key]);
                 }
                 this.setState({posts: posts, loading: false});
-                console.log(this.state.posts);
+                // console.log(this.state.posts);
             })
             .catch(error => {
                 console.log(error);

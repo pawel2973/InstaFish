@@ -10,63 +10,57 @@ class Profile extends Component {
 
     state = {
         profile: {},
-        user_id: this.props.user_id
+        user_id: this.props.user_id,
+        profile_id: this.props.match.params.profileId
     };
 
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.user_id !== prevState.user_id) {
-            console.log("Czy powinienienm zaktualizwoac? Tak")
+            // console.log("Czy powinienienm zaktualizwoac? Tak");
             return {user_id: nextProps.user_id};
         } else return null;
     }
 
-    // componentWillReceiveProps(nextProps, nextContext) {
-    //     this.setState({user_id: nextProps.user_id})
-    //     console.log(nextProps.user_id, "fsdfds")
-    // }
-
     axiosGetProfile = () => {
-        // let profileId = this.state.user_id;
-        // console.log(profileId);
-        // if (this.props.params.profileId) {
-        //     profileId = this.props.params.profileId;
-        // }
-        axios
-            .get('/profile/' +  this.state.user_id, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem('token')}`
-                }
-            })
-            .then(res => {
-                this.setState({profile: res.data});
-                // console.log(res.data)
-            })
-            .catch(error => {
-                console.log("Something went wrong\n" + error);
-            });
+        // console.log(this.state.profile_id);
+        let profileId = this.state.user_id;
+        if (this.state.profile_id) {
+            profileId = this.state.profile_id;
+        }
+        if (profileId) {
+            axios
+                .get('/profile/' + profileId, {
+                    headers: {
+                        Authorization: `JWT ${localStorage.getItem('token')}`
+                    }
+                })
+                .then(res => {
+                    if (res.status === 200) {
+                        this.setState({profile: res.data})
+                    }
+                })
+                .catch(error => {
+                    if (error.response.status === 404) {
+                        // TODO Redirect to 404 or something
+                        console.log("Profilu nie znaleziono -- redirecting")
+                    }
+                });
+        }
     };
 
     componentDidMount() {
-        console.log("Zamontowany");
+        // console.log("Zamontowany");
         this.axiosGetProfile();
+        // console.log(this.state.user_id);
     };
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.user_id !== this.props.user_id) {
             this.axiosGetProfile();
-            console.log("Aktualizuje")
+            // console.log("Aktualizuje")
         }
     }
-
-    // shouldComponentUpdate(nextProps, nextState, nextContext) {
-    //     console.log(nextProps.user_id);
-    //     this.setState({user_id: this.props.user_id})
-    //     return false;
-    // }
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //
-    // }
 
     render() {
         const calculateAge = dateString => {
@@ -220,7 +214,7 @@ class Profile extends Component {
                 <Row>
                     <Col>
                         <Posts user_id={this.props.user_id}
-                            postColSize={"col-lg-6 col-md-12 col-sm-12 col-12"}
+                               postColSize={"col-lg-6 col-md-12 col-sm-12 col-12"}
                         />
                     </Col>
                 </Row>

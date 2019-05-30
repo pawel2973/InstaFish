@@ -45,6 +45,7 @@ const Toolbar = (props) => {
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link as={NavLink}
+                              // onClick={() => window.location.refresh()}
                               to="/"
                               exact={true}
                               activeStyle={{color: 'white'}}>Profile</Nav.Link>
