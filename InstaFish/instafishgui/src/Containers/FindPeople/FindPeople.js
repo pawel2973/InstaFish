@@ -5,6 +5,7 @@ import Image from "react-bootstrap/Image";
 import classes from "./FindPeople.module.css";
 import axios from "../../axios";
 import Spinner from "../../Components/UI/Spinner/Spinner";
+import {Link} from "react-router-dom";
 
 class FindPeople extends Component {
     state = {
@@ -110,7 +111,7 @@ class FindPeople extends Component {
                                 className="float-left"
                             />
                             <p className="float-left">
-                                <strong>{profile.first_name} {profile.last_name}</strong> <br/>
+                                <Link to={"/profile/"+profile.id}><strong>{profile.first_name} {profile.last_name}</strong> </Link><br/>
                                 {profile.country}, {profile.city} <br/>
                                 {profile.sex}, {profile.birthdate ? this.calculateAge(profile.birthdate) +
                                 " y/o" : null}
