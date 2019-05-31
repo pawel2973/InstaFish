@@ -6,6 +6,7 @@ from rest_framework_jwt.settings import api_settings
 from instafish.models import Post, Profile, Comment, PostLike, Event, UserEvent
 from django.contrib.auth import password_validation
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -62,12 +63,27 @@ class ProfileSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username', read_only=True)
     first_name = serializers.CharField(source='user.first_name', read_only=True)
     last_name = serializers.CharField(source='user.last_name', read_only=True)
+
     # communities = serializers.RelatedField(many=True, read_only=True)
     # followed_by = ProfileFollowSerializer()
 
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = 'id', 'username', 'first_name', 'last_name', 'sex', 'birthdate', 'country', 'city', 'avatar', 'user', \
+                 'specialization', 'organization', 'communities', 'fishing_rod', 'fishing_reel', 'achievement',\
+                 'follows', 'followed_by'
+
+
+class ProfileFollowersSerializer(serializers.ModelSerializer):
+    # username = serializers.CharField(source='user.username', read_only=True)
+    # first_name = serializers.CharField(source='user.first_name', read_only=True)
+    # last_name = serializers.CharField(source='user.last_name', read_only=True)
+    # communities = serializers.RelatedField(many=True, read_only=True)
+    # followed_by = ProfileFollowSerializer()
+
+    class Meta:
+        model = Profile
+        fields = 'follows', 'followed_by'
 
 
 class PostSerializer(serializers.ModelSerializer):

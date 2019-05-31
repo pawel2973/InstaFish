@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from instafish.models import Post, Profile, Comment, PostLike, Event, UserEvent
 from instafish.serializers import PostSerializer, ProfileSerializer, UserSerializerWithToken, UserSerializer, \
-    CommentSerializer, LikeSerializer, EventSerializer, UserEventSerializer
+    CommentSerializer, LikeSerializer, EventSerializer, UserEventSerializer, ProfileFollowersSerializer
 
 
 @api_view(['GET'])
@@ -54,6 +54,36 @@ class ProfileDetailView(APIView):
         profile = self.get_object(pk)
         serializer = ProfileSerializer(profile)
         return Response(serializer.data)
+
+
+# /profile/id/followers
+class ProfileFollowersView(APIView):
+    def get_object(self, pk):
+        try:
+            return Profile.objects.get(pk=pk)
+        except Profile.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        profile = self.get_object(pk)
+        serializer = ProfileFollowersSerializer(profile)
+        return Response(serializer.data)
+
+    def patch(self, request, pk):
+        profile = self.get_object(pk)
+        if 'follow' in request.data:
+            profile.follows.add(request.data['follow'])
+            serializer = ProfileFollowersSerializer(profile)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'error': 'Can\'t get follower id'}, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        if 'follow' in request.data:
+            profile = self.get_object(pk)
+            profile.follows.remove(request.data['follow'])
+            # profile.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'error': 'Can\'t get user id'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 # /post/

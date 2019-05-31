@@ -4,17 +4,31 @@ import Wrapper from "../../Components/UI/Wrapper/Wrapper";
 import Image from "react-bootstrap/Image";
 import classes from "./FindPeople.module.css";
 import axios from "../../axios";
+import Spinner from "../../Components/UI/Spinner/Spinner";
 
 class FindPeople extends Component {
     state = {
         name: '',
         city: '',
         profiles: [],
-        loading: true
+        loading: true,
+        user_id: this.props.user_id
     };
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.user_id !== prevState.user_id) {
+            return {user_id: nextProps.user_id};
+        } else return null;
+    }
 
     componentDidMount() {
         this.getProfiles();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.user_id !== this.props.user_id) {
+            this.getProfiles();
+        }
     }
 
     getProfiles = () => {
@@ -35,11 +49,82 @@ class FindPeople extends Component {
     };
 
     calculateAge = dateString => {
-            let birthday = +new Date(dateString);
-            return ~~((Date.now() - birthday) / (31557600000));
-        };
+        let birthday = +new Date(dateString);
+        return ~~((Date.now() - birthday) / (31557600000));
+    };
+
+    handleFollow = (id) => {
+        axios
+            .patch('/profile/' + this.state.user_id + '/followers', {follow: id}, {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem('token')}`
+                }
+            })
+            .then(res => {
+                // actually not needed
+                const userProfileId = this.state.profiles.findIndex((profile => profile.id === id)),
+                    profiles = [...this.state.profiles]
+                profiles[userProfileId].isFollowed = true;
+                this.setState({
+                    profiles: profiles
+                })
+            })
+            .catch(error => {
+            });
+    };
+
+    handleUnfollow = (id) => {
+        axios.delete('/profile/' + this.state.user_id + '/followers', {
+            data: {follow: id},
+            headers: {Authorization: `JWT ${localStorage.getItem('token')}`}
+        })
+            .then(response => {
+                console.log(this.state.profiles)
+                const userProfileId = this.state.profiles.findIndex((profile => profile.id === id)),
+                    profiles = [...this.state.profiles]
+                profiles[userProfileId].isFollowed = false
+                this.setState({
+                    profiles: profiles
+                })
+                console.log(this.state.profiles)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    };
+
     //TODO support other resolution: Specific People
     render() {
+        console.log("rendering....")
+        const profiles =
+            this.state.profiles.map((profile) => {
+                if (!("isFollowed" in profile)) {
+                    profile.isFollowed = profile.followed_by.includes(this.state.user_id)
+                }
+                return (<Wrapper key={profile.id}>
+                    <Row className={classes.People}>
+                        <Col lg={12}>
+                            <Image
+                                src={profile.avatar}
+                                roundedCircle
+                                className="float-left"
+                            />
+                            <p className="float-left">
+                                <strong>{profile.first_name} {profile.last_name}</strong> <br/>
+                                {profile.country}, {profile.city} <br/>
+                                {profile.sex}, {profile.birthdate ? this.calculateAge(profile.birthdate) +
+                                " y/o" : null}
+                            </p>
+                            {profile.isFollowed ?
+                                <Button className="float-right" onClick={() => this.handleUnfollow(profile.id)}>-
+                                    Unfollow</Button>
+                                : <Button className="float-right" onClick={() => this.handleFollow(profile.id)}>+
+                                    Follow</Button>}
+                        </Col>
+                    </Row>
+                </Wrapper>)
+            })
+
         return (
             <Row>
                 <Col lg={3}>
@@ -87,27 +172,8 @@ class FindPeople extends Component {
                     </Wrapper>
                 </Col>
                 <Col lg={9}>
-                    {this.state.profiles.map((profile) => {
-                        console.log(profile)
-                        return (<Wrapper key={profile.id}>
-                            <Row className={classes.People}>
-                                <Col lg={12}>
-                                    <Image
-                                        src={profile.avatar}
-                                        roundedCircle
-                                        className="float-left"
-                                    />
-                                    <p className="float-left">
-                                        <strong>{profile.first_name} {profile.last_name}</strong> <br/>
-                                        {profile.country}, {profile.city} <br/>
-                                        {profile.sex}, {profile.birthdate ? this.calculateAge(profile.birthdate) + " y/o": null}
-                                    </p>
-                                    <Button className="float-right">+ Follow</Button>
-                                </Col>
-                            </Row>
-                        </Wrapper>)
-                    })
-                    }
+                    {this.state.loading ?
+                        <Spinner/> : profiles}
                 </Col>
             </Row>
         );

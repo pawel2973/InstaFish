@@ -24,7 +24,7 @@ class Post extends Component {
         //get likes for every post
         const headers = {Authorization: `JWT ${localStorage.getItem('token')}`};
         axios
-            .get('/post/' + this.props.postId + '/likes', headers)
+            .get('/post/' + this.props.postId + '/likes', {headers})
             .then(res => {
                 // console.log(res.data);
                 const isLiked = !!res.data.results.find(like => like.user === this.props.user_id);
@@ -40,7 +40,7 @@ class Post extends Component {
 
         //get comments for every post
         axios
-            .get('/post/' + this.props.postId + '/comments', headers)
+            .get('/post/' + this.props.postId + '/comments', {headers})
             .then(res => {
                 this.setState({
                     comments: res.data.results,
