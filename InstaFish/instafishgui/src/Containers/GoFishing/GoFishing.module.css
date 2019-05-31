@@ -1,8 +1,123 @@
-.Flex {
+.Tab {
+    padding-bottom: 10px;
+}
+
+.Hr {
+    border: 1px solid grey;
+    width: 30%;
+    margin: 6px 0;
+}
+
+.FormRow {
+    margin-bottom: 10px;
+}
+
+.BtnContainer {
     display: flex;
     justify-content: flex-end;
 }
 
-.form-row {
+.EventBasic {
+    margin-bottom: 10px;
+}
+
+.EventBasic header {
+    padding-bottom: 5px;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.EventTeam {
+    margin-bottom: 10px;
+}
+
+.EventTeam header {
+    padding-bottom: 5px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.EventTeam__teammates {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.EventTeam__teammate {
+    width: 50%;
+    margin-bottom: 5px;
+}
+
+.EventTeam__teammate a {
+    color: #385898;
+    line-height: 32px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.EventTeam__teammate img {
+    height: 32px;
+    width: 32px;
+    margin: 0 5px 0 0;
+}
+
+.EventDetails {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
     margin-bottom: 15px;
 }
+
+.EventDetails .Date {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.EventDetails .LocalizationHeader {
+    font-size: 18px;
+}
+
+.EventDetails .Localization {
+    font-weight: 600;
+}
+
+.EventStatus .EventHeader {
+    font-size: 18px;
+}
+
+.EventStatus .StatusInfo {
+    font-weight: 600;
+}
+
+.EventStatus .EventBtns {
+    display: flex;
+    flex-flow: row;
+}
+
+.EventStatus .EventBtns button {
+    margin: 10px 4px 0 0;
+}
+
+.EventCreator {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.EventCreator span {
+    padding-right: 5px;
+}
+
+.EventCreator img {
+    height: 32px;
+    width: 32px;
+    margin: 0 5px 0 0;
+}
+
+.EventCreator a {
+    color: #385898;
+    line-height: 32px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
