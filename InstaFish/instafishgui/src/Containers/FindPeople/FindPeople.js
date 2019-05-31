@@ -9,7 +9,8 @@ import {Link} from "react-router-dom";
 
 class FindPeople extends Component {
     state = {
-        name: '',
+        first_name: '',
+        last_name: '',
         city: '',
         profiles: [],
         loading: true,
@@ -36,6 +37,26 @@ class FindPeople extends Component {
         this.setState({loading: true});
         axios
             .get('/profile/', {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem('token')}`
+                }
+            })
+            .then(res => {
+                // const next = res.data.next
+                this.setState({profiles: res.data.results, loading: false});
+                // console.log(this.state.posts);
+            })
+            .catch(error => {
+            });
+    };
+
+    handleSearch = () => {
+        this.setState({loading: true});
+        axios
+            .get('/profile/' +
+                '?first_name=' + this.state.first_name +
+                '&last_name=' + this.state.last_name +
+                '&city=' + this.state.city, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
@@ -111,7 +132,9 @@ class FindPeople extends Component {
                                 className="float-left"
                             />
                             <p className="float-left">
-                                <Link to={"/profile/"+profile.id}><strong>{profile.first_name} {profile.last_name}</strong> </Link><br/>
+                                <Link
+                                    to={"/profile/" + profile.id}><strong>{profile.first_name} {profile.last_name}</strong>
+                                </Link><br/>
                                 {profile.country}, {profile.city} <br/>
                                 {profile.sex}, {profile.birthdate ? this.calculateAge(profile.birthdate) +
                                 " y/o" : null}
@@ -136,12 +159,23 @@ class FindPeople extends Component {
                             <Form.Group controlId="FindPeople.Filter">
                                 <Form.Row className={classes.FormRow}>
                                     <Col>
-                                        <Form.Label>Name</Form.Label>
+                                        <Form.Label>First Name</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            placeholder="Name"
-                                            value={this.state.name}
-                                            onChange={(event) => this.setState({name: event.target.value})}
+                                            placeholder="First Name"
+                                            value={this.state.first_name}
+                                            onChange={(event) => this.setState({first_name: event.target.value})}
+                                        />
+                                    </Col>
+                                </Form.Row>
+                                <Form.Row className={classes.FormRow}>
+                                    <Col>
+                                        <Form.Label>Last Name</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Last Name"
+                                            value={this.state.last_name}
+                                            onChange={(event) => this.setState({last_name: event.target.value})}
                                         />
                                     </Col>
                                 </Form.Row>
@@ -162,7 +196,7 @@ class FindPeople extends Component {
                                             variant="primary"
                                             size="sm"
                                             block
-                                            // onClick={this.createPostHandler}
+                                            onClick={this.handleSearch}
                                         >
                                             Search
                                         </Button>

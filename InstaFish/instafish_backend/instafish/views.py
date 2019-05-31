@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 from instafish.models import Post, Profile, Comment, PostLike, Event, UserEvent
 from instafish.serializers import PostSerializer, ProfileSerializer, UserSerializerWithToken, UserSerializer, \
     CommentSerializer, LikeSerializer, EventSerializer, UserEventSerializer, ProfileFollowersSerializer
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 @api_view(['GET'])
@@ -35,10 +36,19 @@ class UserList(APIView):
 
 # /profile/
 class ProfileView(APIView, PageNumberPagination):
+
     def get(self, request):
+        get_data = request.query_params
         profiles = Profile.objects.all().annotate(followers_count=Count('followed_by')).order_by('-followers_count')
+
+        if all(key in get_data for key in ('first_name', 'last_name', 'city')):
+            profiles = profiles.filter(city__icontains=get_data['city'],
+                                       user__first_name__icontains=get_data['first_name'],
+                                       user__last_name__icontains=get_data['last_name'])
+
         results = self.paginate_queryset(profiles, request, view=self)
         serializer = ProfileSerializer(results, many=True)
+
         return self.get_paginated_response(serializer.data)
 
 
