@@ -5,6 +5,7 @@ import Wrapper from "../UI/Wrapper/Wrapper";
 import axios from "../../axios";
 import TextareaAutosize from 'react-autosize-textarea';
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
+import {Link} from "react-router-dom";
 
 
 class Post extends Component {
@@ -166,7 +167,9 @@ class Post extends Component {
                             <Image
                                 src={this.props.authorAvatar}
                                 roundedCircle/>
-                            <a href="/">{this.props.postAuthor}</a>
+                           <Link
+                                    to={"/profile/" + this.props.postOwner}>{this.props.postAuthor}
+                                </Link>
                             <span>{this.props.createdAt}</span>
                               {this.props.user_id === this.props.postOwner ?
                             <DropdownButton

@@ -9,13 +9,35 @@ import classes from "./Posts.module.css";
 class Posts extends Component {
     state = {
         posts: [],
-        loading: false
+        loading: false,
+        profile_id: this.props.profile_id
     };
 
     componentDidMount() {
+      this.loadPosts(this.state.profile_id);
+    };
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.profile_id !== prevState.profile_id) {
+            return {profile_id: nextProps.profile_id};
+        } else return null;
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.profile_id !== this.props.profile_id) {
+           console.log("Component did update id:"+this.state.profile_id)
+           this.loadPosts(this.state.profile_id)
+        }
+    }
+
+    loadPosts = () => {
         this.setState({loading: true});
+        let link = '/post';
+        if (this.state.profile_id) {
+            link = '/profile/' + this.state.profile_id + '/posts'
+        }
         axios
-            .get('/post', {
+            .get(link, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
@@ -28,12 +50,12 @@ class Posts extends Component {
                 //     posts.push(data[key]);
                 // }
                 this.setState({posts: res.data.results, loading: false});
-                // console.log(this.state.posts);
             })
             .catch(error => {
                 console.log(error);
             });
-    };
+
+    }
 
     deletePostHandler = (postId) => {
         axios.delete('/post/' + postId, {

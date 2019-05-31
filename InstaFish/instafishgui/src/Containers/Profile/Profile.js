@@ -67,6 +67,10 @@ class Profile extends Component {
             let birthday = +new Date(dateString);
             return ~~((Date.now() - birthday) / (31557600000));
         };
+        let profileId = this.state.user_id;
+        if (this.state.profile_id) {
+            profileId = this.state.profile_id;
+        }
         return (
 
             <Fragment>
@@ -206,7 +210,8 @@ class Profile extends Component {
                 <Wrapper>
                     <Row>
                         <Col>
-                            <h3 className="text-center"> Hall of Fame </h3>
+                            {/*<h3 className="text-center"> Hall of Fame </h3>*/}
+                            <h3 className="text-center"> {this.state.profile.first_name} posts</h3>
                         </Col>
                     </Row>
                 </Wrapper>
@@ -214,6 +219,7 @@ class Profile extends Component {
                 <Row>
                     <Col>
                         <Posts user_id={this.props.user_id}
+                               profile_id={profileId}
                                postColSize={"col-lg-6 col-md-12 col-sm-12 col-12"}
                         />
                     </Col>

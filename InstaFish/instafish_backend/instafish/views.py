@@ -9,7 +9,6 @@ from rest_framework.views import APIView
 from instafish.models import Post, Profile, Comment, PostLike, Event, UserEvent
 from instafish.serializers import PostSerializer, ProfileSerializer, UserSerializerWithToken, UserSerializer, \
     CommentSerializer, LikeSerializer, EventSerializer, UserEventSerializer, ProfileFollowersSerializer
-from django_filters.rest_framework import DjangoFilterBackend
 
 
 @api_view(['GET'])
@@ -255,3 +254,21 @@ class ProfileCommentView(APIView, PageNumberPagination):
             comment.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response({'error': 'Can\'t get comment id'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+# /profile/id/posts
+class ProfilePostView(APIView, PageNumberPagination):
+    permission_classes = {permissions.IsAuthenticated, }
+
+    def get_object(self, pk, pid):
+        try:
+            return Post.objects.get(pk=pk, user=pid)
+        except Post.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        posts = Post.objects.filter(user=pk).order_by('created_at')
+        results = self.paginate_queryset(posts, request, view=self)
+        serializer = PostSerializer(results, many=True)
+        return self.get_paginated_response(serializer.data)
+
