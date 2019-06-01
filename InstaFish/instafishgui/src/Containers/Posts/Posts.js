@@ -10,29 +10,34 @@ class Posts extends Component {
     state = {
         posts: [],
         loading: false,
-        profile_id: this.props.profile_id
+        profile_id: this.props.profile_id,
+        user_id: this.props.user_id
     };
-
     componentDidMount() {
-      this.loadPosts(this.state.profile_id);
+      this.loadPosts();
     };
 
     static getDerivedStateFromProps(nextProps, prevState) {
+
         if (nextProps.profile_id !== prevState.profile_id) {
             return {profile_id: nextProps.profile_id};
-        } else return null;
+        }
+        if (nextProps.user_id !== prevState.user_id) {
+            return {user_id: nextProps.user_id};
+        }
+        else return null;
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.profile_id !== this.props.profile_id) {
-           console.log("Component did update id:"+this.state.profile_id)
-           this.loadPosts(this.state.profile_id)
+        if (prevProps.profile_id !== this.props.profile_id || prevProps.user_id !== this.props.user_id ) {
+           this.loadPosts()
         }
     }
 
     loadPosts = () => {
+
         this.setState({loading: true});
-        let link = '/post';
+        let link = '/profile/'+this.state.user_id+'/follower_posts';
         if (this.state.profile_id) {
             link = '/profile/' + this.state.profile_id + '/posts'
         }
@@ -50,9 +55,10 @@ class Posts extends Component {
                 //     posts.push(data[key]);
                 // }
                 this.setState({posts: res.data.results, loading: false});
+                console.log(this.state.posts)
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
             });
 
     }

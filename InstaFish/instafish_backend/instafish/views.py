@@ -267,7 +267,24 @@ class ProfilePostView(APIView, PageNumberPagination):
             raise Http404
 
     def get(self, request, pk):
-        posts = Post.objects.filter(user=pk).order_by('created_at')
+        posts = Post.objects.filter(user=pk).order_by('-created_at')
+        results = self.paginate_queryset(posts, request, view=self)
+        serializer = PostSerializer(results, many=True)
+        return self.get_paginated_response(serializer.data)
+
+
+# /profile/id/follower_posts
+class ProfileFollowerPostView(APIView, PageNumberPagination):
+    permission_classes = {permissions.IsAuthenticated, }
+
+    def get_object(self, pk, pid):
+        try:
+            return Post.objects.get(pk=pk, user=pid)
+        except Post.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        posts = Post.objects.filter(user__followed_by=pk).order_by('-created_at')
         results = self.paginate_queryset(posts, request, view=self)
         serializer = PostSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)

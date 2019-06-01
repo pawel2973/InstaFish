@@ -30,6 +30,7 @@ urlpatterns = [
     path('profile/<pk>/posts', views.ProfilePostView.as_view()),
     path('profile/<pk>/comments', views.ProfileCommentView.as_view()),
     path('profile/<pk>/followers', views.ProfileFollowersView.as_view()),
+    path('profile/<pk>/follower_posts', views.ProfileFollowerPostView.as_view()),
     path('post/', views.PostView.as_view()),
     path('post/<pk>', views.PostDetailView.as_view()),
     path('post/<pk>/comments', views.CommentView.as_view()),
