@@ -2,11 +2,14 @@ import React, {Component} from 'react';
 import Wrapper from "../../Components/UI/Wrapper/Wrapper";
 import {Button, Col, Form} from "react-bootstrap";
 import classes from "./Settings.module.css";
+import axios from "axios";
 
 class Settings extends Component {
     state = {
+        user_id: this.props.user_id,
         personalInformation: [],
-        fullName: '',
+        firstName: '',
+        lastName: '',
         birthday: '',
         gender: '',
         avatar: '',
@@ -20,8 +23,36 @@ class Settings extends Component {
         youtube: '',
         website: '',
         fishingRods: '',
-        fishingReels: ''
+        fishingReels: '',
     };
+  static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.user_id !== prevState.user_id) {
+            return {user_id: nextProps.user_id};
+        } else return null;
+    }
+    componentDidMount() {
+        this.getProfileData()
+    }
+ componentDidUpdate(prevProps, prevState) {
+        if (prevProps.user_id !== this.props.user_id) {
+            this.getProfileData()
+        }
+    }
+    getProfileData() {
+        if(this.state.user_id){
+         axios
+            .get('/profile/' + this.state.user_id, {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem('token')}`
+                }
+            })
+            .then(res => {
+                this.setState({profile: res.data});
+                console.log(this.state.profile)
+            })
+            .catch(error => {
+            });}
+    }
 
     render() {
         return (
@@ -38,9 +69,18 @@ class Settings extends Component {
                                         <Form.Label>Full name</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            placeholder="Full name"
-                                            value={this.state.fullName}
-                                            onChange={(event) => this.setState({fullName: event.target.value})}
+                                            placeholder="First name"
+                                            value={this.state.firstName}
+                                            onChange={(event) => this.setState({firstName: event.target.value})}
+                                        />
+                                    </Col>
+                                     <Col>
+                                        <Form.Label>Full name</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Last name"
+                                            value={this.state.lastName}
+                                            onChange={(event) => this.setState({lastName: event.target.value})}
                                         />
                                     </Col>
                                     <Col>
@@ -217,6 +257,7 @@ class Settings extends Component {
             </div>
         );
     }
+
 }
 
 export default Settings;
