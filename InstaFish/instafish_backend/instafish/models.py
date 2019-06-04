@@ -87,7 +87,7 @@ class Profile(models.Model):
     website = models.CharField(max_length=200, blank=True)
     fishing_rod = models.CharField(max_length=200, blank=True, default='brak')
     fishing_reel = models.CharField(max_length=200, blank=True, default='brak')
-    achievement = models.CharField(max_length=200, blank=True, default='brak')
+    achievement = models.TextField(blank=True, default='brak')
     follows = models.ManyToManyField('Profile', related_name='followed_by', blank=True)
     description = models.CharField(max_length=1000, blank=True, default='brak')
 
@@ -153,7 +153,6 @@ class Post(models.Model):
     fishing_bait = models.CharField(max_length=200, blank=True, null=True)
     fishing_line = models.CharField(max_length=200, blank=True, null=True)
     description = models.TextField()
-    hashtag = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return self.title + ' ' + str(self.id)

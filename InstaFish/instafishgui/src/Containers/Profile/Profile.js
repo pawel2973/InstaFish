@@ -87,8 +87,8 @@ class Profile extends Component {
                                         fluid
                                     />
                                     <footer>
-                                        <span>{this.state.profile.country ? this.state.profile.country + ',': null} {this.state.profile.city}</span><br/>
-                                        <span>{this.state.profile.sex ? this.state.profile.sex + ',': null} {this.state.profile.birthdate ?
+                                        <span>{this.state.profile.country ? this.state.profile.country + ',' : null} {this.state.profile.city}</span><br/>
+                                        <span>{this.state.profile.sex ? this.state.profile.sex + ',' : null} {this.state.profile.birthdate ?
                                             calculateAge(this.state.profile.birthdate) + " years old"
                                             : null}
                                         </span>
@@ -101,22 +101,30 @@ class Profile extends Component {
                                         <Col lg={5} md={8} sm={12} xs={12} className={classes.Communities}>
                                             <header className={classes.ProfileHeader}>Communities</header>
                                             <div className={classes.Communities__buttons}>
-                                                <Button
-                                                    onClick={() => window.location.href = this.state.profile.instagram}>Facebook
-                                                </Button>
-                                                <Button
-                                                    onClick={() => window.location.href = this.state.profile.instagram}>Instagram
-                                                </Button>
-                                                <Button
-                                                    onClick={() => window.location.href = this.state.profile.youtube}>Youtube
-                                                </Button>
-                                                <Button
-                                                    onClick={() => window.location.href = this.state.profile.website}>Website
-                                                </Button>
+                                                {this.state.profile.facebook ?
+                                                    <Button
+                                                        onClick={() => window.location.href = this.state.profile.facebook}>Facebook
+                                                    </Button> : <Button disabled>Facebook</Button>
+                                                }
+                                                {this.state.profile.instagram ?
+                                                    <Button
+                                                        onClick={() => window.location.href = this.state.profile.instagram}>Instagram
+                                                    </Button> : <Button disabled>Instagram</Button>
+                                                }
+
+                                                {this.state.profile.youtube ?
+                                                    <Button
+                                                        onClick={() => window.location.href = this.state.profile.youtube}>Youtube
+                                                    </Button> : <Button disabled>Youtube</Button>
+                                                }
+                                                {this.state.profile.website ?
+                                                    <Button
+                                                        onClick={() => window.location.href = this.state.profile.website}>Website
+                                                    </Button> : <Button disabled>Website</Button>
+                                                }
                                             </div>
                                         </Col>
                                     </> : null}
-
 
                                 <Col>
                                     <div className={classes.Specializations}>
@@ -149,11 +157,11 @@ class Profile extends Component {
                             </Row>
                         </Tab>
 
-                        <Tab eventKey="organizations" title="Organizations">
+                        <Tab eventKey="organization" title="Organization">
                             <Row className={classes.Organizations}>
                                 <Col>
 
-                                    <header className={classes.ProfileHeader}>Organizations</header>
+                                    <header className={classes.ProfileHeader}>Organization</header>
                                     <div className={classes.ListItem}>
                                         <i className="fas fa-users"/>{this.state.profile.organization}
                                     </div>
@@ -168,7 +176,8 @@ class Profile extends Component {
                                 <Col>
                                     <header className={classes.ProfileHeader}>Achievements</header>
                                     <div className={classes.ListItem}>
-                                        <i className="fas fa-trophy"/>{this.state.profile.achievement}
+                                        <i className="fas fa-trophy"/> <strong>Your trophies:</strong>
+                                        <pre>{this.state.profile.achievement}</pre>
                                     </div>
 
                                 </Col>

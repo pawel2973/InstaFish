@@ -27,6 +27,7 @@ class Settings extends Component {
         website: '',
         fishingRods: '',
         fishingReels: '',
+        achievement: ''
     };
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -71,7 +72,8 @@ class Settings extends Component {
                         fishingRods: res.data.fishing_rod,
                         fishingReels: res.data.fishing_reel,
                         profile: res.data,
-                        description: res.data.description
+                        description: res.data.description,
+                        achievement: res.data.achievement
                     });
                     console.log(this.state.profile)
                 })
@@ -98,7 +100,8 @@ class Settings extends Component {
             website: this.state.website,
             fishing_rod: this.state.fishingRods,
             fishing_reel: this.state.fishingReels,
-            description: this.state.description
+            description: this.state.description,
+            achievement:  this.state.achievement
 
         };
         const formData = new FormData();
@@ -218,6 +221,16 @@ class Settings extends Component {
                                     </Col>
                                 </Form.Row>
                                 <Form.Row>
+                                    <Form.Label>Achievements</Form.Label>
+                                    <Form.Control
+                                        as="textarea"
+                                        rows="3"
+                                        placeholder="What is your greatest achievements?"
+                                        value={this.state.achievement}
+                                        onChange={(event) => this.setState({achievement: event.target.value})}
+                                    />
+                                </Form.Row>
+                                <Form.Row>
                                     <Form.Label>Profile description</Form.Label>
                                     <Form.Control
                                         as="textarea"
@@ -240,6 +253,7 @@ class Settings extends Component {
                                         <Image
                                             src={this.state.avatarDisplay}
                                             roundedCircle
+                                            fluid
                                         />
                                         <div>
                                             <Form.Control

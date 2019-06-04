@@ -97,6 +97,7 @@ class CreatePost extends Component {
                                         placeholder="e.g. Carp"
                                         value={this.state.fishName}
                                         onChange={(event) => this.setState({fishName: event.target.value})}
+                                        required
                                     />
                                 </Col>
                             </Form.Row>
