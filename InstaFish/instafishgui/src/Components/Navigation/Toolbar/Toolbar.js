@@ -22,9 +22,11 @@ const Toolbar = (props) => {
             <Nav.Link
                 style={{color: 'white'}}>{props.username}
             </Nav.Link>
-            <Nav.Link>
-                <i className="fas fa-bell"/> <Badge variant="light">9</Badge>
-                <span className="sr-only">unread messages</span>
+            <Nav.Link as={NavLink}
+                      to="/followers"
+                      exact={true}
+                      activeStyle={{color: 'white'}}>
+                <i className="fas fa-smile"></i>
             </Nav.Link>
             <Nav.Link as={NavLink}
                       to="/profile-settings"
@@ -40,12 +42,12 @@ const Toolbar = (props) => {
         <Navbar collapseOnSelect expand="md" bg="primary" variant="dark">
             <Navbar.Brand as={Link}
                           to="/"
-                          >InstaFish</Navbar.Brand>
+            >InstaFish</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link as={NavLink}
-                              // onClick={() => window.location.refresh()}
+                        // onClick={() => window.location.refresh()}
                               to="/"
                               exact={true}
                               activeStyle={{color: 'white'}}>Profile</Nav.Link>

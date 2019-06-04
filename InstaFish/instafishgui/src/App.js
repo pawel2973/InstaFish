@@ -15,6 +15,7 @@ import axios from 'axios';
 import withErrorHandler from "./hoc/withErrorHandler/withErrorHandler";
 import PrivateRoute from "./hoc/PrivateRoute/PrivateRoute";
 import PublicRoute from "./hoc/PublicRoute/PublicRoute";
+import Followers from "./Containers/Followers/Followers";
 
 
 class App extends Component {
@@ -134,6 +135,10 @@ class App extends Component {
                                       user_id={this.state.user_id}/>
                         <PrivateRoute path="/find-people"
                                       component={FindPeople}
+                                      logged_in={this.state.logged_in}
+                                      user_id={this.state.user_id}/>
+                        <PrivateRoute path="/followers"
+                                      component={Followers}
                                       logged_in={this.state.logged_in}
                                       user_id={this.state.user_id}/>
                         <PrivateRoute path="/profile-settings"
