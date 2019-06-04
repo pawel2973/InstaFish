@@ -45,7 +45,7 @@ class Settings extends Component {
         }
     }
 
-    getProfileData = ()=> {
+    getProfileData = () => {
         if (this.state.user_id) {
             axios
                 .get('/profile/' + this.state.user_id, {
@@ -64,10 +64,10 @@ class Settings extends Component {
                         city: res.data.city,
                         specializations: res.data.specialization,
                         organizations: res.data.organization,
-                        facebook:  res.data.facebook,
-                        instagram:  res.data.instagram,
-                        youtube:  res.data.youtube,
-                        website:  res.data.website,
+                        facebook: res.data.facebook,
+                        instagram: res.data.instagram,
+                        youtube: res.data.youtube,
+                        website: res.data.website,
                         fishingRods: res.data.fishing_rod,
                         fishingReels: res.data.fishing_reel,
                         profile: res.data,
@@ -83,22 +83,22 @@ class Settings extends Component {
 
     updateProfileHandler = () => {
         const profile = {
-             first_name: this.state.first_name,
-                        last_name: this.state.last_name,
-                        birthdate: this.state.birthday,
-                        sex: this.state.gender,
-                        avatar: this.state.avatar,
-                        country: this.state.country,
-                        city: this.state.city,
-                        specialization: this.state.specializations,
-                        organization: this.state.organizations,
-                        facebook:  this.state.facebook,
-                        instagram:  this.state.instagram,
-                        youtube:  this.state.youtube,
-                        website:  this.state.website,
-                        fishing_rod: this.state.fishingRods,
-                        fishing_reel: this.state.fishingReels,
-                        description: this.state.description
+            first_name: this.state.first_name,
+            last_name: this.state.last_name,
+            birthdate: this.state.birthday,
+            sex: this.state.gender,
+            avatar: this.state.avatar,
+            country: this.state.country,
+            city: this.state.city,
+            specialization: this.state.specializations,
+            organization: this.state.organizations,
+            facebook: this.state.facebook,
+            instagram: this.state.instagram,
+            youtube: this.state.youtube,
+            website: this.state.website,
+            fishing_rod: this.state.fishingRods,
+            fishing_reel: this.state.fishingReels,
+            description: this.state.description
 
         };
         const formData = new FormData();
@@ -120,7 +120,7 @@ class Settings extends Component {
     };
 
     render() {
-          if (this.state.isSubmitted) {
+        if (this.state.isSubmitted) {
             return <Redirect to={{pathname: "/profile/" + this.props.user_id}}/>;
         }
         return (
@@ -167,23 +167,12 @@ class Settings extends Component {
                                         <Form.Label>Gender</Form.Label>
 
                                         <Form.Control as="select"
-                                            type="text"
-                                            value={this.state.gender ? this.state.gender : ''}
+                                                      type="text"
+                                                      value={this.state.gender ? this.state.gender : ''}
                                                       onChange={(event) => this.setState({gender: event.target.value})}>
-                                             <option>Male</option>
-      <option>Female</option>
+                                            <option>Male</option>
+                                            <option>Female</option>
                                         </Form.Control>
-                                    </Col>
-                                    <Col> <Image
-                                        src={this.state.avatarDisplay}
-                                        roundedCircle
-                                        className="float-left"
-                                    />
-                                        <Form.Label>Avatar</Form.Label>
-                                        <Form.Control
-                                            type="file"
-                                            onChange={(event) => this.setState({avatar: event.target.files[0]})}
-                                        />
                                     </Col>
                                 </Form.Row>
 
@@ -242,6 +231,28 @@ class Settings extends Component {
                         </Wrapper>
 
                         <Wrapper>
+                            <Form.Group>
+                                <h5>Avatar</h5>
+                                <hr/>
+                                <Form.Row className={classes.FormRow}>
+                                    <Col className={classes.ProfileAvatar} lg={12}>
+                                        <Form.Label>Change avatar</Form.Label>
+                                        <Image
+                                            src={this.state.avatarDisplay}
+                                            roundedCircle
+                                        />
+                                        <div>
+                                            <Form.Control
+                                                type="file"
+                                                onChange={(event) => this.setState({avatar: event.target.files[0]})}
+                                            />
+                                        </div>
+                                    </Col>
+                                </Form.Row>
+                            </Form.Group>
+                        </Wrapper>
+
+                        <Wrapper>
                             <h5>Communities</h5>
                             <hr/>
                             <Form.Group controlId="Settings.Communities">
@@ -295,7 +306,7 @@ class Settings extends Component {
                             <Form.Group controlId="Settings.Communities">
                                 <Form.Row className={classes.FormRow}>
                                     <Col>
-                                        <Form.Label>Fishing rod #1</Form.Label>
+                                        <Form.Label>Fishing rod</Form.Label>
                                         <Form.Control
                                             type="text"
                                             placeholder="Fishing rod"
@@ -304,7 +315,7 @@ class Settings extends Component {
                                         />
                                     </Col>
                                     <Col>
-                                        <Form.Label>Fishing reel #1</Form.Label>
+                                        <Form.Label>Fishing reel</Form.Label>
                                         <Form.Control
                                             type="text"
                                             placeholder="Fishing reel"
@@ -327,9 +338,9 @@ class Settings extends Component {
                     </Form>
                 </Wrapper>
             </div>
-    );
+        );
     }
 
-    }
+}
 
-    export default Settings;
+export default Settings;

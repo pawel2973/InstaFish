@@ -40,38 +40,40 @@ class Post extends Component {
                 // console.log(error);
             });
 
-   this.getPostsForComment()
+        this.getPostsForComment()
     };
+
     getPostsForComment = (link) => {
-                const headers = {Authorization: `JWT ${localStorage.getItem('token')}`};
+        const headers = {Authorization: `JWT ${localStorage.getItem('token')}`};
 
-             //get comments for every post
-        if(link){
-               axios
-            .get(this.state.comment_next, {headers})
-            .then(res => {
-                this.setState({
-                    comments: [...this.state.comments, ...res.data.results],
-                    commentsCount: res.data.count + this.state.commentsCount,
-                    comment_next: res.data.next
+        //get comments for every post
+        if (link) {
+            axios
+                .get(this.state.comment_next, {headers})
+                .then(res => {
+                    this.setState({
+                        comments: [...this.state.comments, ...res.data.results],
+                        commentsCount: res.data.count + this.state.commentsCount,
+                        comment_next: res.data.next
 
-                });
-            }).catch(error => {
-            // console.log(error)
-        });
-     }
-        else {   axios
-            .get('/post/' + this.props.postId + '/comments', {headers})
-            .then(res => {
-                this.setState({
-                    comments: res.data.results,
-                    commentsCount: res.data.count,
-                    comment_next: res.data.next
+                    });
+                }).catch(error => {
+                // console.log(error)
+            });
+        } else {
+            axios
+                .get('/post/' + this.props.postId + '/comments', {headers})
+                .then(res => {
+                    this.setState({
+                        comments: res.data.results,
+                        commentsCount: res.data.count,
+                        comment_next: res.data.next
 
-                });
-            }).catch(error => {
-            // console.log(error)
-        });}
+                    });
+                }).catch(error => {
+                // console.log(error)
+            });
+        }
     }
     handleLikeBtn = () => {
         // this.setState({isLiked: !this.state.isLiked});
@@ -175,7 +177,6 @@ class Post extends Component {
     }
 
 
-
     render() {
         let btnLikeStyle = "outline-primary custom-outline-btn";
         let islikedStyle = "far fa-thumbs-up";
@@ -192,24 +193,26 @@ class Post extends Component {
                             <Image
                                 src={this.props.authorAvatar}
                                 roundedCircle/>
-                           <Link
-                                    to={"/profile/" + this.props.postOwner}>{this.props.postAuthor}
-                                </Link>
+                            <Link
+                                to={"/profile/" + this.props.postOwner}>{this.props.postAuthor}
+                            </Link>
                             <span>{this.props.createdAt}</span>
-                              {this.props.user_id === this.props.postOwner ?
-                            <DropdownButton
-                                alignRight
-                                title=""
-                                id="dropdown-menu-align-right"
-                                className={classes.BtnMore}
-                                variant="outline-primary"
-                            >
-                                {/*//  No editing for now */}
-                                {/*// <Dropdown.Item eventKey="1"><i className="far fa-edit"/> Edit</Dropdown.Item>*/}
-                                {/*<Dropdown.Divider/>*/}
-                                <Dropdown.Item eventKey="1" onClick={() => this.props.deletePostHandler(this.props.postId)}><i className="far fa-trash-alt"/> Delete</Dropdown.Item>
-                            </DropdownButton>
-                                  : null}
+                            {this.props.user_id === this.props.postOwner ?
+                                <DropdownButton
+                                    alignRight
+                                    title=""
+                                    id="dropdown-menu-align-right"
+                                    className={classes.BtnMore}
+                                    variant="outline-primary"
+                                >
+                                    {/*//  No editing for now */}
+                                    {/*// <Dropdown.Item eventKey="1"><i className="far fa-edit"/> Edit</Dropdown.Item>*/}
+                                    {/*<Dropdown.Divider/>*/}
+                                    <Dropdown.Item eventKey="1"
+                                                   onClick={() => this.props.deletePostHandler(this.props.postId)}><i
+                                        className="far fa-trash-alt"/> Delete</Dropdown.Item>
+                                </DropdownButton>
+                                : null}
                         </Col>
                     </Row>
                     <Row className={classes.PostSection}>
@@ -442,7 +445,7 @@ class Post extends Component {
                                             )
                                         }) : null}
                                         {this.state.comment_next ?
-  <Button onClick={this.moreComments}>More</Button> : null}
+                                            <Button onClick={this.moreComments}>More</Button> : null}
                                     </div>
 
                                 </Collapse>
