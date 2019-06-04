@@ -6,6 +6,7 @@ Stworzony przez nas portal społecznościowy to serwis przeznaczony do dzielenia
 Nasz portal zrzesza ludzi z zamiłowaniem do wędkarstwa. Znajdzie tu miejsce każdy, kto lubi łowić ryby, od początkujących do profesjonalistów. Każdy ma możliwość rejestracji oraz śledzenia innych użytkowników dzięki czemu może widzieć ich posty na swojej tablicy. Portal skupia się na społeczności międzynarodowej dlatego powstał w całości w języku angielskim.
 
 <h3>Technologie i narzędzia</h3>
+
 - Django
 - Django Rest Framework
 - React
