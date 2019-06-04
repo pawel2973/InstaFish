@@ -117,7 +117,9 @@ class Followers extends Component {
             <Row>
                 <Col lg={{span: 8, offset: 2}}>
                     {this.state.loading ?
-                        <Spinner/> : profile}
+                        <div className={classes.Spinner}>
+                            <Spinner/>
+                        </div> : profile}
                 </Col>
             </Row>
         );

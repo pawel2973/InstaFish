@@ -10,3 +10,9 @@
 .FormRow {
     margin-bottom: 10px;
 }
+
+.Spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
