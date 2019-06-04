@@ -12,10 +12,13 @@ Nasz portal zrzesza ludzi z zamiłowaniem do wędkarstwa. Znajdzie tu miejsce ka
 - React
 
 Do wykonania naszego projektu wykorzystaliśmy po stronie <strong>backendu:</strong>
+
 <strong>Django</strong> - wolnego i otwartego frameworka przeznaczonego do tworzenia aplikacji internetowych, napisany w Pythonie. 
+
 <strong>Django Rest Framework</strong> - potężnego modułu do tworzenia web API, który posiada zasady uwierzytelniania i dzięki niemu można w łatwy sposób wywoływać metody HTTP z poziomu przeglądarki. Dzięki użyciu w/w frameworku mogliśmy w prosty i przyjemny sposób stworzyć REST API.
 
 Po stronie <strong>frontendu:</strong>
+
 <strong>React</strong> - biblioteka języka JavaScript, którą wykorzystaliśmy do stworzenia graficznego interfejsu użytkownika. Korzystanie z tej biblioteki polega na tworzeniu samodzielnych komponentów, a następnie składanie z nich całej aplikacji.
 
 <h3>Struktura i bezpieczeństwo</h3>
