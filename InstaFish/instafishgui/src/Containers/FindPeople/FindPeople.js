@@ -135,8 +135,8 @@ class FindPeople extends Component {
                                 <Link
                                     to={"/profile/" + profile.id}><strong>{profile.first_name} {profile.last_name}</strong>
                                 </Link><br/>
-                                {profile.country}, {profile.city} <br/>
-                                {profile.sex}, {profile.birthdate ? this.calculateAge(profile.birthdate) +
+                                {profile.country ? profile.country + ',' : null} {profile.city} <br/>
+                                {profile.sex ? profile.sex + ',' : null} {profile.birthdate ? this.calculateAge(profile.birthdate) +
                                 " y/o" : null}
                             </p>
                             {profile.isFollowed ?

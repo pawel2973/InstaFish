@@ -87,8 +87,8 @@ class Profile extends Component {
                                         fluid
                                     />
                                     <footer>
-                                        <span>{this.state.profile.country}, {this.state.profile.city}</span><br/>
-                                        <span>{this.state.profile.sex}, {this.state.profile.birthdate ?
+                                        <span>{this.state.profile.country ? this.state.profile.country + ',': null} {this.state.profile.city}</span><br/>
+                                        <span>{this.state.profile.sex ? this.state.profile.sex + ',': null} {this.state.profile.birthdate ?
                                             calculateAge(this.state.profile.birthdate) + " years old"
                                             : null}
                                         </span>
@@ -133,14 +133,14 @@ class Profile extends Component {
                         <Tab eventKey="equipment" title="Equipment">
                             <Row className={classes.Equipment}>
                                 <Col>
-                                    <header className={classes.ProfileHeader}>Fishing rods</header>
+                                    <header className={classes.ProfileHeader}>Fishing rod</header>
                                     <div className={classes.ListItem}>
                                         <i className="fas fa-chevron-right"/>{this.state.profile.fishing_rod}
                                     </div>
 
                                 </Col>
                                 <Col>
-                                    <header className={classes.ProfileHeader}>Fishing reels</header>
+                                    <header className={classes.ProfileHeader}>Fishing reel</header>
                                     <div className={classes.ListItem}>
                                         <i className="fas fa-chevron-right"/>{this.state.profile.fishing_reel}
                                     </div>
