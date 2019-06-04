@@ -12,46 +12,59 @@ SEX_CHOICES = (
 )
 
 
-class Specialization(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-
-class Organization(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-
-class Communities(models.Model):
-    facebook = models.CharField(max_length=200, blank=True)
-    instagram = models.CharField(max_length=200, blank=True)
-    youtube = models.CharField(max_length=200, blank=True)
-    website = models.CharField(max_length=200, blank=True)
+# class Specialization(models.Model):
+#     name = models.CharField(max_length=255)
+#
+#     def __str__(self):
+#         return self.name
+#
+#
+# class Organization(models.Model):
+#     name = models.CharField(max_length=255)
+#
+#     def __str__(self):
+#         return self.name
 
 
-class FishingRod(models.Model):
-    name = models.CharField(max_length=255)
+# class Communities(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     facebook = models.CharField(max_length=200, blank=True)
+#     instagram = models.CharField(max_length=200, blank=True)
+#     youtube = models.CharField(max_length=200, blank=True)
+#     website = models.CharField(max_length=200, blank=True)
+#
+#     @receiver(post_save, sender=User)
+#     def create_user_communities(sender, instance, created, **kwargs):
+#         if created:
+#             Communities.objects.create(user=instance)
+#
+#     @receiver(post_save, sender=User)
+#     def save_user_communities(sender, instance, **kwargs):
+#         instance.communities.save()
+#
+#     def __str__(self):
+#         return self.user.__str__() + ' communities'
 
-    def __str__(self):
-        return self.name
 
-
-class FishingReel(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-
-class Achievement(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
+# class FishingRod(models.Model):
+#     name = models.CharField(max_length=255)
+#
+#     def __str__(self):
+#         return self.name
+#
+#
+# class FishingReel(models.Model):
+#     name = models.CharField(max_length=255)
+#
+#     def __str__(self):
+#         return self.name
+#
+#
+# class Achievement(models.Model):
+#     name = models.CharField(max_length=255)
+#
+#     def __str__(self):
+#         return self.name
 
 
 def upload_to(instance, filename):
@@ -64,14 +77,19 @@ class Profile(models.Model):
     birthdate = models.DateField(validators=[validate_date_not_in_future], blank=True, null=True)
     country = models.CharField(max_length=100, blank=True)
     city = models.CharField(max_length=100, blank=True)
-    specialization = models.ForeignKey(Specialization, on_delete=models.CASCADE, blank=True, null=True)
-    organization = models.ForeignKey(Organization, on_delete=models.CASCADE, blank=True, null=True)
+    specialization = models.CharField(max_length=200, blank=True, default='brak')
+    organization = models.CharField(max_length=200, blank=True, default='brak')
     avatar = models.ImageField(upload_to=upload_to, default='fish.jpg', validators=[validate_file_size])
-    communities = models.OneToOneField(Communities, on_delete=models.CASCADE, blank=True, null=True)
-    fishing_rod = models.ForeignKey(FishingRod, on_delete=models.CASCADE, blank=True, null=True)
-    fishing_reel = models.ForeignKey(FishingReel, on_delete=models.CASCADE, blank=True, null=True)
-    achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE, blank=True, null=True)
+    communities = models.BooleanField(default=True)
+    facebook = models.CharField(max_length=200, blank=True)
+    instagram = models.CharField(max_length=200, blank=True)
+    youtube = models.CharField(max_length=200, blank=True)
+    website = models.CharField(max_length=200, blank=True)
+    fishing_rod = models.CharField(max_length=200, blank=True, default='brak')
+    fishing_reel = models.CharField(max_length=200, blank=True, default='brak')
+    achievement = models.CharField(max_length=200, blank=True, default='brak')
     follows = models.ManyToManyField('Profile', related_name='followed_by', blank=True)
+    description = models.CharField(max_length=1000, blank=True, default='brak')
 
     # define signals so our Profile model will be automatically created/updated when we create/update User instances.
     @receiver(post_save, sender=User)

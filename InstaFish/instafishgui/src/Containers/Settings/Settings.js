@@ -3,6 +3,8 @@ import Wrapper from "../../Components/UI/Wrapper/Wrapper";
 import {Button, Col, Form} from "react-bootstrap";
 import classes from "./Settings.module.css";
 import axios from "axios";
+import Image from "react-bootstrap/Image";
+import {Redirect} from "react-router";
 
 class Settings extends Component {
     state = {
@@ -13,6 +15,7 @@ class Settings extends Component {
         birthday: '',
         gender: '',
         avatar: '',
+        avatarDisplay: null,
         country: '',
         city: '',
         specializations: '',
@@ -25,36 +28,101 @@ class Settings extends Component {
         fishingRods: '',
         fishingReels: '',
     };
-  static getDerivedStateFromProps(nextProps, prevState) {
+
+    static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.user_id !== prevState.user_id) {
             return {user_id: nextProps.user_id};
         } else return null;
     }
+
     componentDidMount() {
         this.getProfileData()
     }
- componentDidUpdate(prevProps, prevState) {
+
+    componentDidUpdate(prevProps, prevState) {
         if (prevProps.user_id !== this.props.user_id) {
             this.getProfileData()
         }
     }
-    getProfileData() {
-        if(this.state.user_id){
-         axios
-            .get('/profile/' + this.state.user_id, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem('token')}`
-                }
-            })
-            .then(res => {
-                this.setState({profile: res.data});
-                console.log(this.state.profile)
-            })
-            .catch(error => {
-            });}
+
+    getProfileData = ()=> {
+        if (this.state.user_id) {
+            axios
+                .get('/profile/' + this.state.user_id, {
+                    headers: {
+                        Authorization: `JWT ${localStorage.getItem('token')}`
+                    }
+                })
+                .then(res => {
+                    this.setState({
+                        firstName: res.data.first_name,
+                        lastName: res.data.last_name,
+                        birthday: res.data.birthdate,
+                        gender: res.data.sex,
+                        avatarDisplay: res.data.avatar,
+                        country: res.data.country,
+                        city: res.data.city,
+                        specializations: res.data.specialization,
+                        organizations: res.data.organization,
+                        facebook:  res.data.facebook,
+                        instagram:  res.data.instagram,
+                        youtube:  res.data.youtube,
+                        website:  res.data.website,
+                        fishingRods: res.data.fishing_rod,
+                        fishingReels: res.data.fishing_reel,
+                        profile: res.data,
+                        description: res.data.description
+                    });
+                    console.log(this.state.profile)
+                })
+                .catch(error => {
+                });
+
+        }
     }
 
+    updateProfileHandler = () => {
+        const profile = {
+             first_name: this.state.first_name,
+                        last_name: this.state.last_name,
+                        birthdate: this.state.birthday,
+                        sex: this.state.gender,
+                        avatar: this.state.avatar,
+                        country: this.state.country,
+                        city: this.state.city,
+                        specialization: this.state.specializations,
+                        organization: this.state.organizations,
+                        facebook:  this.state.facebook,
+                        instagram:  this.state.instagram,
+                        youtube:  this.state.youtube,
+                        website:  this.state.website,
+                        fishing_rod: this.state.fishingRods,
+                        fishing_reel: this.state.fishingReels,
+                        description: this.state.description
+
+        };
+        const formData = new FormData();
+        Object.keys(profile).map(item => formData.append(item, profile[item]));
+        console.log(formData);
+        const headers = {Authorization: `JWT ${localStorage.getItem('token')}`};
+        axios.patch('/profile/' + this.state.user_id, formData, {headers})
+            .then(response => {
+                if (response.status === 204) {
+                    this.setState({isSubmitted: true})
+                }
+                console.log(response)
+                console.log(response.data)
+            })
+            .catch((error) => {
+                // console.log("Error");
+                // console.log(erorr);
+            });
+    };
+
     render() {
+          if (this.state.isSubmitted) {
+            return <Redirect to={{pathname: "/profile/" + this.props.user_id}}/>;
+        }
         return (
             <div>
                 <Wrapper>
@@ -66,7 +134,7 @@ class Settings extends Component {
                             <Form.Group controlId="Settings.PersonalInformation">
                                 <Form.Row className={classes.FormRow}>
                                     <Col>
-                                        <Form.Label>Full name</Form.Label>
+                                        <Form.Label>First name</Form.Label>
                                         <Form.Control
                                             type="text"
                                             placeholder="First name"
@@ -74,8 +142,8 @@ class Settings extends Component {
                                             onChange={(event) => this.setState({firstName: event.target.value})}
                                         />
                                     </Col>
-                                     <Col>
-                                        <Form.Label>Full name</Form.Label>
+                                    <Col>
+                                        <Form.Label>Last name</Form.Label>
                                         <Form.Control
                                             type="text"
                                             placeholder="Last name"
@@ -88,7 +156,7 @@ class Settings extends Component {
                                         <Form.Control
                                             type="text"
                                             placeholder="Date of your birthday"
-                                            value={this.state.birthday}
+                                            value={this.state.birthday ? this.state.birthday : ''}
                                             onChange={(event) => this.setState({birthday: event.target.value})}
                                         />
                                     </Col>
@@ -97,20 +165,24 @@ class Settings extends Component {
                                 <Form.Row className={classes.FormRow}>
                                     <Col>
                                         <Form.Label>Gender</Form.Label>
-                                        <Form.Control
+
+                                        <Form.Control as="select"
                                             type="text"
-                                            placeholder="Gender"
-                                            value={this.state.gender}
-                                            onChange={(event) => this.setState({gender: event.target.value})}
-                                        />
+                                            value={this.state.gender ? this.state.gender : ''}
+                                                      onChange={(event) => this.setState({gender: event.target.value})}>
+                                             <option>Male</option>
+      <option>Female</option>
+                                        </Form.Control>
                                     </Col>
-                                    <Col>
+                                    <Col> <Image
+                                        src={this.state.avatarDisplay}
+                                        roundedCircle
+                                        className="float-left"
+                                    />
                                         <Form.Label>Avatar</Form.Label>
                                         <Form.Control
                                             type="file"
-                                            placeholder="Choose photo"
-                                            value={this.state.avatar}
-                                            onChange={(event) => this.setState({avatar: event.target.value})}
+                                            onChange={(event) => this.setState({avatar: event.target.files[0]})}
                                         />
                                     </Col>
                                 </Form.Row>
@@ -248,16 +320,16 @@ class Settings extends Component {
                             variant="primary"
                             size="lg"
                             block
-                            // onClick={this.createPostHandler}
+                            onClick={this.updateProfileHandler}
                         >
                             Update
                         </Button>
                     </Form>
                 </Wrapper>
             </div>
-        );
+    );
     }
 
-}
+    }
 
-export default Settings;
+    export default Settings;

@@ -64,14 +64,13 @@ class ProfileSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(source='user.first_name', read_only=True)
     last_name = serializers.CharField(source='user.last_name', read_only=True)
 
-    # communities = serializers.RelatedField(many=True, read_only=True)
     # followed_by = ProfileFollowSerializer()
 
     class Meta:
         model = Profile
         fields = 'id', 'username', 'first_name', 'last_name', 'sex', 'birthdate', 'country', 'city', 'avatar', 'user', \
                  'specialization', 'organization', 'communities', 'fishing_rod', 'fishing_reel', 'achievement',\
-                 'follows', 'followed_by'
+                 'follows', 'followed_by', 'facebook', 'instagram', 'youtube', 'website', 'description'
 
 
 class ProfileFollowersSerializer(serializers.ModelSerializer):

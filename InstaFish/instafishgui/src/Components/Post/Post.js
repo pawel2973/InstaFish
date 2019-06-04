@@ -18,7 +18,8 @@ class Post extends Component {
         comments: [],
         commentsCount: 0,
         commentContent: '',
-        isLiked: false
+        isLiked: false,
+        comment_next: ''
     };
 
     componentDidMount() {
@@ -39,19 +40,39 @@ class Post extends Component {
                 // console.log(error);
             });
 
-        //get comments for every post
-        axios
-            .get('/post/' + this.props.postId + '/comments', {headers})
+   this.getPostsForComment()
+    };
+    getPostsForComment = (link) => {
+                const headers = {Authorization: `JWT ${localStorage.getItem('token')}`};
+
+             //get comments for every post
+        if(link){
+               axios
+            .get(this.state.comment_next, {headers})
             .then(res => {
                 this.setState({
-                    comments: res.data.results,
-                    commentsCount: res.data.count
+                    comments: [...this.state.comments, ...res.data.results],
+                    commentsCount: res.data.count + this.state.commentsCount,
+                    comment_next: res.data.next
+
                 });
             }).catch(error => {
             // console.log(error)
         });
-    };
+     }
+        else {   axios
+            .get('/post/' + this.props.postId + '/comments', {headers})
+            .then(res => {
+                this.setState({
+                    comments: res.data.results,
+                    commentsCount: res.data.count,
+                    comment_next: res.data.next
 
+                });
+            }).catch(error => {
+            // console.log(error)
+        });}
+    }
     handleLikeBtn = () => {
         // this.setState({isLiked: !this.state.isLiked});
         //
@@ -103,7 +124,7 @@ class Post extends Component {
                 this.setState({
                     comments: [...this.state.comments, response.data],
                     commentsCount: this.state.commentsCount + 1,
-                    commentContent: ''
+                    commentContent: '',
                 });
                 // console.log('po');
                 // console.log(this.state.comments)
@@ -130,6 +151,9 @@ class Post extends Component {
             })
     };
 
+    moreComments = () => {
+        this.getPostsForComment(this.state.comment_next)
+    }
 
     /**
      * This method is responsible for displaying post navs.
@@ -149,6 +173,7 @@ class Post extends Component {
     componentWillMount() {
         this.displayPostNavs();
     }
+
 
 
     render() {
@@ -386,6 +411,7 @@ class Post extends Component {
                                                     user: this.props.user_id,
                                                     content: this.state.commentContent
                                                 })}>Post</Button>
+
                                             </Form>
                                         </div>
                                         {this.state.comments ? this.state.comments.map((comment, i) => {
@@ -411,10 +437,14 @@ class Post extends Component {
                                                             {comment.content}
                                                         </div>
                                                     </div>
+
                                                 </Fragment>
                                             )
                                         }) : null}
+                                        {this.state.comment_next ?
+  <Button onClick={this.moreComments}>More</Button> : null}
                                     </div>
+
                                 </Collapse>
                             </div>
                         </Col>

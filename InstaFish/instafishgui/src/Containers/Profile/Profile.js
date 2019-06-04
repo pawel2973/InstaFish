@@ -102,16 +102,16 @@ class Profile extends Component {
                                             <header className={classes.ProfileHeader}>Communities</header>
                                             <div className={classes.Communities__buttons}>
                                                 <Button
-                                                    onClick={() => window.location.href = "https://google.pl"}>Facebook
+                                                    onClick={() => window.location.href = this.state.profile.instagram}>Facebook
                                                 </Button>
                                                 <Button
-                                                    onClick={() => window.location.href = "https://google.pl"}>Instagram
+                                                    onClick={() => window.location.href = this.state.profile.instagram}>Instagram
                                                 </Button>
                                                 <Button
-                                                    onClick={() => window.location.href = "https://google.pl"}>Youtube
+                                                    onClick={() => window.location.href = this.state.profile.youtube}>Youtube
                                                 </Button>
                                                 <Button
-                                                    onClick={() => window.location.href = "https://google.pl"}>Website
+                                                    onClick={() => window.location.href = this.state.profile.website}>Website
                                                 </Button>
                                             </div>
                                         </Col>
@@ -120,13 +120,11 @@ class Profile extends Component {
 
                                 <Col>
                                     <div className={classes.Specializations}>
-                                        <header className={classes.ProfileHeader}>Specializations</header>
+                                        <header className={classes.ProfileHeader}>Specialization</header>
                                         <div className="alert alert-primary">
-                                            Carp Fishing
+                                            {this.state.profile.specialization}
                                         </div>
-                                        <div className="alert alert-primary">
-                                            Fly Fishing
-                                        </div>
+
                                     </div>
                                 </Col>
                             </Row>
@@ -137,32 +135,16 @@ class Profile extends Component {
                                 <Col>
                                     <header className={classes.ProfileHeader}>Fishing rods</header>
                                     <div className={classes.ListItem}>
-                                        <i className="fas fa-chevron-right"/>Nash H-Gun Retract
+                                        <i className="fas fa-chevron-right"/>{this.state.profile.fishing_rod}
                                     </div>
-                                    <div className={classes.ListItem}>
-                                        <i className="fas fa-chevron-right"/>Daiwa Black Widow Stalker
-                                    </div>
-                                    <div className={classes.ListItem}>
-                                        <i className="fas fa-chevron-right"/>Prologic C1 Alpha
-                                    </div>
-                                    <div className={classes.ListItem}>
-                                        <i className="fas fa-chevron-right"/>Prologic FTR Carp Rod
-                                    </div>
+
                                 </Col>
                                 <Col>
                                     <header className={classes.ProfileHeader}>Fishing reels</header>
                                     <div className={classes.ListItem}>
-                                        <i className="fas fa-chevron-right"/>Nash H-Gun Retract
+                                        <i className="fas fa-chevron-right"/>{this.state.profile.fishing_reel}
                                     </div>
-                                    <div className={classes.ListItem}>
-                                        <i className="fas fa-chevron-right"/>Daiwa Black Widow Stalker
-                                    </div>
-                                    <div className={classes.ListItem}>
-                                        <i className="fas fa-chevron-right"/>Prologic C1 Alpha
-                                    </div>
-                                    <div className={classes.ListItem}>
-                                        <i className="fas fa-chevron-right"/>Prologic FTR Carp Rod
-                                    </div>
+
                                 </Col>
                             </Row>
                         </Tab>
@@ -173,11 +155,9 @@ class Profile extends Component {
 
                                     <header className={classes.ProfileHeader}>Organizations</header>
                                     <div className={classes.ListItem}>
-                                        <i className="fas fa-users"/>Team "CARP" poland
+                                        <i className="fas fa-users"/>{this.state.profile.organization}
                                     </div>
-                                    <div className={classes.ListItem}>
-                                        <i className="fas fa-users"/>Team Korda
-                                    </div>
+
 
                                 </Col>
                             </Row>
@@ -188,19 +168,9 @@ class Profile extends Component {
                                 <Col>
                                     <header className={classes.ProfileHeader}>Achievements</header>
                                     <div className={classes.ListItem}>
-                                        <i className="fas fa-trophy"/>World "catfish" championship 2019 - II place
+                                        <i className="fas fa-trophy"/>{this.state.profile.achievement}
                                     </div>
-                                    <div className={classes.ListItem}>
-                                        <i className="fas fa-trophy"/>Polish "carp" championship 2019 - I place
-                                    </div>
-                                    <div className={classes.ListItem}>
-                                        <i className="fas fa-trophy"/>Warsaw "pike" championship 2018 - V place
-                                    </div>
-                                    <div className={classes.ListItem}>
-                                        <i className="fas fa-trophy"/>London "catch the biggest" championship 2017 -
-                                        IV
-                                        place
-                                    </div>
+
                                 </Col>
                             </Row>
                         </Tab>
