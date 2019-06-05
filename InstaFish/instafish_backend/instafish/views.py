@@ -198,7 +198,6 @@ class PostLikeView(APIView, PageNumberPagination):
 
 # /event/
 class EventView(APIView, PageNumberPagination):
-    permission_classes = {permissions.IsAuthenticated, }
 
     def get(self, request):
         events = Event.objects.all().order_by('-pk')

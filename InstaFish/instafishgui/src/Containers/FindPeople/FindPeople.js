@@ -130,6 +130,8 @@ class FindPeople extends Component {
                                 src={profile.avatar}
                                 roundedCircle
                                 className="float-left"
+                                width="80px"
+                                height="80px"
                             />
                             <p className="float-left">
                                 <Link
@@ -140,9 +142,15 @@ class FindPeople extends Component {
                                 " y/o" : null}
                             </p>
                             {profile.isFollowed ?
-                                <Button className="float-right" onClick={() => this.handleUnfollow(profile.id)}>-
+                                <Button
+                                    className="float-right"
+
+                                    onClick={() => this.handleUnfollow(profile.id)}>-
                                     Unfollow</Button>
-                                : <Button className="float-right" onClick={() => this.handleFollow(profile.id)}>+
+                                : <Button
+                                    className="float-right"
+                                    variant="outline-primary"
+                                    onClick={() => this.handleFollow(profile.id)}>+
                                     Follow</Button>}
                         </Col>
                     </Row>

@@ -52,7 +52,7 @@ class CreatePost extends Component {
         Object.keys(newPost).map(item => formData.append(item, newPost[item]));
 
         const headers = {Authorization: `JWT ${localStorage.getItem('token')}`};
-        axios.post('/post/', formData, headers)
+        axios.post('/post/', formData, {headers})
             .then(response => {
                 if (response.status === 201) {
                     this.setState({isSubmitted: true})

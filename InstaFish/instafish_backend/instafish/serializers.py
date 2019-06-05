@@ -69,7 +69,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = 'id', 'username', 'first_name', 'last_name', 'sex', 'birthdate', 'country', 'city', 'avatar', 'user', \
-                 'specialization', 'organization', 'communities', 'fishing_rod', 'fishing_reel', 'achievement',\
+                 'specialization', 'organization', 'communities', 'fishing_rod', 'fishing_reel', 'achievement', \
                  'follows', 'followed_by', 'facebook', 'instagram', 'youtube', 'website', 'description'
 
 
@@ -122,9 +122,19 @@ class LikeSerializer(serializers.ModelSerializer):
 
 
 class EventSerializer(serializers.ModelSerializer):
+    creator_first_name = serializers.CharField(source='creator.user.first_name', read_only=True)
+    creator_last_name = serializers.CharField(source='creator.user.last_name', read_only=True)
+    creator_avatar = serializers.ImageField(source='creator.avatar', read_only=True)
+
     class Meta:
         model = Event
-        fields = '__all__'
+        fields = 'id', 'name', 'date', 'description', 'localization',\
+                 'creator', 'creator_first_name', 'creator_last_name', 'creator_avatar'
+
+    def to_representation(self, instance):
+        representation = super(EventSerializer, self).to_representation(instance)
+        representation['date'] = instance.date.strftime("%Y-%m-%d %H:%M:%S")
+        return representation
 
 
 class UserEventSerializer(serializers.ModelSerializer):
