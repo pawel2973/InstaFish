@@ -183,6 +183,19 @@ class Profile extends Component {
                                 </Col>
                             </Row>
                         </Tab>
+
+                        <Tab eventKey="about" title="About">
+                            <Row className={classes.Achievements}>
+                                <Col>
+                                    <header className={classes.ProfileHeader}>About</header>
+                                    <div className={classes.ListItem}>
+                                        <i className="fas fa-info-circle" /> <strong>BIO:</strong>
+                                        <pre>{this.state.profile.description}</pre>
+                                    </div>
+
+                                </Col>
+                            </Row>
+                        </Tab>
                     </Tabs>
                 </Col> </Row> </Wrapper>
 
