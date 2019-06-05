@@ -74,18 +74,20 @@ Potrzebne moduły:
 - NodeJs
 - Python 3.6+
 
-/Instafish/instafish_backend
+#### /Instafish/instafish_backend
 
 <code>python setup.py install</code>
 
 <code>python manage.py runserver</code>
 
 
-/Instafish/instafish_frontend
+#### /Instafish/instafish_frontend
 
 <code>npm install</code>
 
 <code>npm start</code>
 
-<code>http://localhost:3000/</code>
-
+#### Aplikacja dostępna pod portem:
+Frontend: <code>http://localhost:3000/</code>
+Backend:  <code>http://localhost:8000/</code>
+Panel admina:  <code>http://localhost:8000/admin</code>
