@@ -88,6 +88,6 @@ Potrzebne moduły:
 <code>npm start</code>
 
 #### Aplikacja dostępna pod portem:
-Frontend: <code>http://localhost:3000/</code>
-Backend:  <code>http://localhost:8000/</code>
-Panel admina:  <code>http://localhost:8000/admin</code>
+- <code>http://localhost:3000/</code>
+
+- Panel admina:  <code>http://localhost:8000/admin</code>
