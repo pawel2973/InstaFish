@@ -440,7 +440,7 @@ class Post extends Component {
                                                         </div>
                                                         <div className={classes.Comment__content}>
                                                             <a className={classes.Comment__author}
-                                                               href="/"
+                                                               href={"/profile/" + comment.user}
                                                                >{comment.first_name} {comment.last_name}</a>
                                                             {comment.content}
                                                         </div>
