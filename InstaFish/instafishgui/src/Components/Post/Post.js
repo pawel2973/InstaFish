@@ -53,7 +53,7 @@ class Post extends Component {
                 .then(res => {
                     this.setState({
                         comments: [...this.state.comments, ...res.data.results],
-                        commentsCount: res.data.count + this.state.commentsCount,
+                        commentsCount: res.data.count,
                         comment_next: res.data.next
 
                     });
@@ -119,12 +119,15 @@ class Post extends Component {
 
     handleCommentPost = data => {
         // const headers = {Authorization: `JWT ${localStorage.getItem('token')}`};
-        return (axios.post('/post/' + this.props.postId + '/comments', data, {headers: {Authorization: `JWT ${localStorage.getItem('token')}`}})
+        return (axios.post('/post/' + this.props.postId + '/comments', data, {
+            headers:
+                {Authorization: `JWT ${localStorage.getItem('token')}`}
+        })
             .then(response => {
                 // console.log('przed');
                 // console.log(this.state.comments);
                 this.setState({
-                    comments: [...this.state.comments, response.data],
+                    comments: [response.data, ...this.state.comments],
                     commentsCount: this.state.commentsCount + 1,
                     commentContent: '',
                 });
@@ -424,6 +427,7 @@ class Post extends Component {
                                                         <div className={classes.Comment__image}>
                                                             <Image
                                                                 src={comment.avatar}
+                                                                title={"Posted at " + comment.created_at}
                                                                 roundedCircle/>
                                                             {comment.user === this.props.user_id ?
                                                                 <button
@@ -436,18 +440,19 @@ class Post extends Component {
                                                         </div>
                                                         <div className={classes.Comment__content}>
                                                             <a className={classes.Comment__author}
-                                                               href="/">{comment.first_name} {comment.last_name}</a>
+                                                               href="/"
+                                                               >{comment.first_name} {comment.last_name}</a>
                                                             {comment.content}
                                                         </div>
                                                     </div>
-
                                                 </Fragment>
                                             )
                                         }) : null}
                                         {this.state.comment_next ?
-                                            <Button onClick={this.moreComments}>More</Button> : null}
-                                    </div>
+                                            <Button variant="secondary" size="sm" block
+                                                onClick={this.moreComments}>More</Button> : null}
 
+                                    </div>
                                 </Collapse>
                             </div>
                         </Col>

@@ -109,6 +109,11 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = '__all__'
 
+    def to_representation(self, instance):
+        representation = super(CommentSerializer, self).to_representation(instance)
+        representation['created_at'] = instance.created_at.strftime("%Y-%m-%d %H:%M:%S")
+        return representation
+
 
 class LikeSerializer(serializers.ModelSerializer):
     class Meta:

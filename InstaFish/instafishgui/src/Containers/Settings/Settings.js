@@ -75,7 +75,7 @@ class Settings extends Component {
                         description: res.data.description,
                         achievement: res.data.achievement
                     });
-                    console.log(this.state.profile)
+                    // console.log(this.state.profile)
                 })
                 .catch(error => {
                 });
@@ -106,15 +106,15 @@ class Settings extends Component {
         };
         const formData = new FormData();
         Object.keys(profile).map(item => formData.append(item, profile[item]));
-        console.log(formData);
+        // console.log(formData);
         const headers = {Authorization: `JWT ${localStorage.getItem('token')}`};
         axios.patch('/profile/' + this.state.user_id, formData, {headers})
             .then(response => {
                 if (response.status === 204) {
                     this.setState({isSubmitted: true})
                 }
-                console.log(response)
-                console.log(response.data)
+                // console.log(response)
+                // console.log(response.data)
             })
             .catch((error) => {
                 // console.log("Error");

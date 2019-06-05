@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import {NavLink, Link} from "react-router-dom";
-import {Badge, Nav, Navbar} from "react-bootstrap";
+import {Nav, Navbar} from "react-bootstrap";
 
 const Toolbar = (props) => {
 
@@ -26,7 +26,7 @@ const Toolbar = (props) => {
                       to="/followers"
                       exact={true}
                       activeStyle={{color: 'white'}}>
-                <i className="fas fa-smile"></i>
+                <i className="fas fa-smile"/>
             </Nav.Link>
             <Nav.Link as={NavLink}
                       to="/profile-settings"

@@ -101,23 +101,23 @@ class FindPeople extends Component {
             headers: {Authorization: `JWT ${localStorage.getItem('token')}`}
         })
             .then(response => {
-                console.log(this.state.profiles)
+                // console.log(this.state.profiles)
                 const userProfileId = this.state.profiles.findIndex((profile => profile.id === id)),
                     profiles = [...this.state.profiles]
                 profiles[userProfileId].isFollowed = false
                 this.setState({
                     profiles: profiles
                 })
-                console.log(this.state.profiles)
+                // console.log(this.state.profiles)
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
             })
     };
 
     //TODO support other resolution: Specific People
     render() {
-        console.log("rendering....")
+        // console.log("rendering....")
         const profiles =
             this.state.profiles.map((profile) => {
                 if (!("isFollowed" in profile)) {

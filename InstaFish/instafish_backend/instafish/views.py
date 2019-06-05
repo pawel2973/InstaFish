@@ -150,7 +150,7 @@ class CommentView(APIView, PageNumberPagination):
     permission_classes = {permissions.IsAuthenticated, }
 
     def get(self, request, pk):
-        comments = Comment.objects.filter(post=pk).order_by('created_at')
+        comments = Comment.objects.filter(post=pk).order_by('-created_at')
         results = self.paginate_queryset(comments, request, view=self)
         serializer = CommentSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from '../../axios';
-import {Row} from "react-bootstrap";
+import {Button, Row} from "react-bootstrap";
 
 import Post from "../../Components/Post/Post";
 import Spinner from "../../Components/UI/Spinner/Spinner";
@@ -11,10 +11,13 @@ class Posts extends Component {
         posts: [],
         loading: false,
         profile_id: this.props.profile_id,
-        user_id: this.props.user_id
+        user_id: this.props.user_id,
+        next_posts: null
     };
+
+
     componentDidMount() {
-      this.loadPosts();
+        this.loadPosts();
     };
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -24,23 +27,23 @@ class Posts extends Component {
         }
         if (nextProps.user_id !== prevState.user_id) {
             return {user_id: nextProps.user_id};
-        }
-        else return null;
+        } else return null;
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.profile_id !== this.props.profile_id || prevProps.user_id !== this.props.user_id ) {
-           this.loadPosts()
+        if (prevProps.profile_id !== this.props.profile_id || prevProps.user_id !== this.props.user_id) {
+            this.loadPosts()
         }
     }
 
     loadPosts = () => {
 
         this.setState({loading: true});
-        let link = '/profile/'+this.state.user_id+'/follower_posts';
+        let link = '/profile/' + this.state.user_id + '/follower_posts';
         if (this.state.profile_id) {
             link = '/profile/' + this.state.profile_id + '/posts'
         }
+
         axios
             .get(link, {
                 headers: {
@@ -54,8 +57,12 @@ class Posts extends Component {
                 // for (let key in data) {
                 //     posts.push(data[key]);
                 // }
-                this.setState({posts: res.data.results, loading: false});
-                console.log(this.state.posts)
+                this.setState({
+                    posts: res.data.results,
+                    next_posts: res.data.next,
+                    loading: false
+                });
+                // console.log(this.state.posts)
             })
             .catch(error => {
                 // console.log(error);
@@ -63,17 +70,36 @@ class Posts extends Component {
 
     }
 
+    loadMorePosts = () => {
+
+        axios
+            .get(this.state.next_posts, {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem('token')}`
+                }
+            })
+            .then(res => {
+                this.setState({
+                    posts: [...this.state.posts, ...res.data.results],
+                    next_posts: res.data.next
+                });
+            })
+            .catch(error => {
+            });
+    };
+
+
     deletePostHandler = (postId) => {
         axios.delete('/post/' + postId, {
             headers: {Authorization: `JWT ${localStorage.getItem('token')}`}
         })
             .then(response => {
                 this.setState({
-                    posts: this.state.posts.filter(post => post.id !== postId),
+                    posts: this.state.posts.filter(post => post.id !== postId)
                 })
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
             })
     };
 
@@ -114,10 +140,15 @@ class Posts extends Component {
             );
         });
 
+
         return (
             <Row className={classes.Posts}>
                 {this.state.loading ?
-                    <Spinner/> : posts}
+                    <Spinner/> : <>
+                        {posts}
+                        {this.state.next_posts ? <Button className={classes.Margin30} variant="info" size="lg-2" block
+                                                         onClick={this.loadMorePosts}>More</Button> : null}
+                    </>}
             </Row>
         );
     }

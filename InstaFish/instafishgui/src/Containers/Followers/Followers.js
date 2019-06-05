@@ -33,7 +33,7 @@ class Followers extends Component {
 
     getProfile = () => {
         if (this.state.user_id) {
-            console.log(this.state.user_id);
+            // console.log(this.state.user_id);
             axios
                 .get('/profile/' + this.props.user_id, {
                     headers: {
@@ -51,7 +51,7 @@ class Followers extends Component {
 
     getProfiles = () => {
         const followers = this.state.userProfile.follows;
-        console.log(followers);
+        // console.log(followers);
 
         for (let i = 0; i < followers.length; i++) {
             axios
@@ -65,7 +65,7 @@ class Followers extends Component {
                         profile: [...this.state.profile, res.data],
                         loading: false
                     });
-                    console.log(this.state.profile);
+                    // console.log(this.state.profile);
                 })
                 .catch(error => {
                 });
@@ -85,7 +85,7 @@ class Followers extends Component {
                 });
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
             })
     };
 
